@@ -17,3 +17,8 @@
 6. The calculated data would then be formatted apprioprately into the new `.xlsx` file created
 
 -- UNCOMPLETED --
+
+# Required Python packages
+1. `pandas`
+2. `openpyxl`
+3. `sys` comes with Python
