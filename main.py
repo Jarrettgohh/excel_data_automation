@@ -1,9 +1,10 @@
 import sys
+import pandas as pd
 
 lines = sys.stdin.readlines()
 
 file_names = []
-folder_name = ''
+directory = ''
 
 
 for line in lines:
@@ -16,5 +17,13 @@ for line in lines:
 
      # Folder name
     else:
-        folder_name = line
+        directory = line
         continue
+
+print(f'folder name: {directory}')
+print(f'file names: {file_names}')
+
+
+data = pd.read_excel(f'{directory}\{file_names[0]}')
+
+print(data)

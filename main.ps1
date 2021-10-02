@@ -53,4 +53,4 @@ $new_excel.Quit()
 Set-Location $current_path
 
 # Pipe array consisting of file names and directory path to Python
-@($file_names , $current_folder ) | python main.py
+@($file_names , $path_to_file_directory) | python main.py
