@@ -2,7 +2,7 @@
 # Path: to get from user input
 
 $path_to_file_directory = #'C:\Users\gohja\Desktop\CV test\PLD_30%_20nm\'
-'C:\Users\gohja\Desktop\CV test\PPP_69%_20nm\'
+'C:\Users\gohja\Desktop\CV test\PPP_69%_20nm'
 
 $files = Get-ChildItem -Path $path_to_file_directory
 
@@ -11,8 +11,8 @@ $files = Get-ChildItem -Path $path_to_file_directory
 $file_names = @()
 
 foreach ($file in $files) {
- # Rename all .xls files to .xlsx extension
- # $path_to_file = -join ($path_to_file_directory, $file.Name)
+ # # Rename all .xls files to .xlsx extension
+ # $path_to_file = -join ($path_to_file_directory, -join ("\", $file.Name))
 
  # $file_name_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file)
 
@@ -27,5 +27,15 @@ foreach ($file in $files) {
  $file_names = $file_names + $file_name 
 }
 
+
+$current_path = Get-Location
+
+# Get name of folder
+Set-Location $path_to_file_directory
+
+$current_folder = Split-Path -Path (Get-Location )-Leaf
+
+Set-Location $current_path
+
 # Pipe array consisting of file names and directory path to Python
-@($file_names , $path_to_file_directory) | python main.py
+@($file_names , $current_folder ) | python main.py
