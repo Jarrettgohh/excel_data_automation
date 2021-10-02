@@ -3,6 +3,10 @@
 - Data analysis automation with Python and Powershell, to be used with Excel `.xls` files.
 - The calculations includes k value; `dielectric constant` or `relative permittivity`, calculations from `capacitance` and `thickness` values of a `ferroelectric` sample wafer.
 
+# Usage
+1. Store the script anywhere
+2. Execute the script with the path to the folder that contains the data, as the input
+3. Let the *magic* begin!
 
 # Working principles
 1. **Powershell** would be used to browse through a folder to get the names of all the `.xls` files  
