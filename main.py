@@ -61,4 +61,8 @@ for wafer_name in capacitance_values_dict:
     capacitance_values_dict[wafer_name] = capacitance_data
 
 
-print(capacitance_values_dict)
+df = pd.DataFrame(
+    capacitance_values_dict['S100_D1'], index=[range(1, 10)], columns=['S100_D1'])
+
+print(df)
+df.to_excel(f'{directory}\\Test_1_data_calculations.xlsx')

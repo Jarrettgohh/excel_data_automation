@@ -12,15 +12,15 @@ $files = Get-ChildItem -Path $path_to_file_directory
 $file_names = @()
 
 foreach ($file in $files) {
- # Rename all .xls files to .xlsx extension
- $path_to_file = -join ($path_to_file_directory, -join ("\", $file.Name))
+ # # Rename all .xls files to .xlsx extension
+ # $path_to_file = -join ($path_to_file_directory, -join ("\", $file.Name))
 
  $file_name_without_extension = [System.IO.Path]::GetFileNameWithoutExtension($file)
 
- $file_name_xlsx = -join ( $file_name_without_extension, '.xlsx')
+ # $file_name_xlsx = -join ( $file_name_without_extension, '.xlsx')
 
 
- Rename-Item -Path $path_to_file -NewName  $file_name_xlsx
+ # Rename-Item -Path $path_to_file -NewName  $file_name_xlsx
 
 
  # Add file names to array
@@ -39,14 +39,14 @@ $current_folder = Split-Path -Path (Get-Location )-Leaf
 # # Creating a new .xlsx file
 $name_of_new_excel_xlsx = -join ($current_folder, '_data_calculations.xlsx')
 
-$full_path_to_new_excel = -join ($path_to_file_directory, -join ('\', $name_of_new_excel_xlsx ))
+# $full_path_to_new_excel = -join ($path_to_file_directory, -join ('\', $name_of_new_excel_xlsx ))
 
-$new_excel = New-Object -ComObject excel.application
-$new_excel.visible = $False
+# $new_excel = New-Object -ComObject excel.application
+# $new_excel.visible = $False
 
-$new_excel_workbook = $new_excel.Workbooks.Add()
-$new_excel_workbook.SaveAs($full_path_to_new_excel) 
-$new_excel.Quit()
+# $new_excel_workbook = $new_excel.Workbooks.Add()
+# $new_excel_workbook.SaveAs($full_path_to_new_excel) 
+# $new_excel.Quit()
 
 
 # Set location back to the current script path
@@ -57,10 +57,10 @@ Set-Location $current_path
 # To remove the newly added .xlsx file first
 [System.Collections.ArrayList]$file_names_without_extra = $file_names
 
-
 $name_of_new_excel_without_ext = [System.IO.Path]::GetFileNameWithoutExtension($name_of_new_excel_xlsx)
 
 $file_names_without_extra.Remove($name_of_new_excel_without_ext)
 
 
+# Pipe data to Python
 @($file_names_without_extra, $path_to_file_directory) | python main.py
