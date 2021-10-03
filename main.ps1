@@ -1,9 +1,9 @@
 
 # Path: to get from user input
-
 $path_to_file_directory = #'C:\Users\gohja\Desktop\CV test\PLD_30%_20nm\'
 'C:\Users\gohja\Desktop\CV test\PPP_69%_20nm'
 
+# Get all the files present in the folder
 $files = Get-ChildItem -Path $path_to_file_directory
 
 
