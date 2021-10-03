@@ -61,8 +61,17 @@ for wafer_name in capacitance_values_dict:
     capacitance_values_dict[wafer_name] = capacitance_data
 
 
+# index could be found from number of element in each array
+# columns can be found from the number of array in the array (nested array)
+
+# Example [['a', 'b', 'c'], ['d', 'e', 'f']],
+# -> `index` array arg should have 3 elements
+# -> `columns` array arg should have 2 elements
+
 df = pd.DataFrame(
-    capacitance_values_dict['S100_D1'], index=[range(1, 10)], columns=['S100_D1'])
+    capacitance_values_dict['S100_D2'], index=[list(range(1, 11))], columns=['S100_D1'])
+
 
 print(df)
+
 df.to_excel(f'{directory}\\Test_1_data_calculations.xlsx')
