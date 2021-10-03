@@ -72,14 +72,14 @@ for wafer_name in capacitance_values_dict:
 # -> `columns` array arg should have 2 elements
 
 
-np_array = np.array([capacitance_values_dict['S100_D2'],
-                     capacitance_values_dict['S100_D3']])
+# np_array = np.array([capacitance_values_dict['S100_D2'],
+#                      capacitance_values_dict['S100_D3']])
 
 df = pd.DataFrame(
-    capacitance_values_dict
-    # np_array,
-    #   index=['S100_D1', 'S100_D2'],
-    #   columns=[list(range(1, 11))]
+    data=capacitance_values_dict,
+    index=[list(range(1, 11))],
+    columns=['S100_D1', 'S100_D2',
+             'S100_D3', 'S100_D4', 'S100_D5']
 )
 
 print(df)
