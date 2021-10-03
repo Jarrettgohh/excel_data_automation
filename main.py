@@ -1,6 +1,7 @@
 import sys
 import json
 import pandas as pd
+import numpy as np
 
 lines = sys.stdin.readlines()
 
@@ -61,6 +62,8 @@ for wafer_name in capacitance_values_dict:
     capacitance_values_dict[wafer_name] = capacitance_data
 
 
+# NOTES BELOW IS FOR 1 NEST ARRAY
+
 # index could be found from number of element in each array
 # columns can be found from the number of array in the array (nested array)
 
@@ -68,10 +71,22 @@ for wafer_name in capacitance_values_dict:
 # -> `index` array arg should have 3 elements
 # -> `columns` array arg should have 2 elements
 
-df = pd.DataFrame(
-    capacitance_values_dict['S100_D2'], index=[list(range(1, 11))], columns=['S100_D1'])
 
+np_array = np.array([capacitance_values_dict['S100_D2'],
+                     capacitance_values_dict['S100_D3']])
+
+df = pd.DataFrame(
+    capacitance_values_dict
+    # np_array,
+    #   index=['S100_D1', 'S100_D2'],
+    #   columns=[list(range(1, 11))]
+)
 
 print(df)
 
-df.to_excel(f'{directory}\\Test_1_data_calculations.xlsx')
+
+try:
+    df.to_excel(f'{directory}\\Test_1_data_calculations.xlsx')
+
+except:
+    print('\n\nFailed to write to new excel file. Make sure the file is not open.')
