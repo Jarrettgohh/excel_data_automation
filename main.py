@@ -37,7 +37,7 @@ for line in lines:
 # print(file_names)
 
 # To get the new excel file name from PowerShell
-excel_file_to_write = f'{directory}\Test_2_data_calculations.xlsx'
+excel_file_to_write = f'{directory}\Test_3_data_calculations.xlsx'
 
 
 def excel_read_col_row(excel_file, row_col_dict):
@@ -103,7 +103,7 @@ for file_name in file_names:
 capacitance_values_ordered = OrderedDict(capacitance_values_dict)
 capacitance_values_ordered_list = list(capacitance_values_ordered.keys())
 
-sheet_name = 'Test_2'
+sheet_name = 'Calculations'
 
 for index, device_size in enumerate(capacitance_values_dict):
     devices_in_each_size = capacitance_values_dict[device_size]
@@ -131,11 +131,13 @@ for index, device_size in enumerate(capacitance_values_dict):
         data=[device_size],
     )
 
-    print(col_to_skip)
+    device_size_start_col = col_to_skip + (index * 3)
+    capacitance_values_start_col = col_to_skip + (index * 3) + 1
+
     append_to_new_excel(df=df, sheet_name=sheet_name,
                         header=None,
                         index=False,
-                        startcol=0 if index == 0 else col_to_skip + (index*3),
+                        startcol=0 if index == 0 else device_size_start_col,
                         startrow=0)
 
     df = pd.DataFrame(
@@ -144,8 +146,7 @@ for index, device_size in enumerate(capacitance_values_dict):
     )
 
     append_to_new_excel(df=df, sheet_name=sheet_name,
-                        startcol=1 if index == 0 else col_to_skip +
-                        (index*3) + index,
+                        startcol=1 if index == 0 else capacitance_values_start_col,
                         startrow=0)
 
 
