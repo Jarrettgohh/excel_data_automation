@@ -16,6 +16,10 @@
 5. **Python** would *pipe* data back to **Powershell** to open the newly created `.xlsx` file along with all the calculations
 6. The calculated data would then be formatted apprioprately into the new `.xlsx` file created
 
+
+# config.json
+1. The configuration of which rows and columns to read from the individual Excel sheets can be changed in the `config.json` file
+
 -- UNCOMPLETED --
 
 # Required Python packages
