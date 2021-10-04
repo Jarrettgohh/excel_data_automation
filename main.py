@@ -101,7 +101,14 @@ for file_name in file_names:
 # print(json.dumps(capacitance_values_dict, indent=2))
 
 
-for device_size in capacitance_values_dict:
+sheet_name = 'Test'
+
+for index, device_size in enumerate(capacitance_values_dict):
+    col_to_write = index
+
+    if index != 0:
+        col_to_write = index + 7
+
     devices_in_each_size = capacitance_values_dict[device_size]
 
     # Writing the device size at the top left of each data section
@@ -109,10 +116,10 @@ for device_size in capacitance_values_dict:
         data=[device_size],
     )
 
-    append_to_new_excel(df=df, sheet_name='Sheet1',
+    append_to_new_excel(df=df, sheet_name=sheet_name,
                         header=None,
                         index=False,
-                        startcol=0,
+                        startcol=col_to_write,
                         startrow=0)
 
     df = pd.DataFrame(
@@ -120,8 +127,8 @@ for device_size in capacitance_values_dict:
         index=[list(range(1, 11))],
     )
 
-    append_to_new_excel(df=df, sheet_name='Sheet1',
-                        startcol=1,
+    append_to_new_excel(df=df, sheet_name=sheet_name,
+                        startcol=col_to_write+1,
                         startrow=0)
 
 
