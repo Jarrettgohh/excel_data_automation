@@ -32,6 +32,9 @@ for line in lines:
 # print(directory)
 # print(file_names)
 
+# To get the new excel file name from PowerShell
+excel_file_to_write = f'{directory}\Test_1_data_calculations.xlsx'
+
 
 def excel_read_col_row(excel_file, row_col_dict):
 
@@ -42,6 +45,8 @@ def excel_read_col_row(excel_file, row_col_dict):
                          skiprows=rows[0]-1,
                          skipfooter=rows[-1]-rows[0], usecols=cols)
 
+
+# def write_to_excel():
 
 capacitance_values_dict = {}
 device_dimensions = list(config_json['device_dimensions'])
@@ -75,30 +80,37 @@ for file_name in file_names:
 
         capacitance_values_dict[device_dimension][device_num] = device_num_list
 
-print(json.dumps(capacitance_values_dict, indent=2))
+# print(json.dumps(capacitance_values_dict, indent=2))
 
 
-# device_numbers = []
-
-# for device in capacitance_values_dict:
-#     device_regex = '\S100_'
-
-#     device_num = re.sub(device_regex, '', device, 1)
-
-#     device_numbers.append(device_num)
+df = pd.DataFrame(
+    data=['R200'],
+)
 
 
-# df = pd.DataFrame(
-#     data=capacitance_values_dict,
-#     # index=[list(range(1, 11))],
-#     # columns=device_numbers
-# )
+try:
+    df.to_excel(excel_file_to_write,
+                header=None,
+                index=False,
+                startcol=0,
+                startrow=0
+                )
 
-# print(df)
+except:
+    print('\nFailed to write to new excel file. Make sure the file is not open.')
 
+# for device_size in capacitance_values_dict:
+#     devices_in_each_size = capacitance_values_dict[device_size]
 
-# try:
-#     df.to_excel(f'{directory}\\Test_1_data_calculations.xlsx')
+#     df = pd.DataFrame(
+#         data=devices_in_each_size,
+#         index=[list(range(1, 11))],
+#     )
 
-# except:
-#     print('\n\nFailed to write to new excel file. Make sure the file is not open.')
+#     print(df)
+
+#     try:
+#         df.to_excel(excel_file_to_write)
+
+#     except:
+#         print('\n\nFailed to write to new excel file. Make sure the file is not open.')
