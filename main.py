@@ -1,3 +1,4 @@
+import subprocess
 import sys
 import json
 import pandas as pd
@@ -59,6 +60,11 @@ def append_to_new_excel(df: DataFrame, **args):
             'Failed to write to new Excel file. Make sure that the Excel file is not open.')
 
 
+def execute_powershell(command: str):
+    subprocess.Popen(
+        ['powershell.exe', command])
+
+
 capacitance_values_dict = {}
 device_dimensions = list(config_json['device_dimensions'])
 
@@ -118,4 +124,6 @@ for device_size in capacitance_values_dict:
                         startcol=1,
                         startrow=0)
 
-    print(df)
+
+# Open the new Excel file after data is written to it
+execute_powershell(f'Invoke-Item \"{excel_file_to_write}\"')
