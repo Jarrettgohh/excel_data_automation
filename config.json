@@ -1,5 +1,5 @@
 {
-  "device_dimensions": ["R50,R100,R200,S50,S100,S200"],
+  "device_dimensions": ["R50", "R100", "R200", "S50", "S100", "S200"],
   "index_to_read": {
     "rows": [27, 37],
     "cols": [2]

@@ -44,50 +44,38 @@ def excel_read_col_row(excel_file, row_col_dict):
 
 
 capacitance_values_dict = {}
-device_dimensions = config_json['device_dimensions']
+device_dimensions = list(config_json['device_dimensions'])
 
-# To sort the different wafer dimensions through the file name
+
+# To sort the different wafer dimensions to each key in the dict, through the file name
+# To also sort the data to the respective device key
 for file_name in file_names:
+    row_col_dict = config_json
+    row_col_dict = row_col_dict['index_to_read']
 
-    for index, device_dimension in enumerate(device_dimensions):
-        print(device_dimension)
-        # device_dimension_regex = f'\{device_dimension}'
-        # print(device_dimension_regex)
-        # device_num = re.sub(device_dimension_regex, '', file_name, 1)
-        # print(device_num)
+    for device_dimension in device_dimensions:
+        if device_dimension not in file_name:
+            continue
 
+        if device_dimension not in capacitance_values_dict:
+            capacitance_values_dict[device_dimension] = {}
 
-# # Loop through each file in folder
-# for file_name in file_names:
-#     row_col_dict = config_json
-#     row_col_dict = row_col_dict['index_to_read']
+        device_dimension_regex = re.escape(f'{device_dimension}_')
+        device_num = re.sub(device_dimension_regex, '', file_name, 1)
 
-#     df = excel_read_col_row(
-#         f'{directory}\{file_name}.xlsx', row_col_dict=row_col_dict)
+        df = excel_read_col_row(
+            f'{directory}\{file_name}.xlsx', row_col_dict=row_col_dict)
 
-#     capacitance_values_dict[file_name] = df.to_numpy()
+        df_numpy = df.to_numpy()
 
+        device_num_list = []
 
-# capacitance_values_dict (EXAMPLE):
-# {
-#  'S100_D1':
-# [[0.451], [0.545], [0.5435], [0.6969]],
-#  'S100_D2':
-# [[0.411], [0.525], [0.5455], [0.689]],
-# }
+        for data in df_numpy:
+            device_num_list.append(data[0])
 
+        capacitance_values_dict[device_dimension][device_num] = device_num_list
 
-# # Loop through each wafer size to
-# for wafer_size in capacitance_values_dict:
-#     capacitance_data_nested = capacitance_values_dict[wafer_size]
-
-#     capacitance_data = []
-
-#     # Replace nested array with normal array (capacitance_values_dict); for each wafer size
-#     for data in capacitance_data_nested:
-#         capacitance_data.append(data[0])
-
-#     capacitance_values_dict[wafer_size] = capacitance_data
+print(json.dumps(capacitance_values_dict, indent=2))
 
 
 # device_numbers = []
