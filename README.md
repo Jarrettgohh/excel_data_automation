@@ -21,6 +21,9 @@
 3. **Python** would *pipe* data back to **Powershell** to open the newly created `.xlsx` file along with all the calculations
 4. The calculated data would then be formatted apprioprately into the new `.xlsx` file created
 
+# Ideas
+1. Have an `.xlsm` file that have pre-recorded macros (Allows taking in parameter to see number of device sizes to run for)
+2. Use **PowerShell** to run the macro and transfer the output to the newly created `.xlsx` file (Perhaps **Python** would be better for the output transfer part) 
 
 # config.json
 1. The configuration of which rows and columns to read from the individual Excel sheets can be changed in the `config.json` file
