@@ -1,8 +1,12 @@
 import sys
 import json
 import pandas as pd
-# import numpy as np
 import re
+
+
+from pandas.core.frame import DataFrame
+
+from excel_functions import append_df_to_excel
 
 lines = sys.stdin.readlines()
 
@@ -37,7 +41,6 @@ excel_file_to_write = f'{directory}\Test_1_data_calculations.xlsx'
 
 
 def excel_read_col_row(excel_file, row_col_dict):
-
     rows = row_col_dict['rows']
     cols = row_col_dict['cols']
 
@@ -46,7 +49,15 @@ def excel_read_col_row(excel_file, row_col_dict):
                          skipfooter=rows[-1]-rows[0], usecols=cols)
 
 
-# def write_to_excel():
+def append_to_new_excel(df: DataFrame, **args):
+    try:
+        append_df_to_excel(filename=excel_file_to_write,
+                           df=df, **args
+                           )
+    except:
+        print(
+            'Failed to write to new Excel file. Make sure that the Excel file is not open.')
+
 
 capacitance_values_dict = {}
 device_dimensions = list(config_json['device_dimensions'])
@@ -80,37 +91,31 @@ for file_name in file_names:
 
         capacitance_values_dict[device_dimension][device_num] = device_num_list
 
+
 # print(json.dumps(capacitance_values_dict, indent=2))
 
 
-df = pd.DataFrame(
-    data=['R200'],
-)
+for device_size in capacitance_values_dict:
+    devices_in_each_size = capacitance_values_dict[device_size]
 
+    # Writing the device size at the top left of each data section
+    df = pd.DataFrame(
+        data=[device_size],
+    )
 
-try:
-    df.to_excel(excel_file_to_write,
-                header=None,
-                index=False,
-                startcol=0,
-                startrow=0
-                )
+    append_to_new_excel(df=df, sheet_name='Sheet1',
+                        header=None,
+                        index=False,
+                        startcol=0,
+                        startrow=0)
 
-except:
-    print('\nFailed to write to new excel file. Make sure the file is not open.')
+    df = pd.DataFrame(
+        data=devices_in_each_size,
+        index=[list(range(1, 11))],
+    )
 
-# for device_size in capacitance_values_dict:
-#     devices_in_each_size = capacitance_values_dict[device_size]
+    append_to_new_excel(df=df, sheet_name='Sheet1',
+                        startcol=1,
+                        startrow=0)
 
-#     df = pd.DataFrame(
-#         data=devices_in_each_size,
-#         index=[list(range(1, 11))],
-#     )
-
-#     print(df)
-
-#     try:
-#         df.to_excel(excel_file_to_write)
-
-#     except:
-#         print('\n\nFailed to write to new excel file. Make sure the file is not open.')
+    print(df)
