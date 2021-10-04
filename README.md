@@ -9,12 +9,17 @@
 3. Let the *magic* begin!
 
 # Working principles
+
+`PowerShell`
 1. **Powershell** would be used to browse through a folder to get the names of all the `.xls` files  
 2. To support working with Python `pandas`, **Powershell** would be used to convert all the `.xls` file formats to `.xlsx`
-3. **Powershell** would then *pipe* informations (array of file names and file directory to the data)t o **Python**
-4. **Python** would be used to calculate various parameters with the data (Parameters mentioned above); `thickness` can be taken from the folder name
-5. **Python** would *pipe* data back to **Powershell** to open the newly created `.xlsx` file along with all the calculations
-6. The calculated data would then be formatted apprioprately into the new `.xlsx` file created
+3. **Powershell** would then *pipe* informations (array of file names and file directory to the data) to **Python**
+
+`Python`
+1. Use `regex` to split the data between the different sizes 
+2. **Python** would be used to calculate various parameters with the data (Parameters mentioned above); `thickness` can be taken from the folder name
+3. **Python** would *pipe* data back to **Powershell** to open the newly created `.xlsx` file along with all the calculations
+4. The calculated data would then be formatted apprioprately into the new `.xlsx` file created
 
 
 # config.json
