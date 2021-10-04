@@ -27,6 +27,9 @@
 
 -- UNCOMPLETED --
 
+# References
+1. https://stackoverflow.com/questions/38074678/append-existing-excel-sheet-with-new-dataframe-using-python-pandas/38075046#38075046
+
 # Required Python packages
 1. `pandas`
 2. `openpyxl` (To work with `.xlsx` files)
