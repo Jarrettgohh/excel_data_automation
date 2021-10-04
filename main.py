@@ -4,9 +4,8 @@ import json
 import pandas as pd
 import re
 
-
+from typing import OrderedDict
 from pandas.core.frame import DataFrame
-
 from excel_functions import append_df_to_excel
 
 lines = sys.stdin.readlines()
@@ -101,15 +100,27 @@ for file_name in file_names:
 # print(json.dumps(capacitance_values_dict, indent=2))
 
 
-sheet_name = 'Test'
+capacitance_values_ordered = OrderedDict(capacitance_values_dict)
+capacitance_values_ordered_list = list(capacitance_values_ordered.keys())
+
+sheet_name = 'Test_69'
 
 for index, device_size in enumerate(capacitance_values_dict):
-    col_to_write = index
-
-    if index != 0:
-        col_to_write = index + 7
-
     devices_in_each_size = capacitance_values_dict[device_size]
+
+    if index == 0:
+        col_to_skip = index
+
+    else:
+        index_prev_device = index - 1
+
+        prev_device_dict_key = capacitance_values_ordered_list[index_prev_device]
+        prev_device_dict = capacitance_values_dict[prev_device_dict_key]
+
+        col_to_skip = len(prev_device_dict)
+
+    device_size_start_col = index * (col_to_skip + 3)
+    capacitance_value_start_col = index * (col_to_skip + 3) + 1
 
     # Writing the device size at the top left of each data section
     df = pd.DataFrame(
@@ -119,7 +130,7 @@ for index, device_size in enumerate(capacitance_values_dict):
     append_to_new_excel(df=df, sheet_name=sheet_name,
                         header=None,
                         index=False,
-                        startcol=col_to_write,
+                        startcol=device_size_start_col,
                         startrow=0)
 
     df = pd.DataFrame(
@@ -128,7 +139,7 @@ for index, device_size in enumerate(capacitance_values_dict):
     )
 
     append_to_new_excel(df=df, sheet_name=sheet_name,
-                        startcol=col_to_write+1,
+                        startcol=capacitance_value_start_col,
                         startrow=0)
 
 
