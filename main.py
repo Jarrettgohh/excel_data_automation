@@ -37,7 +37,7 @@ for line in lines:
 # print(file_names)
 
 # To get the new excel file name from PowerShell
-excel_file_to_write = f'{directory}\Test_1_data_calculations.xlsx'
+excel_file_to_write = f'{directory}\Test_2_data_calculations.xlsx'
 
 
 def excel_read_col_row(excel_file, row_col_dict):
@@ -103,7 +103,7 @@ for file_name in file_names:
 capacitance_values_ordered = OrderedDict(capacitance_values_dict)
 capacitance_values_ordered_list = list(capacitance_values_ordered.keys())
 
-sheet_name = 'Test_69'
+sheet_name = 'Test_2'
 
 for index, device_size in enumerate(capacitance_values_dict):
     devices_in_each_size = capacitance_values_dict[device_size]
@@ -117,20 +117,25 @@ for index, device_size in enumerate(capacitance_values_dict):
         prev_device_dict_key = capacitance_values_ordered_list[index_prev_device]
         prev_device_dict = capacitance_values_dict[prev_device_dict_key]
 
-        col_to_skip = len(prev_device_dict)
+        col_to_skip = 0
 
-    device_size_start_col = index * (col_to_skip + 3)
-    capacitance_value_start_col = index * (col_to_skip + 3) + 1
+        for i in range(index):
+
+            prev_device_dict_key = capacitance_values_ordered_list[index - (
+                i + 1)]
+            prev_device_dict = capacitance_values_dict[prev_device_dict_key]
+            col_to_skip += len(prev_device_dict)
 
     # Writing the device size at the top left of each data section
     df = pd.DataFrame(
         data=[device_size],
     )
 
+    print(col_to_skip)
     append_to_new_excel(df=df, sheet_name=sheet_name,
                         header=None,
                         index=False,
-                        startcol=device_size_start_col,
+                        startcol=0 if index == 0 else col_to_skip + (index*3),
                         startrow=0)
 
     df = pd.DataFrame(
@@ -139,7 +144,8 @@ for index, device_size in enumerate(capacitance_values_dict):
     )
 
     append_to_new_excel(df=df, sheet_name=sheet_name,
-                        startcol=capacitance_value_start_col,
+                        startcol=1 if index == 0 else col_to_skip +
+                        (index*3) + index,
                         startrow=0)
 
 
