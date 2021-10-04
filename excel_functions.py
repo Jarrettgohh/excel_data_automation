@@ -37,8 +37,10 @@ def append_df_to_excel(
         filename: Union[str, Path],
         df: pd.DataFrame,
         sheet_name: str = 'Sheet1',
-        startcol: Optional[int] = None,
-        startrow: Optional[int] = None,
+        startcol: Optional[int] = 0,
+        startrow: Optional[int] = 0,
+        header=False,
+        index=False,
         **to_excel_kwargs
 ) -> None:
 
@@ -69,6 +71,8 @@ def append_df_to_excel(
                     sheet_name=sheet_name,
                     startcol=startcol,
                     startrow=startrow,
+                    header=header,
+                    index=index,
                     **to_excel_kwargs)
 
     if file_exists and sheet_exists:

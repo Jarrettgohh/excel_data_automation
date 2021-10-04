@@ -54,7 +54,8 @@ def append_to_new_excel(df: DataFrame, **args):
         append_df_to_excel(filename=excel_file_to_write,
                            df=df, **args
                            )
-    except:
+    except Exception as e:
+        print(e)
         print(
             'Failed to write to new Excel file. Make sure that the Excel file is not open.')
 
@@ -103,7 +104,7 @@ for file_name in file_names:
 capacitance_values_ordered = OrderedDict(capacitance_values_dict)
 capacitance_values_ordered_list = list(capacitance_values_ordered.keys())
 
-sheet_name = 'Calculations'
+sheet_name = 'Calculations_1'
 
 for index, device_size in enumerate(capacitance_values_dict):
     devices_in_each_size = capacitance_values_dict[device_size]
@@ -127,16 +128,15 @@ for index, device_size in enumerate(capacitance_values_dict):
             col_to_skip += len(prev_device_dict)
 
     # Writing the device size at the top left of each data section
+    device_size_start_col = col_to_skip + (index * 3)
+    capacitance_values_start_col = col_to_skip + (index * 3) + 1
+
     df = pd.DataFrame(
         data=[device_size],
     )
 
-    device_size_start_col = col_to_skip + (index * 3)
-    capacitance_values_start_col = col_to_skip + (index * 3) + 1
-
-    append_to_new_excel(df=df, sheet_name=sheet_name,
-                        header=None,
-                        index=False,
+    append_to_new_excel(df=df,
+                        sheet_name=sheet_name,
                         startcol=0 if index == 0 else device_size_start_col,
                         startrow=0)
 
@@ -145,9 +145,31 @@ for index, device_size in enumerate(capacitance_values_dict):
         index=[list(range(1, 11))],
     )
 
-    append_to_new_excel(df=df, sheet_name=sheet_name,
+    append_to_new_excel(df=df,
+                        sheet_name=sheet_name,
                         startcol=1 if index == 0 else capacitance_values_start_col,
                         startrow=0)
+
+    df = pd.DataFrame(
+        data=['Average',
+              'Max',
+              'Min',
+              'Range',
+              'Range/Min(%)',
+              '',
+              'Average k (F/cm^2)',
+              'Max k',
+              'Min k',
+              'Range k',
+              'Range/Min(%)'
+              ]
+    )
+
+    append_to_new_excel(df=df,
+                        sheet_name=sheet_name,
+                        startcol=0 if index == 0 else device_size_start_col,
+                        startrow=config_json['measure_times'] + 1
+                        )
 
 
 # Open the new Excel file after data is written to it
