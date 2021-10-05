@@ -41,59 +41,17 @@ $new_excel = New-Object -ComObject excel.application
 $new_excel.visible = $False
 
 $new_excel_workbook = $new_excel.Workbooks.Add()
-$new_excel_workbook.SaveAs($full_path_to_new_excel) 
-$new_excel_workbook.Close()
-$new_excel.Quit()
 
-
-# open excel in a hidden window
-$excel = New-Object -ComObject Excel.Application
-$workbooks = $excel.Workbooks
-$excel.Visible = $False 
-
-# disable interactive dialogs
-$excel.DisplayAlerts = $False
-$excel.WarnOnFunctionNameConflict = $False
-$excel.AskToUpdateLinks = $False
-
-# target file formats
 $xlsm = [Microsoft.Office.Interop.Excel.XlFileFormat]::xlOpenXMLWorkbookMacroEnabled
-
-# open file in excel:
-$workbook = $workbooks.Open($full_path_to_new_excel)
 
 # get destination path
 $xlsm_extension = [System.Io.Path]::ChangeExtension($full_path_to_new_excel, 'xlsm')
 
-# save in new format:
-$workbook.SaveAs($xlsm_extension, $xlsm)
-
-# Close workbook
-$workbook.Close()
-
-# release COM objects to prevent memory leaks:
-$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($workbook)
-
-# Quit excel
-$excel.Quit()
-   
-# release COM objects to prevent memory leaks:
-$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($workbooks)
-$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($excel)
-$excel = $workbooks = $null
-# clean up:
-[GC]::Collect()
-[GC]::WaitForPendingFinalizers()
+$new_excel_workbook.SaveAs($xlsm_extension, $xlsm)
 
 
-# ADD MACROS
-$excel = New-Object -ComObject Excel.Application
-$excel.Visible = $false
-$excel.DisplayAlerts = $false
-
-$workbook = $excel.Workbooks.Open( -join ($path_to_file_directory, -join ( -join ('\', $target_folder), '_data_calculations.xlsm')))
-
-$excel_macro = $workbook.VBProject.VBComponents.Add(1)
+# Add custom macros
+$excel_macro = $new_excel_workbook.VBProject.VBComponents.Add(1)
 
 $code = @"
 Sub average_capacitance(cell_select, cell_range)
@@ -107,13 +65,27 @@ End Sub
 
 # To add VBA sript into Excel macro
 $excel_macro.CodeModule.AddFromString($code)
-$workbook.Save()
-$workbook.Close()
-$excel.Quit()
+
+# Save and close workbook
+$new_excel_workbook.Save()
+$new_excel_workbook.Close()
+
+# release COM objects to prevent memory leaks:
+$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($new_excel_workbook)
+
+# Quit excel
+$new_excel.Quit()
+   
+# release COM objects to prevent memory leaks:
+$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($new_excel_workbook)
+$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($new_excel)
+$new_excel = $new_excel_workbook = $null
+# clean up:
+[GC]::Collect()
+[GC]::WaitForPendingFinalizers()
 
 
 # CMD command to stop all excel.exe tasks: taskkill /f /im excel.exe
-
 
 
 # Set location back to the current script path
