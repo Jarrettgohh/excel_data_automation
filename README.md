@@ -5,8 +5,9 @@
 
 # Usage
 1. Store the script anywhere in the file directory
-2. Execute the script passing in the path to the folder that contains the data as the argument Eg: `C:/Users/<user_name>/Desktop/CV_test`
-3. Let the *magic* begin!
+2. Update the `config.json` file accordingly
+3. Execute the script with the path to the target directory as the argument Eg: `C:/Users/<user_name>/Desktop/CV_test`
+4. Let the *magic* begin!
 
 # Working principles
 
@@ -18,9 +19,9 @@
 5. *Pipe* the information containing array of file names, path to target folder directory and the name of newly created Excel file to **Python**
 
 **Python**
-1. Use `pandas` to copy the data from the individual files and format it in the new `.xlsm` file  
-2. Generate the column index range to run the `macro` on. The format can be found from `config.json` (Eg.[{"cell_select": "B13", "cell_range": "B13:F13"]])
-3. Run through a method to convert the column index range in Python to be a PowerShell object type 
+1. Use `pandas` to copy the data from the individual files and format it in the new `.xlsm` file (The configuration informations relating to the reading and writing of the Excel files would be taken from `config.json`)
+2. Generate the column index range to run the `macro` on. The output format and Excel cell indices to read can be found from `config.json` (Eg.[{"cell_select": "B13", "cell_range": "B13:F13"]])
+3. Convert the column index range in Python to be a PowerShell object type (`hash table` & `array`)
 4. *Pipe* information containing path to target file directory and the `list` of column index range (`cell_select` & `cell_range` with the proper format to pass as args into Excel macro VBA script) back to PowerShell (To call using `subprocess` to execute powershell  with path (Eg. "../macro.ps1"))
 
 **PowerShell**
@@ -41,5 +42,4 @@
 # Required Python packages
 1. `pandas`
 2. `openpyxl` (To work with `.xlsx` files)
-3. `sys`; comes with Python
-4. `json`; comes with Python
+
