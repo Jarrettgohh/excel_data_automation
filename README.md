@@ -10,21 +10,21 @@
 
 # Working principles
 
-`PowerShell`
-1. **Powershell** would be used to browse through a folder to get the names of all the `.xls` files  
-2. To support working with Python `pandas`, **Powershell** would be used to convert all the `.xls` file formats to `.xlsx`
-3. Create a new `.xlsx` with "data_calculations" prefix
-4. Save the newly created `.xlsx` file as `.xlsm` to support macros
-5. **Powershell** would then *pipe* informations (array of file names and file directory to the data) to **Python**
-6. After receiving response from **Python**, add the macros to the `.xlsm` file according to the args
-7. Run the macro
+**PowerShell**
+1. Browse through a folder to get the names of all the `.xls` files  
+2. To support working with Python `pandas`, convert all the `.xls` file formats to `.xlsx`
+3. Create a new `.xlsx` with name of the folder name and "data_calculations" prefix (Eg: folder name: "PVD_20%_40nm" -> "PVD_20%_40nm_data_calculations")
+4. Save the newly created `.xlsx` file as `.xlsm` to support macros and insert the VBA script for each individual calculations ("average_capacitance", "average_k", etc.) into the `.xlsm` file
+5. *Pipe* the information containing array of file names, path to target folder directory and the name of newly created Excel file to **Python**
 
-`Python`
-1. Use `regex` to split the data between the different sizes 
-2. **Python** would be used to calculate various parameters with the data (Parameters mentioned above); `thickness` can be taken from the folder name
-3. The calculated data would then be formatted apprioprately into the new `.xlsx` file created
-4. Generate the Excel column index range to run Excel `macro` (Eg. ['B13', 'F13'], ['I13', 'M13'])
-5. *Pipe* information back to **Powershell** (To call using `subprocess` to execute powershell with path ("../macro.ps1"))
+**Python**
+6. Use `pandas` to copy the data from the individual files and format it in the new `.xlsm` file  
+7. Generate the column index range to run the `macro` on. The format can be found from `config.json` (Eg.[{"cell_select": "B13", "cell_range": "B13:F13"]])
+8. Run through a method to convert the column index range in Python to be a PowerShell object type 
+9. *Pipe* information containing path to target file directory and the `list` of column index range (`cell_select` & `cell_range` with the proper format to pass as args into Excel macro VBA script) back to PowerShell (To call using `subprocess` to execute powershell  with path (Eg. "../macro.ps1"))
+
+**PowerShell**
+10. Run the macro according in the target file directory with the column index range information received as params
 
 # Ideas
 1. Have an `.xlsm` file that have pre-recorded macros (Allows taking in parameter to see number of device sizes to run for)
