@@ -46,10 +46,6 @@ $new_excel_workbook.Close()
 $new_excel.Quit()
 
 
-
-# load excel assembly (requires excel to be installed)
-Add-Type -AssemblyName Microsoft.Office.Interop.Excel
-
 # open excel in a hidden window
 $excel = New-Object -ComObject Excel.Application
 $workbooks = $excel.Workbooks
@@ -67,15 +63,18 @@ $xlsm = [Microsoft.Office.Interop.Excel.XlFileFormat]::xlOpenXMLWorkbookMacroEna
 $workbook = $workbooks.Open($full_path_to_new_excel)
 
 # get destination path
-$dest_path = [System.Io.Path]::ChangeExtension($full_path_to_new_excel, 'xlsm')
+$xlsm_extension = [System.Io.Path]::ChangeExtension($full_path_to_new_excel, 'xlsm')
 
 # save in new format:
-$workbook.SaveAs($dest_path, $xlsm)
+$workbook.SaveAs($xlsm_extension, $xlsm)
+
+# Close workbook
 $workbook.Close()
+
 # release COM objects to prevent memory leaks:
 $null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($workbook)
-     
-# quit excel and clean up:
+
+# Quit excel
 $excel.Quit()
    
 # release COM objects to prevent memory leaks:
@@ -85,10 +84,36 @@ $excel = $workbooks = $null
 # clean up:
 [GC]::Collect()
 [GC]::WaitForPendingFinalizers()
-Write-Verbose "Done."  
+
+
+# ADD MACROS
+$excel = New-Object -ComObject Excel.Application
+$excel.Visible = $false
+$excel.DisplayAlerts = $false
+
+$workbook = $excel.Workbooks.Open( -join ($path_to_file_directory, -join ( -join ('\', $target_folder), '_data_calculations.xlsm')))
+
+$excel_macro = $workbook.VBProject.VBComponents.Add(1)
+
+$code = @"
+Sub average_capacitance(cell_select, cell_range)
+    Range(cell_select).Select
+    ActiveCell.FormulaR1C1 = "=AVERAGE(R[-11]C:R[-2]C)"
+    Range(cell_select).Select
+    Selection.AutoFill Destination:=Range(cell_range), Type:=xlFillDefault
+    Range(cell_range).Select
+End Sub
+"@
+
+# To add VBA sript into Excel macro
+$excel_macro.CodeModule.AddFromString($code)
+$workbook.Save()
+$workbook.Close()
+$excel.Quit()
 
 
 # CMD command to stop all excel.exe tasks: taskkill /f /im excel.exe
+
 
 
 # Set location back to the current script path
