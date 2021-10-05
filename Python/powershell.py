@@ -1,3 +1,4 @@
+import enum
 import subprocess
 import json
 
@@ -13,14 +14,38 @@ def execute_powershell(command: str):
         ['powershell.exe', command])
 
 
+def stringify_dict_to_powershell_object(dict_to_convert: dict):
+    powershell_object = json.dumps(dict_to_convert).replace(' ', '').replace(
+        "\":", "\"=").replace(",", ";").replace("{\"", "{").replace("\"=", "=").replace(";\"", ";")
+    return f'@{powershell_object}'
+
+
 cell_ranges = config_json['cell_ranges']
 cell_range_with_row_list = get_excel_cell_ranges(
     row_number=13, cell_ranges=cell_ranges)
 
 
-print(cell_range_with_row_list)
+target_file_directory = 'C:\\Users\gohja\Desktop\\excel_data_automation\\data_calculations.xlsm'
 
-# target_file_directory = 'C:\\Users\gohja\Desktop\\excel_data_automation\\data_calculations.xlsm'
 
-# powershell_command = f"../PowerShell/macro.ps1 -target_file_directory {target_file_directory}"
-# execute_powershell(powershell_command)
+powershell_array_str = ''
+
+for index, cell_range_with_row in enumerate(cell_range_with_row_list):
+    powershell_object = stringify_dict_to_powershell_object(
+        cell_range_with_row)
+
+    powershell_array_str += (f', {powershell_object}' if index !=
+                             0 else f'@({powershell_object}')
+
+
+powershell_array_str = f'{powershell_array_str})'
+# print(powershell_array_str)
+
+# powershell_array = json.dumps(cell_ranges_with_row_list).replace(
+#     "[", "{").replace("]", "}")
+# powershell_array = f"@{powershell_array}"
+
+# -cell_ranges_with_row {cell_ranges_with_row_list}
+# -target_file_directory {target_file_directory}
+powershell_command = f"../PowerShell/macro.ps1 -cell_ranges_with_row {powershell_array_str}"
+execute_powershell(powershell_command)
