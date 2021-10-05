@@ -28,6 +28,7 @@ $workbook = $excel.Workbooks.Open("C:\Users\gohja\Desktop\excel_data_automation\
 # "@
 
 # $code = @"
+
 # Sub average_capacitance(cell_select, cell_range)
 #     Range(cell_select).Select
 #     ActiveCell.FormulaR1C1 = "=AVERAGE(R[-11]C:R[-2]C)"
@@ -43,4 +44,5 @@ $excel.Visible = $true
 # $excel_module.CodeModule.AddFromString($code)
 
 # To run the VBA script (Somehow wouldn't work if the .Run() method is called in the same execution as the .AddFromString() method)
-$excel.Run("average_capacitance", "B13", "B13:F13")
+$excel.Run("average_capacitance", "I13", "I13:M13")
+$workbook.Save()

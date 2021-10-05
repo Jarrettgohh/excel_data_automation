@@ -4,5 +4,6 @@
   "index_to_read": {
     "rows": [27, 37],
     "cols": [2]
-  }
+  },
+  "cell_ranges": ["B:F", "I:M", "P:T", "W:AA", "AD:AH", "AK:AO"]
 }

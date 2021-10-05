@@ -63,4 +63,4 @@ $file_names_without_extra.Remove($name_of_new_excel_without_ext)
 
 
 # Pipe data to Python
-@($file_names_without_extra, $path_to_file_directory) | python main.py
+@($file_names_without_extra, $path_to_file_directory, $name_of_new_excel_xlsx) | python main.py

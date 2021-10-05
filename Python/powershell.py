@@ -6,4 +6,7 @@ def execute_powershell(command: str):
         ['powershell.exe', command])
 
 
-execute_powershell("../excel_macro.ps1")
+target_file_directory = 'C:\\Users\gohja\Desktop\\excel_data_automation\\data_calculations.xlsm'
+
+powershell_command = f"../PowerShell/macro.ps1 -file_directory {target_file_directory}"
+execute_powershell(powershell_command)

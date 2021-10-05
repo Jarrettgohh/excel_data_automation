@@ -17,6 +17,7 @@ config_json = json.load(config_json)
 
 file_names = []
 directory = ''
+name_of_new_excel = 'Test_3_data_calculations.xlsx'
 
 
 for line in lines:
@@ -26,6 +27,10 @@ for line in lines:
     if '\\' not in line:
         file_names.append(line)
         continue
+
+    # TO change to `.xlsm`
+    elif '.xlsx' in line:
+        name_of_new_excel = line
 
      # Folder name
     else:
@@ -37,7 +42,7 @@ for line in lines:
 # print(file_names)
 
 # To get the new excel file name from PowerShell
-excel_file_to_write = f'{directory}\Test_3_data_calculations.xlsx'
+excel_file_to_write = f'{directory}\{name_of_new_excel}'
 
 
 def excel_read_col_row(excel_file, row_col_dict):
