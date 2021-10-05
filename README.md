@@ -18,13 +18,13 @@
 5. *Pipe* the information containing array of file names, path to target folder directory and the name of newly created Excel file to **Python**
 
 **Python**
-6. Use `pandas` to copy the data from the individual files and format it in the new `.xlsm` file  
-7. Generate the column index range to run the `macro` on. The format can be found from `config.json` (Eg.[{"cell_select": "B13", "cell_range": "B13:F13"]])
-8. Run through a method to convert the column index range in Python to be a PowerShell object type 
-9. *Pipe* information containing path to target file directory and the `list` of column index range (`cell_select` & `cell_range` with the proper format to pass as args into Excel macro VBA script) back to PowerShell (To call using `subprocess` to execute powershell  with path (Eg. "../macro.ps1"))
+1. Use `pandas` to copy the data from the individual files and format it in the new `.xlsm` file  
+2. Generate the column index range to run the `macro` on. The format can be found from `config.json` (Eg.[{"cell_select": "B13", "cell_range": "B13:F13"]])
+3. Run through a method to convert the column index range in Python to be a PowerShell object type 
+4. *Pipe* information containing path to target file directory and the `list` of column index range (`cell_select` & `cell_range` with the proper format to pass as args into Excel macro VBA script) back to PowerShell (To call using `subprocess` to execute powershell  with path (Eg. "../macro.ps1"))
 
 **PowerShell**
-10. Run the macro according in the target file directory with the column index range information received as params
+1. Run the macro according in the target file directory with the column index range information received as params
 
 # Ideas
 1. Have an `.xlsm` file that have pre-recorded macros (Allows taking in parameter to see number of device sizes to run for)
