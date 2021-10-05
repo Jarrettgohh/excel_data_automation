@@ -70,9 +70,6 @@ $excel_macro.CodeModule.AddFromString($code)
 $new_excel_workbook.Save()
 $new_excel_workbook.Close()
 
-# release COM objects to prevent memory leaks:
-$null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($new_excel_workbook)
-
 # Quit excel
 $new_excel.Quit()
    
