@@ -1,4 +1,3 @@
-import enum
 import subprocess
 import json
 
@@ -30,6 +29,8 @@ target_file_directory = 'C:\\Users\gohja\Desktop\\excel_data_automation\\data_ca
 
 powershell_array_str = ''
 
+
+# Generate PowerShell type array
 for index, cell_range_with_row in enumerate(cell_range_with_row_list):
     powershell_object = stringify_dict_to_powershell_object(
         cell_range_with_row)
