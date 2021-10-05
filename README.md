@@ -11,7 +11,7 @@
 # Working principles
 
 **PowerShell**
-1. Browse through a folder to get the names of all the `.xls` files  
+1. Browse through the target folder (passed in as args) to get the names of all the `.xls` files  
 2. To support working with Python `pandas`, convert all the `.xls` file formats to `.xlsx`
 3. Create a new `.xlsx` with name of the folder name and "data_calculations" prefix (Eg: folder name: "PVD_20%_40nm" -> "PVD_20%_40nm_data_calculations")
 4. Save the newly created `.xlsx` file as `.xlsm` to support macros and insert the VBA script for each individual calculations ("average_capacitance", "average_k", etc.) into the `.xlsm` file
