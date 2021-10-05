@@ -26,6 +26,7 @@
 
 **PowerShell**
 1. Run the macro accordingly for each calculation type ("average_capacitance", "average_k", etc.) in the target file directory with the column index range information received as params
+2. Open the Excel file that is written to, and save the changes
 
 # Ideas
 1. Have an `.xlsm` file that have pre-recorded macros (Allows taking in parameter to see number of device sizes to run for)
