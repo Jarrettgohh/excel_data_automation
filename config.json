@@ -5,5 +5,9 @@
     "rows": [27, 37],
     "cols": [2]
   },
-  "cell_ranges": ["B:F", "I:M", "P:T", "W:AA", "AD:AH", "AK:AO"]
+  "cell_ranges": ["B:F", "I:M", "P:T", "W:AA", "AD:AH", "AK:AO"],
+  "cell_range_with_row": {
+    "cell_select": "",
+    "cell_range": ""
+  }
 }
