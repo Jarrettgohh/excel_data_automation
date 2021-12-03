@@ -9,5 +9,19 @@
   "cell_range_with_row": {
     "cell_select": "",
     "cell_range": ""
+  },
+
+  "endurance_test": {
+    "files_to_read": ["endurance_test_data_PV.txt"],
+    "PV": {
+      "rows_to_read": 2001,
+      "row_margin_buffer": 3,
+      "number_of_cycles_after_initial": 11
+    },
+    "IV": {
+      "data_rows_to_read": 501,
+      "data_row_margin": 3,
+      "number_of_cycles_after_initial": 11
+    }
   }
 }
