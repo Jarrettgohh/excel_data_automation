@@ -12,16 +12,19 @@
   },
 
   "endurance_test": {
-    "files_to_read": ["endurance_test_data_PV.txt"],
-    "PV": {
-      "rows_to_read": "42:2042",
-      "row_margin_buffer": 3,
-      "number_of_cycles_after_initial": 11
-    },
-    "IV": {
-      "data_rows_to_read": "42:542",
-      "data_row_margin": 3,
-      "number_of_cycles_after_initial": 11
-    }
+    "files_to_read": [
+      {
+        "file_name": "endurance_PV_initial.txt",
+        "start_cell": "B42",
+        "number_of_cycles_after_initial": 1,
+        "row_margin_buffer": 3
+      },
+      {
+        "file_name": "endurance_test_data_PV.txt",
+        "start_cell": "B42",
+        "number_of_cycles_after_initial": 11,
+        "row_margin_buffer": 3
+      }
+    ]
   }
 }
