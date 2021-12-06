@@ -12,17 +12,17 @@
   },
 
   "endurance_test": {
-    "files_to_read": [
+    "txt_files_to_transfer_to_excel": [
       {
-        "file_name": "endurance_PV_initial.txt",
+        "file_path": "./Endurance/endurance_test_data_IV.txt",
         "start_cell": "B42",
         "number_of_cycles_after_initial": 1,
         "row_margin_buffer": 3
       },
       {
-        "file_name": "endurance_test_data_PV.txt",
+        "file_path": "./Endurance/endurance_test_data_IV_1K.txt",
         "start_cell": "B42",
-        "number_of_cycles_after_initial": 11,
+        "number_of_cycles_after_initial": 1,
         "row_margin_buffer": 3
       }
     ]
