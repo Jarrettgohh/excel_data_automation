@@ -76,23 +76,29 @@ def reformat_xlsx():
 
     for file in excel_files_to_format:
 
-        file_path = file['file_path']
+        number_of_cycles = file['number_of_cycles']
 
-        df = pandas.read_excel(file_path, sheet_name=sheet_name, usecols='C:D')
+        for cycle_number in range(int(number_of_cycles)):
+            start_row = file['start_row'] + (
+                (cycle_number + 1) * file['start_row'])
+            number_of_points = file['number_of_points']
 
-        start_row = file['start_row']
-        number_of_points = file['number_of_points']
+            print(start_row)
 
-        voltage_polarization_data = df.iloc[start_row:start_row +
-                                            number_of_points]
+            # file_path = file['file_path']
 
-        append_df_to_excel(
-            df=voltage_polarization_data,
-            filename=f'{file_path.replace(".xlsx", "")}_transfer.xlsx',
-            sheet_name=sheet_name,
-            startrow=2,
-            startcol=2,
-        )
+            # df = pandas.read_excel(file_path, sheet_name=sheet_name, usecols='C:D')
+
+            # voltage_polarization_data = df.iloc[start_row:start_row +
+            #                                     number_of_points]
+
+            # append_df_to_excel(
+            #     df=voltage_polarization_data,
+            #     filename=f'{file_path.replace(".xlsx", "")}_transfer.xlsx',
+            #     sheet_name=sheet_name,
+            #     startrow=2,
+            #     startcol=2,
+            # )
 
 
 if user_selection == "1":

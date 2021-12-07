@@ -27,7 +27,7 @@
       {
         "file_path": "./Endurance/unipolar_neg_IV.xlsx",
         "start_row": 42,
-        "number_of_cycles_after_initial": 10,
+        "number_of_cycles": 11,
         "number_of_points": 500,
         "row_margin_buffer": 4
       }
