@@ -25,6 +25,9 @@ print(
 print(
     '2. Read excel (.xlsx) files as configured in config.json and re-format to new excel files.'
 )
+print(
+    '3. Transfer data from text (.txt) file to excel (.xlsx) file and extract the relevant data (configured in config.json) and re-format to a new excel file. (Combination of option 1 and 2)'
+)
 print('\n')
 
 print('-----------------------------')
@@ -84,7 +87,7 @@ def reformat_xlsx():
 
         file_path = file['file_path']
 
-        print(f"\n\nFormating excel file from path: {file_path}")
+        print(f"Formating excel file from path: {file_path}\n\n")
 
         for cycle_number in range(int(number_of_cycles)):
             start_row = file['start_row'] + (
