@@ -29,6 +29,7 @@ print('\n')
 
 print('-----------------------------')
 user_selection = input('Enter your choice: ')
+print('\n')
 
 
 def execute_powershell(command: str):
@@ -77,28 +78,35 @@ def reformat_xlsx():
     for file in excel_files_to_format:
 
         number_of_cycles = file['number_of_cycles']
+        number_of_points = file['number_of_points']
+        row_margin_buffer = file['row_margin_buffer']
+
+        file_path = file['file_path']
+
+        print(f"Formating excel file in path: {file_path}")
 
         for cycle_number in range(int(number_of_cycles)):
             start_row = file['start_row'] + (
-                (cycle_number + 1) * file['start_row'])
-            number_of_points = file['number_of_points']
+                cycle_number * (number_of_points + row_margin_buffer + 1))
 
-            print(start_row)
+            print(f"Formatting row: {start_row}")
 
-            # file_path = file['file_path']
+            df = pandas.read_excel(file_path,
+                                   sheet_name=sheet_name,
+                                   usecols='C:D')
 
-            # df = pandas.read_excel(file_path, sheet_name=sheet_name, usecols='C:D')
+            voltage_polarization_data = df.iloc[start_row:start_row +
+                                                number_of_points]
 
-            # voltage_polarization_data = df.iloc[start_row:start_row +
-            #                                     number_of_points]
+            col_to_write = (cycle_number * 2) + 1
 
-            # append_df_to_excel(
-            #     df=voltage_polarization_data,
-            #     filename=f'{file_path.replace(".xlsx", "")}_transfer.xlsx',
-            #     sheet_name=sheet_name,
-            #     startrow=2,
-            #     startcol=2,
-            # )
+            append_df_to_excel(
+                df=voltage_polarization_data,
+                filename=f'{file_path.replace(".xlsx", "")}_transfer.xlsx',
+                sheet_name=sheet_name,
+                startrow=2,
+                startcol=col_to_write,
+            )
 
 
 if user_selection == "1":
