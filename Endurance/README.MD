@@ -10,3 +10,8 @@
 1. This program works to extract the relevant data (as configured in the `config.json` file)
 2. The extracted data would then be formatted into a new excel file (with the prefix `_transfer.xlsx`)
 3. The formatted data in the new excel file can be directly copied and pasted in the `OriginPro` software
+
+- Program option 3
+
+1. This program combines the functionality from both program option 1 and 2
+2. This could be used when the configuration is already set in `config.json`

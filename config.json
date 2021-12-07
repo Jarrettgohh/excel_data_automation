@@ -14,12 +14,6 @@
   "endurance_test": {
     "txt_files_to_transfer_to_excel": [
       {
-        "file_path": "./Endurance/endurance_test_data_IV.txt"
-      },
-      {
-        "file_path": "./Endurance/endurance_test_data_IV_1K.txt"
-      },
-      {
         "file_path": "./Endurance/unipolar_neg_IV.txt"
       },
       {

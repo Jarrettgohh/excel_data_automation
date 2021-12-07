@@ -110,8 +110,17 @@ def reformat_xlsx():
             )
 
 
+def transfer_and_reformat():
+    transfer_txt_to_xlsx()
+    print('\n')
+    reformat_xlsx()
+
+
 if user_selection == "1":
     transfer_txt_to_xlsx()
 
 elif user_selection == "2":
     reformat_xlsx()
+
+elif user_selection == "3":
+    transfer_and_reformat()
