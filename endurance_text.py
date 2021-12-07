@@ -10,10 +10,7 @@ config_json = json.load(config_json)
 
 endurance_test_config = config_json['endurance_test']
 
-txt_file = './Endurance/endurance_test_data_PV.txt'
-excel_file = './Endurance/endurance_test_data.xlsx'
-
-sheet_name = 'data_transfer'
+sheet_name = 'Sheet'
 
 print('-----------------------------')
 print('\nRemeber to edit the config.json file\n')
@@ -40,7 +37,10 @@ def execute_powershell(command: str):
 
 def transfer_txt_to_xlsx():
 
-    for file in endurance_test_config['txt_files_to_transfer_to_excel']:
+    text_files_to_transfer = endurance_test_config[
+        'txt_files_to_transfer_to_excel']
+
+    for file in text_files_to_transfer:
 
         wb = openpyxl.Workbook()
         ws = wb.worksheets[0]
@@ -72,23 +72,31 @@ def transfer_txt_to_xlsx():
 
 
 def reformat_xlsx():
-    return
+    excel_files_to_format = endurance_test_config['excel_files_to_read']
 
-    df = pandas.read_excel(excel_file, sheet_name=sheet_name, usecols='C:D')
+    for file in excel_files_to_format:
 
-    voltage_polarization_data = df.iloc[40:542]
+        file_path = file['file_path']
 
-    append_df_to_excel(
-        df=voltage_polarization_data,
-        filename=excel_file,
-        sheet_name=sheet_name,
-        startrow=2,
-        startcol=2,
-    )
+        df = pandas.read_excel(file_path, sheet_name=sheet_name, usecols='C:D')
+
+        start_row = file['start_row']
+        number_of_points = file['number_of_points']
+
+        voltage_polarization_data = df.iloc[start_row:start_row +
+                                            number_of_points]
+
+        append_df_to_excel(
+            df=voltage_polarization_data,
+            filename=f'{file_path.replace(".xlsx", "")}_transfer.xlsx',
+            sheet_name=sheet_name,
+            startrow=2,
+            startcol=2,
+        )
 
 
 if user_selection == "1":
     transfer_txt_to_xlsx()
 
-elif user_selection == 2:
+elif user_selection == "2":
     reformat_xlsx()

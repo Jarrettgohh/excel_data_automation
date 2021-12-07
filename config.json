@@ -14,16 +14,22 @@
   "endurance_test": {
     "txt_files_to_transfer_to_excel": [
       {
-        "file_path": "./Endurance/endurance_test_data_IV.txt",
-        "start_cell": "B42",
-        "number_of_cycles_after_initial": 1,
-        "row_margin_buffer": 3
+        "file_path": "./Endurance/endurance_test_data_IV.txt"
       },
       {
-        "file_path": "./Endurance/endurance_test_data_IV_1K.txt",
-        "start_cell": "B42",
-        "number_of_cycles_after_initial": 1,
-        "row_margin_buffer": 3
+        "file_path": "./Endurance/endurance_test_data_IV_1K.txt"
+      },
+      {
+        "file_path": "./Endurance/unipolar_neg_IV.txt"
+      }
+    ],
+    "excel_files_to_read": [
+      {
+        "file_path": "./Endurance/unipolar_neg_IV.xlsx",
+        "start_row": 42,
+        "number_of_cycles_after_initial": 10,
+        "number_of_points": 500,
+        "row_margin_buffer": 4
       }
     ]
   }
