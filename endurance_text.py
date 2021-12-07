@@ -66,10 +66,10 @@ def transfer_txt_to_xlsx():
         file.close()
 
         print(f'Transferred data to {excel_file_path}')
-        print('Opening the file...')
+        # print('Opening the file...')
 
-        # Open the new Excel file after data is written to it
-        execute_powershell(f'Invoke-Item \"{excel_file_path}\"')
+        # # Open the new Excel file after data is written to it
+        # execute_powershell(f'Invoke-Item \"{excel_file_path}\"')
 
 
 def reformat_xlsx():
@@ -80,10 +80,11 @@ def reformat_xlsx():
         number_of_cycles = file['number_of_cycles']
         number_of_points = file['number_of_points']
         row_margin_buffer = file['row_margin_buffer']
+        rows_to_read = file['rows_to_read']
 
         file_path = file['file_path']
 
-        print(f"Formating excel file in path: {file_path}")
+        print(f"\n\nFormating excel file from path: {file_path}")
 
         for cycle_number in range(int(number_of_cycles)):
             start_row = file['start_row'] + (
@@ -93,7 +94,7 @@ def reformat_xlsx():
 
             df = pandas.read_excel(file_path,
                                    sheet_name=sheet_name,
-                                   usecols='C:D')
+                                   usecols=rows_to_read)
 
             voltage_polarization_data = df.iloc[start_row:start_row +
                                                 number_of_points]

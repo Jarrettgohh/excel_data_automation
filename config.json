@@ -21,15 +21,27 @@
       },
       {
         "file_path": "./Endurance/unipolar_neg_IV.txt"
+      },
+      {
+        "file_path": "./Endurance/unipolar_neg_PV.txt"
       }
     ],
     "excel_files_to_read": [
       {
         "file_path": "./Endurance/unipolar_neg_IV.xlsx",
+        "rows_to_read": "C:D",
         "start_row": 42,
         "number_of_cycles": 11,
         "number_of_points": 500,
         "row_margin_buffer": 4
+      },
+      {
+        "file_path": "./Endurance/unipolar_neg_PV.xlsx",
+        "rows_to_read": "B:C",
+        "start_row": 38,
+        "number_of_cycles": 11,
+        "number_of_points": 2000,
+        "row_margin_buffer": 3
       }
     ]
   }
