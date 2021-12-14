@@ -11,13 +11,40 @@
     "cell_range": ""
   },
 
+  "------------------------------": "------------------------------",
+  "path_to_folder_to_transfer_txt_to_excel": "./Endurance/test_data",
+
+  "files_to_format": {
+    "./Endurance/test_results/D1_results.xlsx": {
+      "files": [
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_initial_IV.txt",
+          "rows_to_read": "C:D",
+          "start_row": 42,
+          "number_of_cycles": 1,
+          "number_of_points": 500,
+          "row_margin_buffer": null
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_2k_IV.txt",
+          "rows_to_read": "C:D",
+          "start_row": 42,
+          "number_of_cycles": 1,
+          "number_of_points": 500,
+          "row_margin_buffer": null
+        }
+      ]
+    }
+  },
+  "----------------------------------": "----------------------------------",
+
   "endurance_test": {
     "txt_files_to_transfer_to_excel": [
       {
-        "file_path": "./Endurance/unipolar_neg_IV.txt"
+        "file_path": "./Endurance/test_data/D1_initial_IV.txt"
       },
       {
-        "file_path": "./Endurance/unipolar_neg_PV.txt"
+        "file_path": "./Endurance/test_data/D1_2k_IV.txt"
       }
     ],
     "excel_files_to_read": [
