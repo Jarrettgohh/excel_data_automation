@@ -132,24 +132,8 @@ def transfer_txt_to_xlsx():
         transfer_single_txt_to_xlsx(file_name)
 
 
-def reformat_xlsx():
-    excel_files_to_format = endurance_test_config['excel_files_to_read']
-
-    for file in excel_files_to_format:
-        format_to_xlsx(
-            file_path=file['file_path'],
-            file_config=file,
-        )
-
-
-def transfer_and_reformat():
-    transfer_txt_to_xlsx()
-    print('\n')
-    reformat_xlsx()
-
-
 def format_txt_files():
-    files_to_format = config_json['files_to_format']
+    files_to_format = endurance_test_config['files_to_format']
 
     files_to_format_names = list(files_to_format.keys())
 
@@ -180,8 +164,4 @@ if user_selection == "1":
     transfer_txt_to_xlsx()
 
 elif user_selection == "2":
-    # reformat_xlsx()
     format_txt_files()
-
-elif user_selection == "3":
-    transfer_and_reformat()
