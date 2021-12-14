@@ -22,7 +22,8 @@
         "start_row": 42,
         "number_of_cycles": 1,
         "number_of_points": 500,
-        "row_margin_buffer": null
+        "row_margin_buffer": null,
+        "header_text": "initial IV"
       },
       {
         "file_path_to_read": "./Endurance/test_data/D1_2k_IV.txt",
@@ -30,7 +31,53 @@
         "start_row": 42,
         "number_of_cycles": 1,
         "number_of_points": 500,
-        "row_margin_buffer": null
+        "row_margin_buffer": null,
+        "header_text": "2k IV"
+      },
+      {
+        "file_path_to_read": "./Endurance/test_data/D1_6k_IV.txt",
+        "rows_to_read": "C:D",
+        "start_row": 42,
+        "number_of_cycles": 1,
+        "number_of_points": 500,
+        "row_margin_buffer": null,
+        "header_text": "6k IV"
+      },
+      {
+        "file_path_to_read": "./Endurance/test_data/D1_14k_IV.txt",
+        "rows_to_read": "C:D",
+        "start_row": 42,
+        "number_of_cycles": 1,
+        "number_of_points": 500,
+        "row_margin_buffer": null,
+        "header_text": "14k IV"
+      },
+      {
+        "file_path_to_read": "./Endurance/test_data/D1_30k_IV.txt",
+        "rows_to_read": "C:D",
+        "start_row": 42,
+        "number_of_cycles": 1,
+        "number_of_points": 500,
+        "row_margin_buffer": null,
+        "header_text": "30k IV"
+      },
+      {
+        "file_path_to_read": "./Endurance/test_data/D1_62k_IV.txt",
+        "rows_to_read": "C:D",
+        "start_row": 42,
+        "number_of_cycles": 1,
+        "number_of_points": 500,
+        "row_margin_buffer": null,
+        "header_text": "62k IV"
+      },
+      {
+        "file_path_to_read": "./Endurance/test_data/D1_126k_IV.txt",
+        "rows_to_read": "C:D",
+        "start_row": 42,
+        "number_of_cycles": 1,
+        "number_of_points": 500,
+        "row_margin_buffer": null,
+        "header_text": "126k IV"
       }
     ]
   },

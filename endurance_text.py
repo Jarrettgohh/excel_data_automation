@@ -50,8 +50,9 @@ def format_to_xlsx(file_path: str,
     number_of_points = file_config['number_of_points']
     row_margin_buffer = file_config['row_margin_buffer']
     rows_to_read = file_config['rows_to_read']
+    header_text = file_config['header_text']
 
-    print(f"Formating excel file from path: {file_path}\n\n")
+    print(f"Formating excel file from path: {file_path}")
 
     for cycle_number in range(int(number_of_cycles)):
 
@@ -60,7 +61,7 @@ def format_to_xlsx(file_path: str,
         ) if row_margin_buffer != None else file_config['start_row'] + (
             cycle_number * number_of_points)
 
-        print(f"Formatting row: {start_row}")
+        # print(f"Formatting row: {start_row}")
 
         df = pandas.read_excel(
             file_path,
@@ -71,6 +72,17 @@ def format_to_xlsx(file_path: str,
                                             number_of_points]
 
         col_to_write = initial_col + (cycle_number * 2)
+
+        if header_text != None:
+            df = pd.Dataframe()
+
+            append_df_to_excel(
+                df=header_text,
+                filename=file_to_write,
+                sheet_name=sheet_name,
+                startrow=1,
+                startcol=col_to_write,
+            )
 
         append_df_to_excel(
             df=voltage_polarization_data,
