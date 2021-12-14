@@ -158,10 +158,16 @@ def format_txt_files():
 
     # Transfer the .txt file to .xlsx file (Text to excel)
     for file_to_format_name in files_to_format_names:
+        print(
+            f'\n------------------- Formatting {file_to_format_name} ---------------\n'
+        )
         files = files_to_format[file_to_format_name]
 
         # Hard transfer each file; direct transfer line by line from .txt to .xlsx
         for file in files:
+            if (file['format']) == 'break':
+                continue
+
             file_path = file['file_path_to_read']
             folder_directory_to_transfer = file['folder_directory_to_transfer']
             transfer_single_txt_to_xlsx(

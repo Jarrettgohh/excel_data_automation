@@ -16,7 +16,7 @@
     "path_to_folder_to_transfer_txt_to_excel": "./Endurance/test_data",
 
     "files_to_format": {
-      "D1_results.xlsx": [
+      "D1_results_IV_PV.xlsx": [
         {
           "file_path_to_read": "./Endurance/test_data/D1_initial_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
@@ -93,6 +93,86 @@
           "number_of_points": 500,
           "row_margin_buffer": null,
           "header_text": "126k IV"
+        },
+        {
+          "format": "break"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_initial_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "C:D",
+          "start_row": 42,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "initial PV"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_2k_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "B:C",
+          "start_row": 38,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "2k PV"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_6k_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "B:C",
+          "start_row": 38,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "6k PV"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_14k_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "B:C",
+          "start_row": 38,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "14k PV"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_30k_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "B:C",
+          "start_row": 38,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "30k PV"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_62k_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "B:C",
+          "start_row": 38,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "62k PV"
+        },
+        {
+          "file_path_to_read": "./Endurance/test_data/D1_126k_PV.txt",
+          "folder_directory_to_transfer": "./Endurance/test_transfer",
+          "folder_path_to_write": "./Endurance/test_results",
+          "rows_to_read": "B:C",
+          "start_row": 38,
+          "number_of_cycles": 1,
+          "number_of_points": 2000,
+          "row_margin_buffer": null,
+          "header_text": "126k PV"
         }
       ]
     },
