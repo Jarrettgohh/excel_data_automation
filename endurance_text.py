@@ -1,3 +1,4 @@
+from numpy import dtype, number
 import openpyxl
 from Excel.excel_functions import append_df_to_excel
 import pandas
@@ -37,6 +38,47 @@ print('\n')
 
 def execute_powershell(command: str):
     subprocess.Popen(['powershell.exe', command])
+
+
+def format_to_xlsx(file_path: str,
+                   file_config,
+                   file_to_write,
+                   initial_col: number = 1):
+    # f'{file_path.replace(".xlsx", "")}_transfer.xlsx'
+
+    number_of_cycles = file_config['number_of_cycles']
+    number_of_points = file_config['number_of_points']
+    row_margin_buffer = file_config['row_margin_buffer']
+    rows_to_read = file_config['rows_to_read']
+
+    print(f"Formating excel file from path: {file_path}\n\n")
+
+    for cycle_number in range(int(number_of_cycles)):
+
+        start_row = file_config['start_row'] + (
+            cycle_number * (number_of_points + row_margin_buffer + 1)
+        ) if row_margin_buffer != None else file_config['start_row'] + (
+            cycle_number * number_of_points)
+
+        print(f"Formatting row: {start_row}")
+
+        df = pandas.read_excel(
+            file_path,
+            sheet_name=sheet_name,
+            usecols=rows_to_read,
+        )
+        voltage_polarization_data = df.iloc[start_row:start_row +
+                                            number_of_points]
+
+        col_to_write = initial_col + (cycle_number * 2)
+
+        append_df_to_excel(
+            df=voltage_polarization_data,
+            filename=file_to_write,
+            sheet_name=sheet_name,
+            startrow=2,
+            startcol=col_to_write,
+        )
 
 
 def transfer_single_txt_to_xlsx(file_path: str):
@@ -81,38 +123,10 @@ def reformat_xlsx():
     excel_files_to_format = endurance_test_config['excel_files_to_read']
 
     for file in excel_files_to_format:
-
-        number_of_cycles = file['number_of_cycles']
-        number_of_points = file['number_of_points']
-        row_margin_buffer = file['row_margin_buffer']
-        rows_to_read = file['rows_to_read']
-
-        file_path = file['file_path']
-
-        print(f"Formating excel file from path: {file_path}\n\n")
-
-        for cycle_number in range(int(number_of_cycles)):
-            start_row = file['start_row'] + (
-                cycle_number * (number_of_points + row_margin_buffer + 1))
-
-            print(f"Formatting row: {start_row}")
-
-            df = pandas.read_excel(file_path,
-                                   sheet_name=sheet_name,
-                                   usecols=rows_to_read)
-
-            voltage_polarization_data = df.iloc[start_row:start_row +
-                                                number_of_points]
-
-            col_to_write = (cycle_number * 2) + 1
-
-            append_df_to_excel(
-                df=voltage_polarization_data,
-                filename=f'{file_path.replace(".xlsx", "")}_transfer.xlsx',
-                sheet_name=sheet_name,
-                startrow=2,
-                startcol=col_to_write,
-            )
+        format_to_xlsx(
+            file_path=file['file_path'],
+            file_config=file,
+        )
 
 
 def transfer_and_reformat():
@@ -136,9 +150,17 @@ def format_txt_files():
             transfer_single_txt_to_xlsx(file_path)
 
         # Transfer and extract each file
-        for file in files:
+        for file_index, file in enumerate(files):
             file_path = file['file_path_to_read']
-            file_path_xlsx = f'{file_path.replace(".xlsx", "")}_transfer.xlsx'
+            file_path_xlsx_data = f'{file_path.replace(".txt", ".xlsx")}'
+
+            file_path_xlsx_results = file_to_format_name
+            initial_col = (file_index * 2) + 1
+
+            format_to_xlsx(file_path=file_path_xlsx_data,
+                           file_config=file,
+                           file_to_write=file_path_xlsx_results,
+                           initial_col=initial_col)
 
 
 if user_selection == "1":

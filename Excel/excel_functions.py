@@ -1,3 +1,4 @@
+from numpy import dtype
 import openpyxl
 import pandas as pd
 
@@ -8,41 +9,39 @@ from openpyxl import load_workbook
 
 
 def copy_excel_cell_range(
-        src_ws: openpyxl.worksheet.worksheet.Worksheet,
-        min_row: int = None,
-        max_row: int = None,
-        min_col: int = None,
-        max_col: int = None,
-        tgt_ws: openpyxl.worksheet.worksheet.Worksheet = None,
-        tgt_min_row: int = 1,
-        tgt_min_col: int = 1,
+    src_ws: openpyxl.worksheet.worksheet.Worksheet,
+    min_row: int = None,
+    max_row: int = None,
+    min_col: int = None,
+    max_col: int = None,
+    tgt_ws: openpyxl.worksheet.worksheet.Worksheet = None,
+    tgt_min_row: int = 1,
+    tgt_min_col: int = 1,
 ) -> openpyxl.worksheet.worksheet.Worksheet:
 
     if tgt_ws is None:
         tgt_ws = src_ws
 
-    for row in src_ws.iter_rows(min_row=min_row, max_row=max_row,
-                                min_col=min_col, max_col=max_col):
+    for row in src_ws.iter_rows(min_row=min_row,
+                                max_row=max_row,
+                                min_col=min_col,
+                                max_col=max_col):
         for cell in row:
-            tgt_ws.cell(
-                row=cell.row + tgt_min_row - 1,
-                column=cell.col_idx + tgt_min_col - 1,
-                value=cell.value
-            )
+            tgt_ws.cell(row=cell.row + tgt_min_row - 1,
+                        column=cell.col_idx + tgt_min_col - 1,
+                        value=cell.value)
 
     return tgt_ws
 
 
-def append_df_to_excel(
-        filename: Union[str, Path],
-        df: pd.DataFrame,
-        sheet_name: str = 'Sheet1',
-        startcol: Optional[int] = 0,
-        startrow: Optional[int] = 0,
-        header=False,
-        index=False,
-        **to_excel_kwargs
-) -> None:
+def append_df_to_excel(filename: Union[str, Path],
+                       df: pd.DataFrame,
+                       sheet_name: str = 'Sheet1',
+                       startcol: Optional[int] = 0,
+                       startrow: Optional[int] = 0,
+                       header=False,
+                       index=False,
+                       **to_excel_kwargs) -> None:
 
     filename = Path(filename)
     file_exists = filename.is_file()
@@ -54,10 +53,10 @@ def append_df_to_excel(
         sheets = {ws.title: ws for ws in wb.worksheets}
 
     with pd.ExcelWriter(
-        filename.with_suffix(".xlsx"),
-        engine="openpyxl",
-        mode="a" if file_exists else "w",
-        if_sheet_exists="new" if file_exists else None,
+            filename.with_suffix(".xlsx"),
+            engine="openpyxl",
+            mode="a" if file_exists else "w",
+            if_sheet_exists="new" if file_exists else None,
     ) as writer:
         if file_exists:
             # try to open an existing workbook
