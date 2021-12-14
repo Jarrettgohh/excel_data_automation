@@ -39,40 +39,42 @@ def execute_powershell(command: str):
     subprocess.Popen(['powershell.exe', command])
 
 
+def transfer_single_txt_to_xlsx(file_path: str):
+    wb = openpyxl.Workbook()
+    ws = wb.worksheets[0]
+
+    file = open(file_path, 'r+')
+
+    data = file.readlines()  # read all lines at once
+
+    for row_index in range(len(data)):
+        # This will return a line of string data
+        row = data[row_index].split()
+
+        for col_index in range(len(row)):
+            row_data = re.sub('Â', '', row[col_index])
+            ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
+
+    excel_file_path = f"{file_path.replace('.txt', '')}.xlsx"
+
+    wb.save(excel_file_path)
+    file.close()
+
+    print(f'Transferred data to {excel_file_path}')
+    # print('Opening the file...')
+
+    # # Open the new Excel file after data is written to it
+    # execute_powershell(f'Invoke-Item \"{excel_file_path}\"')
+
+
 def transfer_txt_to_xlsx():
 
     text_files_to_transfer = endurance_test_config[
         'txt_files_to_transfer_to_excel']
 
     for file in text_files_to_transfer:
-
-        wb = openpyxl.Workbook()
-        ws = wb.worksheets[0]
-
         file_name = file['file_path']
-        file = open(file_name, 'r+')
-
-        data = file.readlines()  # read all lines at once
-
-        for row_index in range(len(data)):
-            # This will return a line of string data
-            row = data[row_index].split()
-
-            for col_index in range(len(row)):
-                row_data = re.sub('Â', '', row[col_index])
-                ws.cell(row=row_index + 1,
-                        column=col_index + 1).value = row_data
-
-        excel_file_path = f"{file_name.replace('.txt', '')}.xlsx"
-
-        wb.save(excel_file_path)
-        file.close()
-
-        print(f'Transferred data to {excel_file_path}')
-        # print('Opening the file...')
-
-        # # Open the new Excel file after data is written to it
-        # execute_powershell(f'Invoke-Item \"{excel_file_path}\"')
+        transfer_single_txt_to_xlsx(file_name)
 
 
 def reformat_xlsx():
@@ -119,11 +121,32 @@ def transfer_and_reformat():
     reformat_xlsx()
 
 
+def format_txt_files():
+    files_to_format = config_json['files_to_format']
+
+    files_to_format_names = list(files_to_format.keys())
+
+    # Transfer the .txt file to .xlsx file (Text to excel)
+    for file_to_format_name in files_to_format_names:
+        files = files_to_format[file_to_format_name]
+
+        # Hard transfer each file
+        for file in files:
+            file_path = file['file_path_to_read']
+            transfer_single_txt_to_xlsx(file_path)
+
+        # Transfer and extract each file
+        for file in files:
+            file_path = file['file_path_to_read']
+            file_path_xlsx = f'{file_path.replace(".xlsx", "")}_transfer.xlsx'
+
+
 if user_selection == "1":
     transfer_txt_to_xlsx()
 
 elif user_selection == "2":
-    reformat_xlsx()
+    # reformat_xlsx()
+    format_txt_files()
 
 elif user_selection == "3":
     transfer_and_reformat()
