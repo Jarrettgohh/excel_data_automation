@@ -1,4 +1,5 @@
-from numpy import dtype, number
+from numpy import number
+import pandas as pd
 import openpyxl
 from Excel.excel_functions import append_df_to_excel
 import pandas
@@ -74,10 +75,10 @@ def format_to_xlsx(file_path: str,
         col_to_write = initial_col + (cycle_number * 2)
 
         if header_text != None:
-            df = pd.Dataframe()
+            header_df = pd.DataFrame(data=[header_text])
 
             append_df_to_excel(
-                df=header_text,
+                df=header_df,
                 filename=file_to_write,
                 sheet_name=sheet_name,
                 startrow=1,
