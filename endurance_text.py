@@ -86,7 +86,7 @@ def format_to_xlsx(file_path: str,
             )
 
         append_df_to_excel(
-            df=voltage_polarization_data,
+            df=voltage_polarization_data.astype('float'),
             filename=file_to_write,
             sheet_name=sheet_name,
             startrow=2,

@@ -27,9 +27,11 @@ def copy_excel_cell_range(
                                 min_col=min_col,
                                 max_col=max_col):
         for cell in row:
-            tgt_ws.cell(row=cell.row + tgt_min_row - 1,
-                        column=cell.col_idx + tgt_min_col - 1,
-                        value=cell.value)
+            tgt_ws.cell(
+                row=cell.row + tgt_min_row - 1,
+                column=cell.col_idx + tgt_min_col - 1,
+                value=cell.value,
+            )
 
     return tgt_ws
 
