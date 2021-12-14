@@ -6,6 +6,8 @@ import pandas
 import re
 import json
 import subprocess
+import os
+import sys
 
 config_json = open('config.json', 'r')
 config_json = json.load(config_json)
@@ -94,7 +96,8 @@ def format_to_xlsx(file_path: str,
         )
 
 
-def transfer_single_txt_to_xlsx(file_path: str):
+def transfer_single_txt_to_xlsx(file_path: str,
+                                folder_directory_to_transfer: str):
     wb = openpyxl.Workbook()
     ws = wb.worksheets[0]
 
@@ -110,9 +113,29 @@ def transfer_single_txt_to_xlsx(file_path: str):
             row_data = re.sub('Â', '', row[col_index])
             ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
 
-    excel_file_path = f"{file_path.replace('.txt', '')}.xlsx"
+    excel_file_path = f"{file_path.replace('txt', 'xlsx')}"
 
-    wb.save(excel_file_path)
+    try:
+        os.makedirs(folder_directory_to_transfer)
+
+    except FileExistsError:
+        # directory already exists
+        pass
+
+    xlsx_file_name_match = re.search(r'(/\w*.xlsx)$', excel_file_path)
+
+    if xlsx_file_name_match == None:
+        print(
+            'Invalid "file_path_to_read" argument in the config.json. Include the "/" to indicate file directories and include the ".txt" file extension.'
+        )
+        sys.exit()
+
+    xlsx_file_name_index = xlsx_file_name_match.start()
+    xlsx_file_name = excel_file_path[xlsx_file_name_index:]
+
+    path_to_transfer = folder_directory_to_transfer + xlsx_file_name
+    wb.save(path_to_transfer)
+
     file.close()
 
     print(f'Transferred data to {excel_file_path}')
@@ -141,20 +164,46 @@ def format_txt_files():
     for file_to_format_name in files_to_format_names:
         files = files_to_format[file_to_format_name]
 
-        # Hard transfer each file
+        # Hard transfer each file; direct transfer line by line from .txt to .xlsx
         for file in files:
             file_path = file['file_path_to_read']
-            transfer_single_txt_to_xlsx(file_path)
+            folder_directory_to_transfer = file['folder_directory_to_transfer']
+            transfer_single_txt_to_xlsx(
+                file_path,
+                folder_directory_to_transfer=folder_directory_to_transfer)
 
         # Transfer and extract each file
         for file_index, file in enumerate(files):
             file_path = file['file_path_to_read']
+            folder_directory_to_transfer = file['folder_directory_to_transfer']
+            folder_path_to_write = file['folder_path_to_write']
+
+            initial_col = (file_index * 2) + 1
+            file_path_xlsx_results = folder_path_to_write + '/' + file_to_format_name
+
             file_path_xlsx_data = f'{file_path.replace(".txt", ".xlsx")}'
 
-            file_path_xlsx_results = file_to_format_name
-            initial_col = (file_index * 2) + 1
+            # Getting the directory to the .xlsx files where the .txt data is transferred to
+            xlsx_file_name_match = re.search(r'(/\w*.xlsx)$',
+                                             file_path_xlsx_data)
 
-            format_to_xlsx(file_path=file_path_xlsx_data,
+            if xlsx_file_name_match == None:
+                print(
+                    'Invalid "file_path_to_read" argument in the config.json. Include the "/" to indicate file directories and include the ".txt" file extension.'
+                )
+                sys.exit()
+
+            xlsx_file_name = file_path_xlsx_data[xlsx_file_name_match.start():]
+            path_to_read = folder_directory_to_transfer + xlsx_file_name
+
+            try:
+                os.makedirs(folder_path_to_write)
+
+            except FileExistsError:
+                # directory already exists
+                pass
+
+            format_to_xlsx(file_path=path_to_read,
                            file_config=file,
                            file_to_write=file_path_xlsx_results,
                            initial_col=initial_col)
