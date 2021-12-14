@@ -29,10 +29,6 @@ print(
 print(
     '2. Read excel (.xlsx) files as configured in config.json and re-format to new excel files.'
 )
-print(
-    '3. Transfer data from text (.txt) file to excel (.xlsx) file and extract the relevant data (configured in config.json) and re-format to a new excel file. (Combination of option 1 and 2)'
-)
-print('\n')
 
 print('-----------------------------')
 user_selection = input('Enter your choice: ')
