@@ -189,14 +189,16 @@
 
     "option_3_config": {
       "settings": {
-        "folder_path_to_write": "./Endurance/test_results",
+        "file_type": "csv",
+        "folder_path_to_write": "C:/Users/gohja/Desktop/excel_data_automation/Endurance/test_results",
+        "folder_path_transfer_for_csv_files": "C:/Users/gohja/Desktop/excel_data_automation/Endurance/test_transfer",
         "cols_to_read": "B:C",
         "start_row_to_read": 259,
         "end_row_to_read": 460,
         "start_row_to_write": 7
       },
       "files_to_format": [
-        "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/data/I_V Sweep [(1) _-44_38_initial_pos_; 18-Dec-21 11_06_26 AM].csv"
+        "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/data/I_V Sweep [(1) _-44_44_30k_pos_; 18-Dec-21 11_53_42 AM].csv"
       ]
     }
   }

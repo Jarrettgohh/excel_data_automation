@@ -2,7 +2,6 @@ from numpy import number
 import pandas as pd
 import openpyxl
 from Excel.excel_functions import append_df_to_excel
-import pandas
 import re
 import json
 import subprocess
@@ -98,7 +97,6 @@ def format_to_xlsx(file_path: str,
 def transfer_single_txt_to_xlsx(file_path: str,
                                 folder_directory_to_transfer: str):
 
-    print(file_path)
     wb = openpyxl.Workbook()
     ws = wb.worksheets[0]
 
@@ -128,6 +126,56 @@ def transfer_single_txt_to_xlsx(file_path: str,
     if xlsx_file_name_match == None:
         print(
             'Invalid "file_path_to_read" argument in the config.json. Include the "/" to indicate file directories and include the ".txt" file extension.'
+        )
+        sys.exit()
+
+    xlsx_file_name_index = xlsx_file_name_match.start()
+    xlsx_file_name = excel_file_path[xlsx_file_name_index:]
+
+    path_to_transfer = folder_directory_to_transfer + xlsx_file_name
+    wb.save(path_to_transfer)
+
+    file.close()
+
+    print(f'Transferred data to {excel_file_path}')
+    # print('Opening the file...')
+
+    # # Open the new Excel file after data is written to it
+    # execute_powershell(f'Invoke-Item \"{excel_file_path}\"')
+
+
+def transfer_single_csv_to_xlsx(file_path: str,
+                                folder_directory_to_transfer: str):
+
+    wb = openpyxl.Workbook()
+    ws = wb.worksheets[0]
+
+    file = open(file_path, 'r+')
+
+    data = file.readlines()  # read all lines at once
+
+    for row_index in range(len(data)):
+        # This will return a line of string data
+        row = data[row_index].split()
+
+        for col_index in range(len(row)):
+            row_data = row[col_index]
+            ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
+
+    excel_file_path = f"{file_path.replace('csv', 'xlsx')}"
+
+    try:
+        os.makedirs(folder_directory_to_transfer)
+
+    except FileExistsError:
+        # directory already exists
+        pass
+
+    xlsx_file_name_match = re.search(r'(/.*.xlsx)$', excel_file_path)
+
+    if xlsx_file_name_match == None:
+        print(
+            'Invalid "file_path_to_read" argument in the config.json. Include the "/" to indicate file directories and include the ".csv" file extension.'
         )
         sys.exit()
 
@@ -225,18 +273,30 @@ def format_excel_files():
     files_to_format = config['files_to_format']
     settings = config['settings']
 
+    file_type = settings['file_type']
     folder_path_to_write = settings["folder_path_to_write"]
+    folder_path_transfer_for_csv_files = settings[
+        'folder_path_transfer_for_csv_files']
     cols_to_read = settings["cols_to_read"]
     start_row_to_read = settings['start_row_to_read']
     end_row_to_read = settings['end_row_to_read']
     start_row_to_write = settings['start_row_to_write']
 
     for file_path in files_to_format:
+        if file_type == 'csv':
+            transfer_single_csv_to_xlsx(
+                file_path=file_path,
+                folder_directory_to_transfer=folder_path_transfer_for_csv_files
+            )
 
-        df = pandas.read_excel(
-            file_path,
-            usecols=cols_to_read,
-        )
+            # df = pd.read_csv(file_path, on_bad_lines='skip')
+            # print(df)
+
+        elif file_type == 'xlsx':
+            df = pd.read_excel(
+                file_path,
+                usecols=cols_to_read,
+            )
 
 
 if user_selection == "1":
