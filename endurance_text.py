@@ -179,15 +179,15 @@ def transfer_single_csv_to_xlsx(file_path: str,
         )
         sys.exit()
 
-    xlsx_file_name_index = xlsx_file_name_match.start()
-    xlsx_file_name = excel_file_path[xlsx_file_name_index:]
+    # xlsx_file_name_index = xlsx_file_name_match.start()
+    # xlsx_file_name = excel_file_path[xlsx_file_name_index:]
 
-    path_to_transfer = folder_directory_to_transfer + xlsx_file_name
+    path_to_transfer = folder_directory_to_transfer + '/temporary.xlsx'
     wb.save(path_to_transfer)
 
     file.close()
 
-    print(f'Transferred data to {excel_file_path}')
+    # print(f'Transferred data to {excel_file_path}')
     # print('Opening the file...')
 
     # # Open the new Excel file after data is written to it
