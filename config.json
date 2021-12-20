@@ -10,21 +10,30 @@
     "cell_select": "",
     "cell_range": ""
   },
-
+  "option_1_txt_files_to_transfer_to_excel": [
+    {
+      "file_path": "./Endurance/test_data/D1_initial_IV.txt",
+      "folder_directory_to_transfer": "./Endurance/test_transfer/D1_initial_IV.txt"
+    },
+    {
+      "file_path": "./Endurance/test_data/D1_2k_IV.txt",
+      "folder_directory_to_transfer": "./Endurance/test_transfer/D1_2k_IV.txt"
+    }
+  ],
   "------------------------------": "------------------------------",
   "endurance_test": {
     "path_to_folder_to_transfer_txt_to_excel": "./Endurance/test_data",
 
-    "files_to_format": {
-      "D1_results_IV_PV.xlsx": [
+    "option_2_files_to_format": {
+      "18_12_2021_bipolar_test_excel_compile.xlsx": [
         {
-          "file_path_to_read": "./Endurance/test_data/D1_initial_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
-          "start_row": 42,
+          "file_path_to_read": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/data",
+          "folder_directory_to_transfer": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/transfer",
+          "folder_path_to_write": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/results",
+          "cols_to_read": "B:C",
+          "start_row": 259,
           "number_of_cycles": 1,
-          "number_of_points": 500,
+          "number_of_points": 201,
           "row_margin_buffer": null,
           "header_text": "initial IV"
         },
@@ -32,7 +41,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_2k_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 500,
@@ -43,7 +52,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_6k_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 500,
@@ -54,7 +63,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_14k_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 500,
@@ -65,7 +74,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_30k_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 500,
@@ -76,7 +85,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_62k_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 500,
@@ -87,7 +96,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_126k_IV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 500,
@@ -101,7 +110,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_initial_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "C:D",
+          "cols_to_read": "C:D",
           "start_row": 42,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -112,7 +121,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_2k_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "B:C",
+          "cols_to_read": "B:C",
           "start_row": 38,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -123,7 +132,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_6k_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "B:C",
+          "cols_to_read": "B:C",
           "start_row": 38,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -134,7 +143,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_14k_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "B:C",
+          "cols_to_read": "B:C",
           "start_row": 38,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -145,7 +154,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_30k_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "B:C",
+          "cols_to_read": "B:C",
           "start_row": 38,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -156,7 +165,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_62k_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "B:C",
+          "cols_to_read": "B:C",
           "start_row": 38,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -167,7 +176,7 @@
           "file_path_to_read": "./Endurance/test_data/D1_126k_PV.txt",
           "folder_directory_to_transfer": "./Endurance/test_transfer",
           "folder_path_to_write": "./Endurance/test_results",
-          "rows_to_read": "B:C",
+          "cols_to_read": "B:C",
           "start_row": 38,
           "number_of_cycles": 1,
           "number_of_points": 2000,
@@ -178,13 +187,17 @@
     },
     "----------------------------------": "----------------------------------",
 
-    "txt_files_to_transfer_to_excel": [
-      {
-        "file_path": "./Endurance/test_data/D1_initial_IV.txt"
+    "option_3_config": {
+      "settings": {
+        "folder_path_to_write": "./Endurance/test_results",
+        "cols_to_read": "B:C",
+        "start_row_to_read": 259,
+        "end_row_to_read": 460,
+        "start_row_to_write": 7
       },
-      {
-        "file_path": "./Endurance/test_data/D1_2k_IV.txt"
-      }
-    ]
+      "files_to_format": [
+        "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/data/I_V Sweep [(1) _-44_38_initial_pos_; 18-Dec-21 11_06_26 AM].csv"
+      ]
+    }
   }
 }

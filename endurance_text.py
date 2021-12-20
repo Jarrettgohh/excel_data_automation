@@ -27,7 +27,10 @@ print(
     '1. Transfer data from text (.txt) file to excel (.xlsx) file. Select this option if you wish to update the config.json file according to a new excel file cell format.'
 )
 print(
-    '2. Read excel (.xlsx) files as configured in config.json and re-format to new excel files.'
+    '2. Read text (.txt) files list and extract the rows and cols as configured in config.json and re-format to new excel files. Additional options could be set in the config.json.'
+)
+print(
+    '3. Read excel (.xlsx) files list and extract the rows and cols as configured in config.json and re-format to new excel files. Only the data would be transferred, and the options would be constant for all the files.'
 )
 
 print('-----------------------------')
@@ -48,7 +51,7 @@ def format_to_xlsx(file_path: str,
     number_of_cycles = file_config['number_of_cycles']
     number_of_points = file_config['number_of_points']
     row_margin_buffer = file_config['row_margin_buffer']
-    rows_to_read = file_config['rows_to_read']
+    cols_to_read = file_config['cols_to_read']
     header_text = file_config['header_text']
 
     print(f"Formating excel file from path: {file_path}")
@@ -65,7 +68,7 @@ def format_to_xlsx(file_path: str,
         df = pandas.read_excel(
             file_path,
             sheet_name=sheet_name,
-            usecols=rows_to_read,
+            usecols=cols_to_read,
         )
         voltage_polarization_data = df.iloc[start_row:start_row +
                                             number_of_points]
@@ -94,6 +97,8 @@ def format_to_xlsx(file_path: str,
 
 def transfer_single_txt_to_xlsx(file_path: str,
                                 folder_directory_to_transfer: str):
+
+    print(file_path)
     wb = openpyxl.Workbook()
     ws = wb.worksheets[0]
 
@@ -144,15 +149,19 @@ def transfer_single_txt_to_xlsx(file_path: str,
 def transfer_txt_to_xlsx():
 
     text_files_to_transfer = endurance_test_config[
-        'txt_files_to_transfer_to_excel']
+        'option_1_txt_files_to_transfer_to_excel']
 
     for file in text_files_to_transfer:
-        file_name = file['file_path']
-        transfer_single_txt_to_xlsx(file_name)
+        file_path = file['file_path']
+        folder_directory_to_transfer = file['folder_directory_to_transfer']
+
+        transfer_single_txt_to_xlsx(
+            file_path=file_path,
+            folder_directory_to_transfer=folder_directory_to_transfer)
 
 
 def format_txt_files():
-    files_to_format = endurance_test_config['files_to_format']
+    files_to_format = endurance_test_config['option_2_files_to_transfer']
 
     files_to_format_names = list(files_to_format.keys())
 
@@ -211,8 +220,30 @@ def format_txt_files():
                            initial_col=initial_col)
 
 
+def format_excel_files():
+    config = endurance_test_config['option_3_config']
+    files_to_format = config['files_to_format']
+    settings = config['settings']
+
+    folder_path_to_write = settings["folder_path_to_write"]
+    cols_to_read = settings["cols_to_read"]
+    start_row_to_read = settings['start_row_to_read']
+    end_row_to_read = settings['end_row_to_read']
+    start_row_to_write = settings['start_row_to_write']
+
+    for file_path in files_to_format:
+
+        df = pandas.read_excel(
+            file_path,
+            usecols=cols_to_read,
+        )
+
+
 if user_selection == "1":
     transfer_txt_to_xlsx()
 
 elif user_selection == "2":
     format_txt_files()
+
+elif user_selection == "3":
+    format_excel_files()
