@@ -25,9 +25,9 @@
     "path_to_folder_to_transfer_txt_to_excel": "./Endurance/test_data",
 
     "option_2_files_to_format": {
-      "18_12_2021_bipolar_test_excel_compile.xlsx": [
+      "23_12_2021_bipolar_test_excel_compile.xlsx": [
         {
-          "file_path_to_read": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/data",
+          "file_path_to_read": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\2k_pos.csv",
           "folder_directory_to_transfer": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/transfer",
           "folder_path_to_write": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/results",
           "cols_to_read": "B:C",
@@ -188,18 +188,18 @@
     "----------------------------------": "----------------------------------",
 
     "option_3_config": {
-      "settings": {
-        "file_type": "csv",
-        "folder_path_to_write": "C:/Users/gohja/Desktop/excel_data_automation/Endurance/test_results",
-        "folder_path_transfer_for_csv_files": "C:/Users/gohja/Desktop/excel_data_automation/Endurance/test_transfer",
-        "cols_to_read": "B:C",
-        "start_row_to_read": 259,
-        "end_row_to_read": 460,
-        "start_row_to_write": 7
-      },
-      "files_to_format": [
-        "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/data/I_V Sweep [(1) _-44_44_30k_pos_; 18-Dec-21 11_53_42 AM].csv"
-      ]
+      "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos": {
+        "settings": {
+          "file_type": "csv",
+          "folder_path_to_read": "\\data",
+          "folder_path_to_write": "\\results",
+          "folder_path_transfer_for_csv_files": "\\transfer",
+          "cols_to_read": "E",
+          "start_row_to_read": 259,
+          "end_row_to_read": 460,
+          "start_row_to_write": 7
+        }
+      }
     }
   }
 }
