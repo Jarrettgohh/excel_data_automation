@@ -287,21 +287,23 @@ def format_csv_to_excel():
         end_row_to_read = settings['end_row_to_read']
         start_row_to_write = settings['start_row_to_write']
 
-        files_to_format = os.listdir(f'{root_dir}\{folder_path_to_read}')
+        files_to_format = [os.listdir(f'{root_dir}\{folder_path_to_read}')[0]]
 
         for file_path in files_to_format:
             if file_type == 'csv':
-                transfer_single_csv_to_xlsx(
-                    file_path_to_read=
-                    f'{root_dir}{folder_path_to_read}\{file_path}',
-                    folder_dir_to_write=
-                    f'{root_dir}{folder_path_transfer_for_csv_files}',
-                    file_path_to_write=
-                    f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}',
-                )
+                # transfer_single_csv_to_xlsx(
+                #     file_path_to_read=
+                #     f'{root_dir}{folder_path_to_read}\{file_path}',
+                #     folder_dir_to_write=
+                #     f'{root_dir}{folder_path_transfer_for_csv_files}',
+                #     file_path_to_write=
+                #     f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}',
+                # )
 
-                # df = pd.read_csv(file_path, on_bad_lines='skip')
-                # print(df)
+                excel_file_path = f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}'
+                df = pd.read_excel(excel_file_path.replace('csv', 'xlsx'), )
+
+                print(df.loc[cols_to_read])
 
             elif file_type == 'xlsx':
                 df = pd.read_excel(
