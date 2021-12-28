@@ -175,7 +175,7 @@ def transfer_single_csv_to_xlsx(file_path_to_read: str,
                 # Format the float exponent value (With E)
                 try:
                     value = '{:,.2f}'.format(float(value))
-                    row_data = f'{value}E{exp}'
+                    row_data = f'{value}E{exp}'.replace(',', '')
 
                 except:
                     pass
@@ -341,6 +341,12 @@ def format_csv_to_excel():
 
                     except FileExistsError:
                         # directory already exists
+                        pass
+
+                    try:
+                        df = df.astype('float')
+
+                    except:
                         pass
 
                     # Append dataframe to main excel file
