@@ -1,0 +1,2 @@
+1. Have a main function file that stores all the methods related to .xlsx|.csv|.txt file 
+2. Have a new .py file for each option methods; this files would be called from the main.py file

@@ -187,57 +187,67 @@
     },
     "----------------------------------": "----------------------------------",
 
-    "option_3_config": {
-      "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\pos_automation_test": {
-        "settings": [
-          {
-            "file_type": "csv",
-            "files": [
-              "initial_pos.csv",
-              "2k_pos.csv",
-              "6k_pos.csv",
-              "14k_pos.csv",
-              "30k_pos.csv",
-              "62k_pos.csv",
-              "126k_pos.csv"
-            ],
-            "relative_folder_path_to_read": "\\data",
-            "relative_folder_path_transfer_for_csv_files": "\\transfer",
-            "folder_dir_to_write": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos",
-            "excel_file_name_to_write": "23_12_2021_0.06ms_unipolar_pos_compile.xlsx",
-            "cols_to_read": [4],
-            "rows_to_read": [259, 460],
-            "start_row_to_write": 4,
-            "cols_to_write": {
-              "hardcode": [0, 2, 4, 6, 8, 10, 12],
-              "formula": "(i*2) + 1"
-            }
-          },
-          {
-            "file_type": "csv",
-            "files": [
-              "initial_pos.csv",
-              "2k_pos.csv",
-              "6k_pos.csv",
-              "14k_pos.csv",
-              "30k_pos.csv",
-              "62k_pos.csv",
-              "126k_pos.csv"
-            ],
-            "relative_folder_path_to_read": "\\data",
-            "relative_folder_path_transfer_for_csv_files": "\\transfer",
-            "folder_dir_to_write": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos",
-            "excel_file_name_to_write": "23_12_2021_0.06ms_unipolar_pos_compile.xlsx",
-            "cols_to_read": [3],
-            "rows_to_read": [259, 460],
-            "start_row_to_write": 4,
-            "cols_to_write": {
-              "hardcode": [1, 3, 5, 7, 9, 11, 13],
-              "formula": "(i*2) + 1"
-            }
-          }
-        ]
+    "option_3_config": [
+      {
+        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\pos_automation_test\\",
+
+        "TO_READ": {
+          "file_type": "csv",
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\data\\",
+          "files": [
+            "initial_pos.csv",
+            "2k_pos.csv",
+            "6k_pos.csv",
+            "14k_pos.csv",
+            "30k_pos.csv",
+            "62k_pos.csv",
+            "126k_pos.csv"
+          ],
+          "cols": [4],
+          "rows": [259, 460]
+        },
+
+        "TO_TRANSFER": {
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\transfer\\"
+        },
+
+        "TO_WRITE": {
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\",
+          "file_name": "23_12_2021_0.06ms_unipolar_pos_compile.xlsx",
+          "start_row": 4,
+          "cols": [0, 2, 4, 6, 8, 10, 12]
+        }
+      },
+      {
+        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\neg_automation_test",
+
+        "TO_READ": {
+          "file_type": "csv",
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\data\\",
+          "files": [
+            "initial_pos.csv",
+            "2k_pos.csv",
+            "6k_pos.csv",
+            "14k_pos.csv",
+            "30k_pos.csv",
+            "62k_pos.csv",
+            "126k_pos.csv"
+          ],
+          "cols": [3],
+          "rows": [259, 460]
+        },
+
+        "TO_TRANSFER": {
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\transfer\\"
+        },
+
+        "TO_WRITE": {
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\results\\",
+          "file_name": "23_12_2021_0.06ms_unipolar_pos_compile.xlsx",
+          "start_row": 4,
+          "cols": [1, 3, 5, 7, 9, 11, 13]
+        }
       }
-    }
+    ]
   }
 }
