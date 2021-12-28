@@ -1,4 +1,5 @@
 from numpy import dtype
+from numpy.lib.index_tricks import index_exp
 import openpyxl
 import pandas as pd
 
@@ -11,8 +12,12 @@ from openpyxl import load_workbook
 def excel_read_col_row(excel_file, rows_to_read: Sequence[int],
                        cols_to_read: Sequence[int]):
 
-    df = pd.read_excel(excel_file, usecols=cols_to_read, header=None)
-    rows_range = range(rows_to_read[0], rows_to_read[1])
+    df = pd.read_excel(
+        excel_file,
+        usecols=cols_to_read,
+        header=None,
+    )
+    rows_range = range(rows_to_read[0] - 1, rows_to_read[1])
 
     return df.loc[rows_range]
 

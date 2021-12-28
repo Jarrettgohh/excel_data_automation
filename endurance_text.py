@@ -7,8 +7,11 @@ import json
 import subprocess
 import os
 import sys
+import numpy as np
 
 from Excel.excel_functions import excel_read_col_row
+
+# pd.options.display.float_format = '{:,.4f}'.format
 
 config_json = open('config.json', 'r')
 config_json = json.load(config_json)
@@ -165,14 +168,14 @@ def transfer_single_csv_to_xlsx(file_path_to_read: str,
             row_data = row[col_index]
             ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
 
-    excel_file_path = f"{file_path_to_write.replace('csv', 'xlsx')}"
-
     try:
         os.makedirs(folder_dir_to_write)
 
     except FileExistsError:
         # directory already exists
         pass
+
+    excel_file_path = file_path_to_write
 
     wb.save(excel_file_path)
     file.close()
@@ -278,54 +281,73 @@ def format_csv_to_excel():
         root_dir_config = config[root_dir]
         settings = root_dir_config['settings']
 
-        file_type = settings['file_type']
-        folder_path_to_read = settings['folder_path_to_read']
-        folder_path_to_write = settings["folder_path_to_write"]
-        folder_path_transfer_for_csv_files = settings[
-            'folder_path_transfer_for_csv_files']
-        cols_to_read = settings["cols_to_read"]
-        rows_to_read = settings["rows_to_read"]
-        start_row_to_write = settings["start_row_to_write"]
+        for setting in settings:
 
-        hardcode_cols_to_write = settings["cols_to_write"]["hardcode"]
+            file_type = setting['file_type']
+            files = setting['files']
+            relative_folder_path_to_read = setting[
+                'relative_folder_path_to_read']
+            folder_dir_to_write = setting["folder_dir_to_write"]
+            excel_file_name_to_write = setting["excel_file_name_to_write"]
+            relative_folder_path_transfer_for_csv_files = setting[
+                'relative_folder_path_transfer_for_csv_files']
+            cols_to_read = setting["cols_to_read"]
+            rows_to_read = setting["rows_to_read"]
+            start_row_to_write = setting["start_row_to_write"]
 
-        files_to_format = os.listdir(f'{root_dir}\{folder_path_to_read}')
-        excel_file_path_to_write = f'{root_dir}{folder_path_to_write}'
+            hardcode_cols_to_write = setting["cols_to_write"]["hardcode"]
 
-        for index, file_path in enumerate(files_to_format):
+            if '.xlsx' not in excel_file_name_to_write:
 
-            if index != 0:
-                continue
+                print(
+                    "Provide a valid `excel_file_name_to_write` argument in config.json. Do ensure that the `.xlsx` extension is present."
+                )
+                sys.exit()
 
-            print(index)
+            for index, file_path in enumerate(files):
 
-            if file_type == 'csv':
-                # transfer_single_csv_to_xlsx(
-                #     file_path_to_read=
-                #     f'{root_dir}{folder_path_to_read}\{file_path}',
-                #     folder_dir_to_write=
-                #     f'{root_dir}{folder_path_transfer_for_csv_files}',
-                #     file_path_to_write=
-                #     f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}',
-                # )
+                if file_type == 'csv':
+                    transfer_single_csv_to_xlsx(
+                        file_path_to_read=
+                        f'{root_dir}{relative_folder_path_to_read}\{file_path}',
+                        folder_dir_to_write=
+                        f'{root_dir}{relative_folder_path_transfer_for_csv_files}',
+                        file_path_to_write=
+                        f'{root_dir}{relative_folder_path_transfer_for_csv_files}\\{file_path.replace("csv", "xlsx")}',
+                    )
 
-                excel_file_path_to_read = f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}'.replace(
-                    'csv', 'xlsx')
-                df = excel_read_col_row(excel_file=excel_file_path_to_read,
-                                        rows_to_read=rows_to_read,
-                                        cols_to_read=cols_to_read)
+                    excel_file_path_to_read = f'{root_dir}{relative_folder_path_transfer_for_csv_files}\{file_path}'.replace(
+                        'csv', 'xlsx')
+                    df = excel_read_col_row(excel_file=excel_file_path_to_read,
+                                            rows_to_read=rows_to_read,
+                                            cols_to_read=cols_to_read)
 
-                # Append dataframe to main excel file
-                append_df_to_excel(df=df.astype('float'),
-                                   filename=excel_file_path_to_write,
-                                   startrow=start_row_to_write,
-                                   startcol=hardcode_cols_to_write[index])
+                    try:
+                        os.makedirs(folder_dir_to_write)
 
-            elif file_type == 'xlsx':
-                df = excel_read_col_row(excel_file=file_path,
-                                        rows_to_read=rows_to_read,
-                                        cols_to_read=cols_to_read,
-                                        sheet_name="Sheet1")
+                    except FileExistsError:
+                        # directory already exists
+                        pass
+
+                    try:
+                        df = df.astype('float')
+
+                    except:
+                        pass
+
+                    # Append dataframe to main excel file
+                    append_df_to_excel(
+                        df=df,
+                        filename=
+                        f'{folder_dir_to_write}\\{excel_file_name_to_write}',
+                        startrow=start_row_to_write,
+                        startcol=hardcode_cols_to_write[index])
+
+                elif file_type == 'xlsx':
+                    df = excel_read_col_row(excel_file=file_path,
+                                            rows_to_read=rows_to_read,
+                                            cols_to_read=cols_to_read,
+                                            sheet_name="Sheet1")
 
 
 if user_selection == "1":
