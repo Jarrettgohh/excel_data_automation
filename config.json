@@ -191,13 +191,16 @@
       "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos": {
         "settings": {
           "file_type": "csv",
-          "folder_path_to_read": "\\data",
-          "folder_path_to_write": "\\results",
+          "folder_path_to_read": "\\data\\pos",
+          "folder_path_to_write": "\\results\\23_12_2021_test",
           "folder_path_transfer_for_csv_files": "\\transfer",
-          "cols_to_read": "E",
-          "start_row_to_read": 259,
-          "end_row_to_read": 460,
-          "start_row_to_write": 7
+          "cols_to_read": [4],
+          "rows_to_read": [259, 460],
+          "start_row_to_write": 4,
+          "cols_to_write": {
+            "hardcode": [1, 3, 5, 7, 9, 11, 13],
+            "formula": "(i*2) + 1"
+          }
         }
       }
     }

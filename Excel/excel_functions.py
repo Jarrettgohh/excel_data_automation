@@ -4,8 +4,17 @@ import pandas as pd
 
 from copy import copy
 from pathlib import Path
-from typing import Union, Optional
+from typing import Sequence, Union, Optional
 from openpyxl import load_workbook
+
+
+def excel_read_col_row(excel_file, rows_to_read: Sequence[int],
+                       cols_to_read: Sequence[int]):
+
+    df = pd.read_excel(excel_file, usecols=cols_to_read, header=None)
+    rows_range = range(rows_to_read[0], rows_to_read[1])
+
+    return df.loc[rows_range]
 
 
 def copy_excel_cell_range(

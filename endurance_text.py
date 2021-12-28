@@ -8,6 +8,8 @@ import subprocess
 import os
 import sys
 
+from Excel.excel_functions import excel_read_col_row
+
 config_json = open('config.json', 'r')
 config_json = json.load(config_json)
 
@@ -64,7 +66,7 @@ def format_to_xlsx(file_path: str,
 
         # print(f"Formatting row: {start_row}")
 
-        df = pandas.read_excel(
+        df = pd.read_excel(
             file_path,
             sheet_name=sheet_name,
             usecols=cols_to_read,
@@ -163,7 +165,6 @@ def transfer_single_csv_to_xlsx(file_path_to_read: str,
             row_data = row[col_index]
             ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
 
-    print(folder_dir_to_write)
     excel_file_path = f"{file_path_to_write.replace('csv', 'xlsx')}"
 
     try:
@@ -283,13 +284,21 @@ def format_csv_to_excel():
         folder_path_transfer_for_csv_files = settings[
             'folder_path_transfer_for_csv_files']
         cols_to_read = settings["cols_to_read"]
-        start_row_to_read = settings['start_row_to_read']
-        end_row_to_read = settings['end_row_to_read']
-        start_row_to_write = settings['start_row_to_write']
+        rows_to_read = settings["rows_to_read"]
+        start_row_to_write = settings["start_row_to_write"]
 
-        files_to_format = [os.listdir(f'{root_dir}\{folder_path_to_read}')[0]]
+        hardcode_cols_to_write = settings["cols_to_write"]["hardcode"]
 
-        for file_path in files_to_format:
+        files_to_format = os.listdir(f'{root_dir}\{folder_path_to_read}')
+        excel_file_path_to_write = f'{root_dir}{folder_path_to_write}'
+
+        for index, file_path in enumerate(files_to_format):
+
+            if index != 0:
+                continue
+
+            print(index)
+
             if file_type == 'csv':
                 # transfer_single_csv_to_xlsx(
                 #     file_path_to_read=
@@ -300,16 +309,23 @@ def format_csv_to_excel():
                 #     f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}',
                 # )
 
-                excel_file_path = f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}'
-                df = pd.read_excel(excel_file_path.replace('csv', 'xlsx'), )
+                excel_file_path_to_read = f'{root_dir}{folder_path_transfer_for_csv_files}\{file_path}'.replace(
+                    'csv', 'xlsx')
+                df = excel_read_col_row(excel_file=excel_file_path_to_read,
+                                        rows_to_read=rows_to_read,
+                                        cols_to_read=cols_to_read)
 
-                print(df.loc[cols_to_read])
+                # Append dataframe to main excel file
+                append_df_to_excel(df=df.astype('float'),
+                                   filename=excel_file_path_to_write,
+                                   startrow=start_row_to_write,
+                                   startcol=hardcode_cols_to_write[index])
 
             elif file_type == 'xlsx':
-                df = pd.read_excel(
-                    file_path,
-                    usecols=cols_to_read,
-                )
+                df = excel_read_col_row(excel_file=file_path,
+                                        rows_to_read=rows_to_read,
+                                        cols_to_read=cols_to_read,
+                                        sheet_name="Sheet1")
 
 
 if user_selection == "1":
