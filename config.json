@@ -189,63 +189,79 @@
 
     "option_3_config": [
       {
-        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\pos_automation_test\\",
+        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
 
         "TO_READ": {
           "file_type": "csv",
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\data\\",
-          "files": [
-            "initial_pos.csv",
-            "2k_pos.csv",
-            "6k_pos.csv",
-            "14k_pos.csv",
-            "30k_pos.csv",
-            "62k_pos.csv",
-            "126k_pos.csv"
+          "relative_folder_directories": [
+            "\\CV-100x100",
+            "\\CV-50x100",
+            "\\CV-50x50",
+            "\\CV-20x20",
+            "\\CV-10x10",
+            "\\CV-8x8"
           ],
-          "cols": [4],
+          "files": [
+            "D1-initial.csv",
+            "D1-fatigue.csv",
+            "D2-initial.csv",
+            "D2-fatigue.csv",
+            "D3-initial.csv",
+            "D3-fatigue.csv"
+          ],
+          "cols": "B:C",
           "rows": [259, 460]
         },
 
         "TO_TRANSFER": {
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\transfer\\"
+          "relative_folder_directory": "\\transfer"
         },
 
         "TO_WRITE": {
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\",
-          "file_name": "23_12_2021_0.06ms_unipolar_pos_compile.xlsx",
-          "start_row": 4,
-          "cols": [0, 2, 4, 6, 8, 10, 12]
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
+          "file_name": "compile.xlsx",
+          "start_row": 3,
+          "start_col": 1,
+          "rows": null,
+          "cols": null
         }
       },
       {
-        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\neg_automation_test",
+        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S4_CV",
 
         "TO_READ": {
           "file_type": "csv",
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\data\\",
-          "files": [
-            "initial_pos.csv",
-            "2k_pos.csv",
-            "6k_pos.csv",
-            "14k_pos.csv",
-            "30k_pos.csv",
-            "62k_pos.csv",
-            "126k_pos.csv"
+          "relative_folder_directories": [
+            "\\CV-100x100",
+            "\\CV-50x100",
+            "\\CV-50x50",
+            "\\CV-20x20",
+            "\\CV-10x10",
+            "\\CV-8x8"
           ],
-          "cols": [3],
+          "files": [
+            "D1-initial.csv",
+            "D1-fatigue.csv",
+            "D2-initial.csv",
+            "D2-fatigue.csv",
+            "D3-initial.csv",
+            "D3-fatigue.csv"
+          ],
+          "cols": "B:C",
           "rows": [259, 460]
         },
 
         "TO_TRANSFER": {
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\transfer\\"
+          "relative_folder_directory": "\\transfer"
         },
 
         "TO_WRITE": {
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\results\\",
-          "file_name": "23_12_2021_0.06ms_unipolar_pos_compile.xlsx",
-          "start_row": 4,
-          "cols": [1, 3, 5, 7, 9, 11, 13]
+          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S4_CV",
+          "file_name": "compile.xlsx",
+          "start_row": 3,
+          "start_col": 1,
+          "rows": null,
+          "cols": null
         }
       }
     ]
