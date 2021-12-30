@@ -84,10 +84,14 @@ def option_2():
                     to_write_cols = to_write_col_settings['cols']
 
                     cols_to_read_len = len(cols_to_read)
+
+                    file_index_start_row = cols_to_read_len * file_index
+                    folder_index_start_row = ((folder_dir_index * len(files)) *
+                                              cols_to_read_len)
+
                     start_col_to_write = (
-                        (folder_dir_index * len(files)) * cols_to_read_len
-                    ) + to_write_start_col_setting + (
-                        cols_to_read_len * file_index
+                        to_write_start_col_setting + folder_index_start_row +
+                        file_index_start_row
                     ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
                     # Append dataframe to main excel file
