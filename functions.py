@@ -27,11 +27,12 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
                 # Format the float exponent value (With E)
                 try:
                     value = '{:,.2f}'.format(float(value))
-                    row_data = f'{value}E{exp}'.replace(',', '')
+                    row_data = f'{value}E{exp}'
 
                 except:
                     pass
 
+            row_data = row_data.replace(',', '')
             ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
 
     try:

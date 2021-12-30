@@ -1,8 +1,9 @@
 import json
 import sys
+import os
 
 from functions import transfer_single_csv_to_xlsx
-from Excel.excel_functions import xlsx_read_col_row
+from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
 # Extract data from .txt, .csv or .xls file into a .xlsx file in a certain format
@@ -34,9 +35,13 @@ def option_2():
 
         # To write
         to_write = config['TO_WRITE']
+        folder_directory_to_write = to_write['folder_directory']
+        xlsx_file_name_to_write = to_write['file_name']
+        to_write_row_settings = to_write['row_settings']
+        to_write_col_settings = to_write['col_settings']
 
         for folder_dir in relative_folder_directories:
-            for file_name in files:
+            for index, file_name in enumerate(files):
 
                 file_path_to_read = f'{root_dir}{folder_dir}\\{file_name}'
 
@@ -61,49 +66,22 @@ def option_2():
                                            rows_to_read=rows_to_read,
                                            cols_to_read=cols_to_read)
 
-                    print(df)
+                    try:
+                        df = df.astype('float')
 
-            # for index, file_path in enumerate(files):
+                    except:
+                        pass
 
-            #     if file_type == 'csv':
-            #         transfer_single_csv_to_xlsx(
-            #             file_path_to_read=
-            #             f'{root_dir}{relative_folder_path_to_read}\{file_path}',
-            #             folder_dir_to_write=
-            #             f'{root_dir}{relative_folder_path_transfer_for_csv_files}',
-            #             file_path_to_write=
-            #             f'{root_dir}{relative_folder_path_transfer_for_csv_files}\\{file_path.replace("csv", "xlsx")}',
-            #         )
+                    try:
+                        os.makedirs(folder_directory_to_write)
 
-            #         excel_file_path_to_read = f'{root_dir}{relative_folder_path_transfer_for_csv_files}\{file_path}'.replace(
-            #             'csv', 'xlsx')
-            #         df = excel_read_col_row(excel_file=excel_file_path_to_read,
-            #                                 rows_to_read=rows_to_read,
-            #                                 cols_to_read=cols_to_read)
+                    except FileExistsError:
+                        pass
 
-            #         try:
-            #             os.makedirs(folder_dir_to_write)
-
-            #         except FileExistsError:
-            #             # directory already exists
-            #             pass
-
-            #         try:
-            #             df = df.astype('float')
-
-            #         except:
-            #             pass
-
-            #         # Append dataframe to main excel file
-            #         append_df_to_excel(
-            #             df=df,
-            #             filename=
-            #             f'{folder_dir_to_write}\\{excel_file_name_to_write}',
-            #             startrow=start_row_to_write,
-            #             startcol=hardcode_cols_to_write[index])
-
-            #     elif file_type == 'xlsx':
-            #         df = excel_read_col_row(excel_file=file_path,
-            #                                 rows_to_read=rows_to_read,
-            #                                 cols_to_read=cols_to_read,
-            #                                 sheet_name="Sheet1")
+                    # Append dataframe to main excel file
+                    append_df_to_excel(
+                        df=df,
+                        filename=
+                        f'{folder_directory_to_write}\\{xlsx_file_name_to_write}',
+                        startrow=to_write_row_settings['start_row'],
+                        startcol=to_write_col_settings['cols'][index])
