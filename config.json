@@ -27,12 +27,11 @@
         "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
         "file_name": "compile_automation.xlsx",
         "row_settings": {
-          "start_row": 3,
-          "rows": null
+          "start_row": 3
         },
         "col_settings": {
           "start_col": 1,
-          "cols": [1, 3, 5, 7, 9, 11, 13]
+          "cols": "auto"
         }
       }
     }

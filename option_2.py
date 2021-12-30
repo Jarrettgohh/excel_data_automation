@@ -40,8 +40,9 @@ def option_2():
         to_write_row_settings = to_write['row_settings']
         to_write_col_settings = to_write['col_settings']
 
-        for folder_dir in relative_folder_directories:
-            for index, file_name in enumerate(files):
+        for folder_dir_index, folder_dir in enumerate(
+                relative_folder_directories):
+            for file_index, file_name in enumerate(files):
 
                 file_path_to_read = f'{root_dir}{folder_dir}\\{file_name}'
 
@@ -78,10 +79,21 @@ def option_2():
                     except FileExistsError:
                         pass
 
+                    to_write_start_col_setting = to_write_col_settings[
+                        'start_col']
+                    to_write_cols = to_write_col_settings['cols']
+
+                    cols_to_read_len = len(cols_to_read)
+                    start_col_to_write = (
+                        (folder_dir_index * len(files)) * cols_to_read_len
+                    ) + to_write_start_col_setting + (
+                        cols_to_read_len * file_index
+                    ) if to_write_cols == 'auto' else to_write_cols[file_index]
+
                     # Append dataframe to main excel file
                     append_df_to_excel(
                         df=df,
                         filename=
                         f'{folder_directory_to_write}\\{xlsx_file_name_to_write}',
                         startrow=to_write_row_settings['start_row'],
-                        startcol=to_write_col_settings['cols'][index])
+                        startcol=start_col_to_write)
