@@ -1,6 +1,5 @@
 from numpy import number
 import pandas as pd
-import openpyxl
 from Excel.excel_functions import append_df_to_excel
 import re
 import json

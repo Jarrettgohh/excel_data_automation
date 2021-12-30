@@ -2,7 +2,6 @@ from numpy import dtype
 from numpy.lib.index_tricks import index_exp
 import openpyxl
 import pandas as pd
-import numpy as np
 
 from copy import copy
 from pathlib import Path
@@ -10,11 +9,11 @@ from typing import Sequence, Union, Optional
 from openpyxl import load_workbook
 
 
-def excel_read_col_row(excel_file, rows_to_read: Sequence[int],
-                       cols_to_read: Sequence[int]):
+def xlsx_read_col_row(xlsx_file: str, rows_to_read: Sequence[int],
+                      cols_to_read: Sequence[int]):
 
     df = pd.read_excel(
-        excel_file,
+        xlsx_file,
         usecols=cols_to_read,
         header=None,
     )

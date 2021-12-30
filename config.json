@@ -1,269 +1,40 @@
 {
-  "device_dimensions": ["R50", "R100", "R200", "S50", "S100", "S200"],
-  "measure_times": 10,
-  "index_to_read": {
-    "rows": [27, 37],
-    "cols": [2]
-  },
-  "cell_ranges": ["B:F", "I:M", "P:T", "W:AA", "AD:AH", "AK:AO"],
-  "cell_range_with_row": {
-    "cell_select": "",
-    "cell_range": ""
-  },
-  "option_1_txt_files_to_transfer_to_excel": [
+  "----------------------------------": "----------------------------------",
+
+  "option_2_configs": [
     {
-      "file_path": "./Endurance/test_data/D1_initial_IV.txt",
-      "folder_directory_to_transfer": "./Endurance/test_transfer/D1_initial_IV.txt"
-    },
-    {
-      "file_path": "./Endurance/test_data/D1_2k_IV.txt",
-      "folder_directory_to_transfer": "./Endurance/test_transfer/D1_2k_IV.txt"
-    }
-  ],
-  "------------------------------": "------------------------------",
-  "endurance_test": {
-    "path_to_folder_to_transfer_txt_to_excel": "./Endurance/test_data",
+      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
 
-    "option_2_files_to_format": {
-      "23_12_2021_bipolar_test_excel_compile.xlsx": [
-        {
-          "file_path_to_read": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\Endurance Cycling\\20212312\\23_12_2021_0.06ms_unipolar_pos\\2k_pos.csv",
-          "folder_directory_to_transfer": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/transfer",
-          "folder_path_to_write": "C:/Users/gohja/Desktop/ASTAR intenship data/Endurance Cycling/20211812/results",
-          "cols_to_read": "B:C",
-          "start_row": 259,
-          "number_of_cycles": 1,
-          "number_of_points": 201,
-          "row_margin_buffer": null,
-          "header_text": "initial IV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_2k_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 500,
-          "row_margin_buffer": null,
-          "header_text": "2k IV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_6k_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 500,
-          "row_margin_buffer": null,
-          "header_text": "6k IV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_14k_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 500,
-          "row_margin_buffer": null,
-          "header_text": "14k IV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_30k_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 500,
-          "row_margin_buffer": null,
-          "header_text": "30k IV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_62k_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 500,
-          "row_margin_buffer": null,
-          "header_text": "62k IV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_126k_IV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 500,
-          "row_margin_buffer": null,
-          "header_text": "126k IV"
-        },
-        {
-          "format": "break"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_initial_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "C:D",
-          "start_row": 42,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "initial PV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_2k_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "B:C",
-          "start_row": 38,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "2k PV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_6k_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "B:C",
-          "start_row": 38,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "6k PV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_14k_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "B:C",
-          "start_row": 38,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "14k PV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_30k_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "B:C",
-          "start_row": 38,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "30k PV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_62k_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "B:C",
-          "start_row": 38,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "62k PV"
-        },
-        {
-          "file_path_to_read": "./Endurance/test_data/D1_126k_PV.txt",
-          "folder_directory_to_transfer": "./Endurance/test_transfer",
-          "folder_path_to_write": "./Endurance/test_results",
-          "cols_to_read": "B:C",
-          "start_row": 38,
-          "number_of_cycles": 1,
-          "number_of_points": 2000,
-          "row_margin_buffer": null,
-          "header_text": "126k PV"
-        }
-      ]
-    },
-    "----------------------------------": "----------------------------------",
-
-    "option_3_config": [
-      {
-        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
-
-        "TO_READ": {
-          "file_type": "csv",
-          "relative_folder_directories": [
-            "\\CV-100x100",
-            "\\CV-50x100",
-            "\\CV-50x50",
-            "\\CV-20x20",
-            "\\CV-10x10",
-            "\\CV-8x8"
-          ],
-          "files": [
-            "D1-initial.csv",
-            "D1-fatigue.csv",
-            "D2-initial.csv",
-            "D2-fatigue.csv",
-            "D3-initial.csv",
-            "D3-fatigue.csv"
-          ],
-          "cols": "B:C",
-          "rows": [259, 460]
-        },
-
-        "TO_TRANSFER": {
-          "relative_folder_directory": "\\transfer"
-        },
-
-        "TO_WRITE": {
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
-          "file_name": "compile.xlsx",
-          "start_row": 3,
-          "start_col": 1,
-          "rows": null,
-          "cols": null
-        }
+      "TO_READ": {
+        "file_type": "csv",
+        "relative_folder_directories": [
+          "\\CV-100x100",
+          "\\CV-50x100",
+          "\\CV-50x50",
+          "\\CV-20x20"
+        ],
+        "files": [
+          "D1-initial.csv",
+          "D1-fatigue.csv",
+          "D2-initial.csv",
+          "D2-fatigue.csv"
+        ],
+        "cols": [1, 2],
+        "rows": [259, 460]
       },
-      {
-        "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S4_CV",
 
-        "TO_READ": {
-          "file_type": "csv",
-          "relative_folder_directories": [
-            "\\CV-100x100",
-            "\\CV-50x100",
-            "\\CV-50x50",
-            "\\CV-20x20",
-            "\\CV-10x10",
-            "\\CV-8x8"
-          ],
-          "files": [
-            "D1-initial.csv",
-            "D1-fatigue.csv",
-            "D2-initial.csv",
-            "D2-fatigue.csv",
-            "D3-initial.csv",
-            "D3-fatigue.csv"
-          ],
-          "cols": "B:C",
-          "rows": [259, 460]
-        },
-
-        "TO_TRANSFER": {
-          "relative_folder_directory": "\\transfer"
-        },
-
-        "TO_WRITE": {
-          "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S4_CV",
-          "file_name": "compile.xlsx",
+      "TO_WRITE": {
+        "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
+        "file_name": "compile_automation.xlsx",
+        "row_settings": {
           "start_row": 3,
+          "rows": null
+        },
+        "col_settings": {
           "start_col": 1,
-          "rows": null,
           "cols": null
         }
       }
-    ]
-  }
+    }
+  ]
 }
