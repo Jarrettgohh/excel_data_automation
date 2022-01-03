@@ -3,34 +3,31 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
+      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20220301\\HZO_LOT3_WAFER3_CV",
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": [
-          "\\CV-100x100",
-          "\\CV-50x100",
-          "\\CV-50x50",
-          "\\CV-20x20"
-        ],
+        "relative_folder_directories": ["\\CV-50x100"],
         "files": [
-          "D1-initial.csv",
-          "D1-fatigue.csv",
-          "D2-initial.csv",
-          "D2-fatigue.csv"
+          "D1_i_100 hz.csv",
+          "D1_f_100 hz.csv",
+          "D2_i_100 hz.csv",
+          "D2_f_100 hz.csv",
+          "D3_i_100 hz.csv",
+          "D3_f_100 hz.csv"
         ],
         "cols": [1, 2],
         "rows": [259, 460]
       },
 
       "TO_WRITE": {
-        "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20212912\\HZO_LOT3_S1_CV",
+        "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20220301\\HZO_LOT3_WAFER3_CV",
         "file_name": "compile_automation.xlsx",
         "row_settings": {
           "start_row": 3
         },
         "col_settings": {
-          "start_col": 1,
+          "start_col": 3,
           "cols": "auto"
         }
       }

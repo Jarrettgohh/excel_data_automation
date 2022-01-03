@@ -1,5 +1,6 @@
 import openpyxl
 import os
+import subprocess
 
 
 def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
@@ -46,3 +47,7 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
 
     wb.save(excel_file_path)
     file.close()
+
+
+def execute_powershell(command: str):
+    subprocess.Popen(['powershell.exe', command])

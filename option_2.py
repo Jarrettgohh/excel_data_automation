@@ -2,7 +2,7 @@ import json
 import sys
 import os
 
-from functions import transfer_single_csv_to_xlsx
+from functions import execute_powershell, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -101,3 +101,8 @@ def option_2():
                         f'{folder_directory_to_write}\\{xlsx_file_name_to_write}',
                         startrow=to_write_row_settings['start_row'],
                         startcol=start_col_to_write)
+
+    # Open the new Excel file after data is written to it
+    execute_powershell(
+        f'Invoke-Item \"{folder_directory_to_write}\\{xlsx_file_name_to_write}\"'
+    )
