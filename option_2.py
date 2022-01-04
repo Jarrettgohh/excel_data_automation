@@ -129,6 +129,6 @@ def option_2():
 
         except:
             print(
-                f'Failed to open xlsx file at path: "{xlsx_file_path_to_write}"'
+                f'Failed to open xlsx file at path: "{xlsx_file_path_to_write}"\n'
             )
             continue

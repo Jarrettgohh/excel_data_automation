@@ -57,8 +57,7 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
 
 def execute_powershell(command: str):
     try:
-        subprocess.Popen(['powershell.exe', command])
+        subprocess.check_output(['powershell.exe', command])
 
-    except:
-        print('herer')
+    except subprocess.CalledProcessError:
         raise Exception()
