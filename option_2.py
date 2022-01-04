@@ -94,13 +94,19 @@ def option_2():
                         file_index_start_row
                     ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
-                    # Append dataframe to main excel file
-                    append_df_to_excel(
-                        df=df,
-                        filename=
-                        f'{folder_directory_to_write}\\{xlsx_file_name_to_write}',
-                        startrow=to_write_row_settings['start_row'],
-                        startcol=start_col_to_write)
+                    try:
+                        # Append dataframe to main excel file
+                        append_df_to_excel(
+                            df=df,
+                            filename=
+                            f'{folder_directory_to_write}\\{xlsx_file_name_to_write}',
+                            startrow=to_write_row_settings['start_row'],
+                            startcol=start_col_to_write)
+
+                    except:
+                        print(
+                            'Failed to write to excel file. Ensure that the target file to write is not running/open.'
+                        )
 
     # Open the new Excel file after data is written to it
     execute_powershell(

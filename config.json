@@ -7,15 +7,8 @@
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": ["\\CV-50x100"],
-        "files": [
-          "D1_i_100 hz.csv",
-          "D1_f_100 hz.csv",
-          "D2_i_100 hz.csv",
-          "D2_f_100 hz.csv",
-          "D3_i_100 hz.csv",
-          "D3_f_100 hz.csv"
-        ],
+        "relative_folder_directories": [],
+        "files": [],
         "cols": [1, 2],
         "rows": [259, 460]
       },
@@ -27,7 +20,7 @@
           "start_row": 3
         },
         "col_settings": {
-          "start_col": 3,
+          "start_col": 1,
           "cols": "auto"
         }
       }
