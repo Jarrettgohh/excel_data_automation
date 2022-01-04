@@ -7,20 +7,20 @@
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": [],
-        "files": [],
+        "relative_folder_directories": ["\\CV-8x8-new"],
+        "files": ["D1-i.csv", "D1-f.csv", "D2-i.csv", "D2-f-100hz-1v.csv"],
         "cols": [1, 2],
         "rows": [259, 460]
       },
 
       "TO_WRITE": {
         "folder_directory": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis\\20220301\\HZO_LOT3_WAFER3_CV",
-        "file_name": "compile_automation.xlsx",
+        "file_name": "compile_automation_test.xlsx",
         "row_settings": {
           "start_row": 3
         },
         "col_settings": {
-          "start_col": 1,
+          "start_col": "D",
           "cols": "auto"
         }
       }

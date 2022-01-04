@@ -2,6 +2,7 @@ import json
 import sys
 import os
 
+from openpyxl.utils.cell import column_index_from_string
 from functions import execute_powershell, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
@@ -81,6 +82,11 @@ def option_2():
 
                     to_write_start_col_setting = to_write_col_settings[
                         'start_col']
+
+                    to_write_start_col_setting = column_index_from_string(
+                        to_write_start_col_setting) - 1 if type(
+                            to_write_start_col_setting
+                        ) == str else to_write_start_col_setting
                     to_write_cols = to_write_col_settings['cols']
 
                     cols_to_read_len = len(cols_to_read)
