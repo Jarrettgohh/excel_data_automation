@@ -36,10 +36,20 @@ def option_2():
 
         # To write
         to_write = config['TO_WRITE']
-        folder_directory_to_write = to_write['folder_directory']
+        relative_folder_directory = to_write['relative_folder_directory']
         xlsx_file_name_to_write = to_write['file_name']
         to_write_row_settings = to_write['row_settings']
         to_write_col_settings = to_write['col_settings']
+
+        xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}\\{xlsx_file_name_to_write}'
+
+        # To convert the cols_to_read from letters to number values
+        for index, col_value in enumerate(cols_to_read):
+            if type(col_value) == int:
+                continue
+
+            col_index = column_index_from_string(col_value)
+            cols_to_read[index] = col_index - 1
 
         for folder_dir_index, folder_dir in enumerate(
                 relative_folder_directories):
@@ -75,7 +85,7 @@ def option_2():
                         pass
 
                     try:
-                        os.makedirs(f'{root_dir}{folder_directory_to_write}')
+                        os.makedirs(f'{root_dir}{relative_folder_directory}')
 
                     except FileExistsError:
                         pass
@@ -100,8 +110,6 @@ def option_2():
                         file_index_start_row
                     ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
-                    xlsx_file_path_to_write = f'{root_dir}{folder_directory_to_write}\\{xlsx_file_name_to_write}'
-
                     try:
                         # Append dataframe to main excel file
                         append_df_to_excel(
@@ -115,6 +123,12 @@ def option_2():
                             f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
                         )
                         sys.exit()
+        try:
+            # Open the new Excel file after data is written to it
+            execute_powershell(f'Invoke-Item \"{xlsx_file_path_to_write}\"')
 
-    # Open the new Excel file after data is written to it
-    execute_powershell(f'Invoke-Item \"{xlsx_file_path_to_write}\"')
+        except:
+            print(
+                f'Failed to open xlsx file at path: "{xlsx_file_path_to_write}"'
+            )
+            continue
