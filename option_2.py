@@ -75,7 +75,7 @@ def option_2():
                         pass
 
                     try:
-                        os.makedirs(folder_directory_to_write)
+                        os.makedirs(f'{root_dir}{folder_directory_to_write}')
 
                     except FileExistsError:
                         pass
@@ -100,22 +100,21 @@ def option_2():
                         file_index_start_row
                     ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
+                    xlsx_file_path_to_write = f'{root_dir}{folder_directory_to_write}\\{xlsx_file_name_to_write}'
+
                     try:
                         # Append dataframe to main excel file
                         append_df_to_excel(
                             df=df,
-                            filename=
-                            f'{folder_directory_to_write}\\{xlsx_file_name_to_write}',
+                            filename=xlsx_file_path_to_write,
                             startrow=to_write_row_settings['start_row'],
                             startcol=start_col_to_write)
 
                     except:
                         print(
-                            f'Failed to write to excel file. Ensure that the target file path "{folder_directory_to_write}\\{xlsx_file_name_to_write}" is not running/open.\n'
+                            f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
                         )
                         sys.exit()
 
     # Open the new Excel file after data is written to it
-    execute_powershell(
-        f'Invoke-Item \"{folder_directory_to_write}\\{xlsx_file_name_to_write}\"'
-    )
+    execute_powershell(f'Invoke-Item \"{xlsx_file_path_to_write}\"')

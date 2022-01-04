@@ -1,6 +1,7 @@
 import openpyxl
 import os
 import subprocess
+import sys
 
 
 def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
@@ -9,7 +10,12 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
     wb = openpyxl.Workbook()
     ws = wb.worksheets[0]
 
-    file = open(path_to_csv, 'r+')
+    try:
+        file = open(path_to_csv, 'r+')
+
+    except:
+        print(f'Failed to open "{path_to_csv}", file path does not exist.\n')
+        sys.exit()
 
     data = file.readlines()  # read all lines at once
 
