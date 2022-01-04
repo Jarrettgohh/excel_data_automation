@@ -111,8 +111,9 @@ def option_2():
 
                     except:
                         print(
-                            'Failed to write to excel file. Ensure that the target file to write is not running/open.'
+                            f'Failed to write to excel file. Ensure that the target file path "{folder_directory_to_write}\\{xlsx_file_name_to_write}" is not running/open.\n'
                         )
+                        sys.exit()
 
     # Open the new Excel file after data is written to it
     execute_powershell(
