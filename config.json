@@ -15,12 +15,12 @@
 
       "TO_WRITE": {
         "relative_folder_directory": "\\",
-        "file_name": "CV_compile.xlsx",
+        "file_name": "mapitin.xlsx",
         "row_settings": {
-          "start_row": 3
+          "start_row": 1
         },
         "col_settings": {
-          "start_col": "AP",
+          "start_col": "B",
           "cols": "auto"
         }
       }

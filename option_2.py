@@ -1,6 +1,8 @@
 import json
 import sys
 import os
+import re
+import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
 from functions import execute_powershell, transfer_single_csv_to_xlsx
@@ -55,7 +57,41 @@ def option_2():
 
         for folder_dir_index, folder_dir in enumerate(
                 relative_folder_directories):
+
+            #
+            # Writing of headers
+            #
+
+            to_write_start_row = to_write_row_settings['start_row']
+            to_write_start_col_setting = to_write_col_settings['start_col']
+
             for file_index, file_name in enumerate(files):
+
+                cols_to_read_len = len(cols_to_read)
+
+                file_index_start_row = cols_to_read_len * file_index
+                folder_index_start_row = ((folder_dir_index * len(files)) *
+                                          cols_to_read_len)
+
+                to_write_start_col_setting = column_index_from_string(
+                    to_write_start_col_setting) - 1 if type(
+                        to_write_start_col_setting
+                    ) == str else to_write_start_col_setting
+                to_write_cols = to_write_col_settings['cols']
+
+                start_col_to_write = (
+                    to_write_start_col_setting + folder_index_start_row +
+                    file_index_start_row
+                ) if to_write_cols == 'auto' else to_write_cols[file_index]
+
+                header_df = pd.DataFrame([folder_dir.replace("\\", "")])
+
+                if file_index == 0:
+                    # Append the headers
+                    append_df_to_excel(df=header_df,
+                                       filename=xlsx_file_path_to_write,
+                                       startrow=to_write_start_row,
+                                       startcol=start_col_to_write)
 
                 file_path_to_read = f'{root_dir}{folder_dir}\\{file_name}'
 
@@ -97,26 +133,6 @@ def option_2():
                     except FileExistsError:
                         pass
 
-                    to_write_start_col_setting = to_write_col_settings[
-                        'start_col']
-
-                    to_write_start_col_setting = column_index_from_string(
-                        to_write_start_col_setting) - 1 if type(
-                            to_write_start_col_setting
-                        ) == str else to_write_start_col_setting
-                    to_write_cols = to_write_col_settings['cols']
-
-                    cols_to_read_len = len(cols_to_read)
-
-                    file_index_start_row = cols_to_read_len * file_index
-                    folder_index_start_row = ((folder_dir_index * len(files)) *
-                                              cols_to_read_len)
-
-                    start_col_to_write = (
-                        to_write_start_col_setting + folder_index_start_row +
-                        file_index_start_row
-                    ) if to_write_cols == 'auto' else to_write_cols[file_index]
-
                     try:
                         if folder_dir_index == 0:
                             print(
@@ -124,11 +140,10 @@ def option_2():
                             )
 
                         # Append dataframe to main excel file
-                        append_df_to_excel(
-                            df=df,
-                            filename=xlsx_file_path_to_write,
-                            startrow=to_write_row_settings['start_row'],
-                            startcol=start_col_to_write)
+                        append_df_to_excel(df=df,
+                                           filename=xlsx_file_path_to_write,
+                                           startrow=to_write_start_row + 2,
+                                           startcol=start_col_to_write)
 
                     except:
                         print(
