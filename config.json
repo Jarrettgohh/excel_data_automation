@@ -7,13 +7,8 @@
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": [
-          "\\CV-100x100",
-          "\\CV-50x100",
-          "\\CV-50x50",
-          "\\CV-20x20"
-        ],
-        "files": ["D1-i.csv", "D1-f.csv", "D2-i.csv", "D2-f.csv"],
+        "relative_folder_directories": ["\\CV-8x8"],
+        "files": ["D1-i.csv", "D1-f.csv", "D3-i.csv", "D3-f.csv"],
         "cols": ["B", "C"],
         "rows": [259, 460]
       },
@@ -25,7 +20,7 @@
           "start_row": 3
         },
         "col_settings": {
-          "start_col": "AH",
+          "start_col": "AP",
           "cols": "auto"
         }
       }

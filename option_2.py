@@ -73,7 +73,7 @@ def option_2():
 
                     if folder_dir_index == 0:
                         print(
-                            'Converting .csv files into .xlsx format, and transferring into new folder...\n'
+                            '\nConverting .csv files into .xlsx format, and transferring into new folder...'
                         )
 
                     transfer_single_csv_to_xlsx(
@@ -120,7 +120,7 @@ def option_2():
                     try:
                         if folder_dir_index == 0:
                             print(
-                                f'Appending data to file at path: {xlsx_file_path_to_write}'
+                                f'Appending data to file at path: {xlsx_file_path_to_write}\n'
                             )
 
                         # Append dataframe to main excel file
@@ -140,7 +140,7 @@ def option_2():
 
     for file_path in excel_file_paths_to_open:
         try:
-            print(f'Opening excel file at path: {file_path}')
+            print(f'\n\nOpening excel file at path: {file_path}\n\n')
 
             # Open the new Excel file after data is written to it
             execute_powershell(f'Invoke-Item \"{file_path}\"')
