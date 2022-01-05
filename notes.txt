@@ -5,6 +5,6 @@
 1. Allow settings of col to read and write using the letters instead of number values ✓
 2. Handle permission denied error; when the file to write is open ✓
 3. When reading files, allow setting of keywords to read example "D1-initial". This allows matching of names such as "D1-initial-bd-100 hz" or "D1-initial-bd", etc
-4. Allow automatic setting of header to write
+4. Allow automatic setting of header to write ✓
 5. Allow setting of file path from root directory with the "~" prefix; root directory would refer to "\"
 6. Log messages on the screen ✓
