@@ -93,6 +93,14 @@ def option_2():
                                        startrow=to_write_start_row,
                                        startcol=start_col_to_write)
 
+                header_df = pd.DataFrame([file_name])
+
+                # Append the headers
+                append_df_to_excel(df=header_df,
+                                   filename=xlsx_file_path_to_write,
+                                   startrow=to_write_start_row + 1,
+                                   startcol=start_col_to_write)
+
                 file_path_to_read = f'{root_dir}{folder_dir}\\{file_name}'
 
                 if file_type_to_read == 'csv':
@@ -136,7 +144,7 @@ def option_2():
                     try:
                         if folder_dir_index == 0:
                             print(
-                                f'Appending data to file at path: {xlsx_file_path_to_write}\n'
+                                f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
                             )
 
                         # Append dataframe to main excel file
@@ -155,7 +163,7 @@ def option_2():
 
     for file_path in excel_file_paths_to_open:
         try:
-            print(f'\n\nOpening excel file at path: {file_path}\n\n')
+            print(f'\n\nOpening excel file at path: {file_path}...\n\n')
 
             # Open the new Excel file after data is written to it
             execute_powershell(f'Invoke-Item \"{file_path}\"')
