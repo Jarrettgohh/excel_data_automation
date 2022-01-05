@@ -7,3 +7,4 @@
 3. When reading files, allow setting of keywords to read example "D1-initial". This allows matching of names such as "D1-initial-bd-100 hz" or "D1-initial-bd", etc
 4. Allow automatic setting of header to write
 5. Allow setting of file path from root directory with the "~" prefix; root directory would refer to "\"
+6. Log messages on the screen

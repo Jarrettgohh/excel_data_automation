@@ -20,6 +20,8 @@ def option_2():
 
     for config in option_2_configs:
 
+        excel_file_paths_to_open = []
+
         # Root directory
         root_dir = config['ROOT_DIRECTORY']
 
@@ -69,6 +71,11 @@ def option_2():
                     file_name_to_transfer = file_name.replace(".csv", ".xlsx")
                     file_dir_to_transfer = f'{folder_dir_to_transfer}\\{file_name_to_transfer}'
 
+                    if folder_dir_index == 0:
+                        print(
+                            'Converting .csv files into .xlsx format, and transferring into new folder...\n'
+                        )
+
                     transfer_single_csv_to_xlsx(
                         path_to_csv=file_path_to_read,
                         folder_dir_to_write=folder_dir_to_transfer,
@@ -111,6 +118,11 @@ def option_2():
                     ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
                     try:
+                        if folder_dir_index == 0:
+                            print(
+                                f'Appending data to file at path: {xlsx_file_path_to_write}'
+                            )
+
                         # Append dataframe to main excel file
                         append_df_to_excel(
                             df=df,
@@ -123,9 +135,15 @@ def option_2():
                             f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
                         )
                         sys.exit()
+
+        excel_file_paths_to_open.append(xlsx_file_path_to_write)
+
+    for file_path in excel_file_paths_to_open:
         try:
+            print(f'Opening excel file at path: {file_path}')
+
             # Open the new Excel file after data is written to it
-            execute_powershell(f'Invoke-Item \"{xlsx_file_path_to_write}\"')
+            execute_powershell(f'Invoke-Item \"{file_path}\"')
 
         except:
             print(
