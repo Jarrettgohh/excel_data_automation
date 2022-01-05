@@ -10,7 +10,7 @@
 - This option can be used to 
 
 # Configuration file
-- The configuration for this automation could be 
+- The configuration for this automation could be configured in the `config.json`
 
 
 # Supported file formats
