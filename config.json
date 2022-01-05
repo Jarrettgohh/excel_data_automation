@@ -3,19 +3,26 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis_LOT3\\20220501\\HZO_LOT3_S6_6nm",
+      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis_LOT3\\20220501\\HZO_LOT3_S4_CV_attempt2",
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": ["\\CV-8x8"],
-        "files": ["D1-i.csv", "D1-f.csv", "D3-i.csv", "D3-f.csv"],
+        "relative_folder_directories": ["\\CV-100x100"],
+        "files": [
+          "D3-i.csv",
+          "D3-f.csv",
+          "D4-i.csv",
+          "D4-f.csv",
+          "D5-i.csv",
+          "D5-f.csv"
+        ],
         "cols": ["B", "C"],
         "rows": [259, 460]
       },
 
       "TO_WRITE": {
         "relative_folder_directory": "\\",
-        "file_name": "mapitin.xlsx",
+        "file_name": "CV_compile_2.xlsx",
         "row_settings": {
           "start_row": 1
         },

@@ -93,7 +93,8 @@ def option_2():
                                        startrow=to_write_start_row,
                                        startcol=start_col_to_write)
 
-                header_df = pd.DataFrame([file_name])
+                header_df = pd.DataFrame(
+                    [re.sub(r"\-|\_", " ", file_name).replace(".csv", "")])
 
                 # Append the headers
                 append_df_to_excel(df=header_df,
