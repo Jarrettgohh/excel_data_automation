@@ -3,18 +3,18 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis_LOT3\\20220501\\HZO_LOT3_S4_CV_attempt2",
+      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis_LOT3\\20220301\\HZO_LOT3_WAFER2_CV",
 
       "TO_READ": {
         "file_type": "csv",
         "relative_folder_directories": ["\\CV-100x100"],
         "files": [
+          "D1-i.csv",
+          "D1-f.csv",
+          "D2-i.csv",
+          "D2-f.csv",
           "D3-i.csv",
-          "D3-f.csv",
-          "D4-i.csv",
-          "D4-f.csv",
-          "D5-i.csv",
-          "D5-f.csv"
+          "D3-f.csv"
         ],
         "cols": ["B", "C"],
         "rows": [259, 460]
@@ -22,7 +22,7 @@
 
       "TO_WRITE": {
         "relative_folder_directory": "\\",
-        "file_name": "CV_compile_2.xlsx",
+        "file_name": "test.xlsx",
         "row_settings": {
           "start_row": 1
         },

@@ -104,6 +104,21 @@ def option_2():
 
                 file_path_to_read = f'{root_dir}{folder_dir}\\{file_name}'
 
+                if file_type_to_read == 'xls':
+                    # Call powershell function to convert .xls to .xlsx file
+                    # Refer to main.ps1
+                    if '.csv' not in file_path_to_read:
+                        print(
+                            'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
+                        )
+                        sys.exit()
+
+                    execute_powershell(". \"./Powershell/functions\";",
+                                       f"&convert_xls_to_xlsx({})")
+
+                    # https://stackoverflow.com/questions/14508809/run-powershell-function-from-python-script/14554665
+                    #
+
                 if file_type_to_read == 'csv':
                     if '.csv' not in file_path_to_read:
                         print(
