@@ -3,6 +3,10 @@ import os
 import subprocess
 import sys
 
+import pandas as pd
+
+from Excel.excel_functions import append_df_to_excel
+
 
 def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
                                 file_name_to_write: str):
@@ -53,6 +57,37 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
 
     wb.save(excel_file_path)
     file.close()
+
+
+def create_folder_and_append_df_to_xlsx(xlsx_folder_dir: str,
+                                        xlsx_file_name: str, df: pd.DataFrame,
+                                        startrow: int, startcol: int):
+    try:
+        df = df.astype('float')
+
+    except:
+        pass
+
+    xlsx_file_path_to_write = f'{xlsx_folder_dir}{xlsx_file_name}'
+
+    try:
+        os.makedirs(xlsx_file_path_to_write)
+
+    except FileExistsError:
+        pass
+
+    try:
+        # Append dataframe to main excel file
+        append_df_to_excel(df=df,
+                           filename=xlsx_file_path_to_write,
+                           startrow=startrow,
+                           startcol=startcol)
+
+    except:
+        print(
+            f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
+        )
+        sys.exit()
 
 
 def execute_powershell(command: str):

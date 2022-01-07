@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import execute_powershell, execute_powershell_function, transfer_single_csv_to_xlsx
+from functions import create_folder_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -108,6 +108,14 @@ def option_2():
                 file_path_to_read = f'{root_dir}{folder_dir}/{file_name}'
 
                 if file_type_to_read == 'xls':
+                    if '.xls' not in file_path_to_read:
+                        print(
+                            'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
+                        )
+                        sys.exit()
+
+                    if folder_dir_index == 0:
+                        print('\nConverting .xls files into .xlsx format...')
 
                     try:
                         matches = re.findall(r".+?/*[\w|\s]+/*",
@@ -116,7 +124,7 @@ def option_2():
                         if len(matches) == 0:
                             pass
 
-                        folder_dir_to_read = ''
+                        folder_dir_dir_for_powershell = ''
 
                         for index, match in enumerate(matches):
                             if re.search('\s', match):
@@ -128,7 +136,7 @@ def option_2():
                                         match if slash_index == 0 else match +
                                         '/')
 
-                            folder_dir_to_read = folder_dir_to_read + match
+                            folder_dir_dir_for_powershell = folder_dir_dir_for_powershell + match
 
                     except:
                         pass
@@ -136,7 +144,29 @@ def option_2():
                     execute_powershell_function(
                         file_dir="./Powershell/functions",
                         fn_name="convert_xls_to_xlsx",
-                        fn_args=folder_dir_to_read)
+                        fn_args=folder_dir_dir_for_powershell)
+
+                    folder_dir_to_transfer = f'{root_dir}{folder_dir}'
+                    file_name_to_transfer = file_name.replace(
+                        f".{file_type_to_read}", ".xlsx")
+                    file_dir_to_read = f'{folder_dir_to_transfer}/{file_name_to_transfer}'
+
+                    df = xlsx_read_col_row(xlsx_file=file_dir_to_read,
+                                           rows_to_read=rows_to_read,
+                                           cols_to_read=cols_to_read)
+
+                    if folder_dir_index == 0:
+                        print(
+                            f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
+                        )
+
+                    create_folder_and_append_df_to_xlsx(
+                        xlsx_folder_dir=
+                        f'{root_dir}{relative_folder_directory}',
+                        xlsx_file_name=xlsx_file_name_to_write,
+                        df=df,
+                        startrow=to_write_start_row + 2,
+                        startcol=start_col_to_write)
 
                 if file_type_to_read == 'csv':
                     if '.csv' not in file_path_to_read:
@@ -146,8 +176,8 @@ def option_2():
                         sys.exit()
 
                     folder_dir_to_transfer = f'{root_dir}{folder_dir}{transfer_folder_dir}'
-
-                    file_name_to_transfer = file_name.replace(".csv", ".xlsx")
+                    file_name_to_transfer = file_name.replace(
+                        f".{file_type_to_read}", ".xlsx")
                     file_dir_to_transfer = f'{folder_dir_to_transfer}/{file_name_to_transfer}'
 
                     if folder_dir_index == 0:
@@ -164,35 +194,18 @@ def option_2():
                                            rows_to_read=rows_to_read,
                                            cols_to_read=cols_to_read)
 
-                    try:
-                        df = df.astype('float')
-
-                    except:
-                        pass
-
-                    try:
-                        os.makedirs(f'{root_dir}{relative_folder_directory}')
-
-                    except FileExistsError:
-                        pass
-
-                    try:
-                        if folder_dir_index == 0:
-                            print(
-                                f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
-                            )
-
-                        # Append dataframe to main excel file
-                        append_df_to_excel(df=df,
-                                           filename=xlsx_file_path_to_write,
-                                           startrow=to_write_start_row + 2,
-                                           startcol=start_col_to_write)
-
-                    except:
+                    if folder_dir_index == 0:
                         print(
-                            f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
+                            f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
                         )
-                        sys.exit()
+
+                    create_folder_and_append_df_to_xlsx(
+                        xlsx_folder_dir=
+                        f'{root_dir}{relative_folder_directory}',
+                        xlsx_file_name=xlsx_file_name_to_write,
+                        df=df,
+                        startrow=to_write_start_row + 2,
+                        startcol=start_col_to_write)
 
         excel_file_paths_to_open.append(xlsx_file_path_to_write)
 
