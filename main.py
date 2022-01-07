@@ -1,6 +1,9 @@
+import subprocess
 import sys
+import re
 
 from option_2 import option_2
+from functions import execute_powershell, execute_powershell_function
 
 print('-----------------------------')
 print('\nRemeber to edit the config.json file\n')
@@ -25,3 +28,26 @@ if user_selection == "1":
 
 elif user_selection == "2":
     option_2()
+
+elif user_selection == "3":
+
+    fname = 'C:/hry Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis_LOT3/PV/HZO_LOT3_WAFER1_PV/convert_xls_to_xlsx_test'
+
+    try:
+        matches = re.findall(r"/*[\w|\s]+/*", fname)
+
+        folder_dir = ''
+
+        for index, match in enumerate(matches):
+            if re.search('\s', match):
+                slash_index = re.findall(r'/', match)
+                match = '"' + match.replace('/', '') + '"'
+                match = '/' + match + '/' if len(slash_index) == 2 else (
+                    '/' + match if slash_index == 0 else match + '/')
+
+            folder_dir = folder_dir + match
+
+        print(folder_dir)
+
+    except:
+        pass

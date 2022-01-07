@@ -3,26 +3,19 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:\\Users\\gohja\\Desktop\\ASTAR intenship data\\CV Hysteresis_LOT3\\20220301\\HZO_LOT3_WAFER2_CV",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis_LOT3/PV/HZO_LOT3_WAFER1_PV/convert_xls_to_xlsx_test",
 
       "TO_READ": {
-        "file_type": "csv",
-        "relative_folder_directories": ["\\CV-100x100"],
-        "files": [
-          "D1-i.csv",
-          "D1-f.csv",
-          "D2-i.csv",
-          "D2-f.csv",
-          "D3-i.csv",
-          "D3-f.csv"
-        ],
-        "cols": ["B", "C"],
-        "rows": [259, 460]
+        "file_type": "xls",
+        "relative_folder_directories": ["/"],
+        "files": ["10x10_Hyst_d1.xls"],
+        "cols": ["C", "D"],
+        "rows": [44, 2044]
       },
 
       "TO_WRITE": {
-        "relative_folder_directory": "\\",
-        "file_name": "test.xlsx",
+        "relative_folder_directory": "/",
+        "file_name": "PV_compile.xlsx",
         "row_settings": {
           "start_row": 1
         },

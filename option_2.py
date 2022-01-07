@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import execute_powershell, transfer_single_csv_to_xlsx
+from functions import execute_powershell, execute_powershell_function, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -36,7 +36,7 @@ def option_2():
         rows_to_read = to_read['rows']
 
         # To transfer
-        transfer_folder_dir = "\\transfer"
+        transfer_folder_dir = "/transfer"
 
         # To write
         to_write = config['TO_WRITE']
@@ -45,7 +45,7 @@ def option_2():
         to_write_row_settings = to_write['row_settings']
         to_write_col_settings = to_write['col_settings']
 
-        xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}\\{xlsx_file_name_to_write}'
+        xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}/{xlsx_file_name_to_write}'
 
         # To convert the cols_to_read from letters to number values
         for index, col_value in enumerate(cols_to_read):
@@ -84,7 +84,7 @@ def option_2():
                     file_index_start_row
                 ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
-                header_df = pd.DataFrame([folder_dir.replace("\\", "")])
+                header_df = pd.DataFrame([folder_dir.replace("/", "")])
 
                 if file_index == 0:
                     # Append the headers
@@ -93,8 +93,10 @@ def option_2():
                                        startrow=to_write_start_row,
                                        startcol=start_col_to_write)
 
-                header_df = pd.DataFrame(
-                    [re.sub(r"\-|\_", " ", file_name).replace(".csv", "")])
+                header_df = pd.DataFrame([
+                    re.sub(r"\-|\_", " ",
+                           file_name).replace(f".{file_type_to_read}", "")
+                ])
 
                 # Append the headers
                 append_df_to_excel(df=header_df,
@@ -102,22 +104,39 @@ def option_2():
                                    startrow=to_write_start_row + 1,
                                    startcol=start_col_to_write)
 
-                file_path_to_read = f'{root_dir}{folder_dir}\\{file_name}'
+                folder_dir_to_read = f'{root_dir}{folder_dir}'
+                file_path_to_read = f'{root_dir}{folder_dir}/{file_name}'
 
                 if file_type_to_read == 'xls':
-                    # Call powershell function to convert .xls to .xlsx file
-                    # Refer to main.ps1
-                    if '.csv' not in file_path_to_read:
-                        print(
-                            'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
-                        )
-                        sys.exit()
 
-                    execute_powershell(". \"./Powershell/functions\";",
-                                       f"&convert_xls_to_xlsx({})")
+                    try:
+                        matches = re.findall(r".+?/*[\w|\s]+/*",
+                                             folder_dir_to_read)
 
-                    # https://stackoverflow.com/questions/14508809/run-powershell-function-from-python-script/14554665
-                    #
+                        if len(matches) == 0:
+                            pass
+
+                        folder_dir_to_read = ''
+
+                        for index, match in enumerate(matches):
+                            if re.search('\s', match):
+                                slash_index = re.findall(r'/', match)
+                                match = '"' + match.replace('/', '') + '"'
+                                match = '/' + match + '/' if len(
+                                    slash_index) == 2 else (
+                                        '/' +
+                                        match if slash_index == 0 else match +
+                                        '/')
+
+                            folder_dir_to_read = folder_dir_to_read + match
+
+                    except:
+                        pass
+
+                    execute_powershell_function(
+                        file_dir="./Powershell/functions",
+                        fn_name="convert_xls_to_xlsx",
+                        fn_args=folder_dir_to_read)
 
                 if file_type_to_read == 'csv':
                     if '.csv' not in file_path_to_read:
@@ -129,7 +148,7 @@ def option_2():
                     folder_dir_to_transfer = f'{root_dir}{folder_dir}{transfer_folder_dir}'
 
                     file_name_to_transfer = file_name.replace(".csv", ".xlsx")
-                    file_dir_to_transfer = f'{folder_dir_to_transfer}\\{file_name_to_transfer}'
+                    file_dir_to_transfer = f'{folder_dir_to_transfer}/{file_name_to_transfer}'
 
                     if folder_dir_index == 0:
                         print(

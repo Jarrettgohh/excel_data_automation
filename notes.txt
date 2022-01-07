@@ -9,3 +9,5 @@
 5. Allow setting of file path from root directory with the "~" prefix; root directory would refer to "\"
 6. Log messages on the screen ✓
 7. Allow setting of keyword in the config.json such as "bd" or "fail", and would inform user if the files with these text is detected
+
+8. Extracting and transferring data from .txt file
