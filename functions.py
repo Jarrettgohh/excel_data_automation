@@ -99,6 +99,9 @@ def execute_powershell(command: str):
 
 
 def execute_powershell_function(file_dir: str, fn_name: str, fn_args: str):
+    try:
+        cmd = ["powershell.exe", f". \"{file_dir}\";", f"&{fn_name} {fn_args}"]
+        subprocess.check_output(cmd)
 
-    cmd = ["powershell.exe", f". \"{file_dir}\";", f"&{fn_name} {fn_args}"]
-    subprocess.call(cmd)
+    except subprocess.CalledProcessError:
+        raise Exception()

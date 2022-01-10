@@ -114,8 +114,9 @@ def option_2():
                         )
                         sys.exit()
 
-                    if folder_dir_index == 0:
-                        print('\nConverting .xls files into .xlsx format...')
+                    print(
+                        f'\nConverting .xls file at path {file_path_to_read} into .xlsx format...'
+                    )
 
                     try:
                         matches = re.findall(r".+?/*[\w|\s]+/*",
@@ -124,7 +125,7 @@ def option_2():
                         if len(matches) == 0:
                             pass
 
-                        folder_dir_dir_for_powershell = ''
+                        folder_dir_for_powershell = ''
 
                         for index, match in enumerate(matches):
                             if re.search('\s', match):
@@ -136,15 +137,22 @@ def option_2():
                                         match if slash_index == 0 else match +
                                         '/')
 
-                            folder_dir_dir_for_powershell = folder_dir_dir_for_powershell + match
+                            folder_dir_for_powershell = folder_dir_for_powershell + match
 
                     except:
                         pass
+                    try:
 
-                    execute_powershell_function(
-                        file_dir="./Powershell/functions",
-                        fn_name="convert_xls_to_xlsx",
-                        fn_args=folder_dir_dir_for_powershell)
+                        execute_powershell_function(
+                            file_dir="./Powershell/functions",
+                            fn_name="convert_xls_to_xlsx",
+                            fn_args=folder_dir_for_powershell)
+
+                    except:
+                        print(
+                            f'Failed to convert file at path: "{file_path_to_read}" to .xlsx format.'
+                        )
+                        continue
 
                     folder_dir_to_transfer = f'{root_dir}{folder_dir}'
                     file_name_to_transfer = file_name.replace(
@@ -155,10 +163,9 @@ def option_2():
                                            rows_to_read=rows_to_read,
                                            cols_to_read=cols_to_read)
 
-                    if folder_dir_index == 0:
-                        print(
-                            f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
-                        )
+                    print(
+                        f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
+                    )
 
                     create_folder_and_append_df_to_xlsx(
                         xlsx_folder_dir=
@@ -180,10 +187,9 @@ def option_2():
                         f".{file_type_to_read}", ".xlsx")
                     file_dir_to_transfer = f'{folder_dir_to_transfer}/{file_name_to_transfer}'
 
-                    if folder_dir_index == 0:
-                        print(
-                            '\nConverting .csv files into .xlsx format, and transferring into new folder...'
-                        )
+                    print(
+                        '\nConverting .csv files into .xlsx format, and transferring into new folder...'
+                    )
 
                     transfer_single_csv_to_xlsx(
                         path_to_csv=file_path_to_read,
@@ -194,10 +200,9 @@ def option_2():
                                            rows_to_read=rows_to_read,
                                            cols_to_read=cols_to_read)
 
-                    if folder_dir_index == 0:
-                        print(
-                            f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
-                        )
+                    print(
+                        f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
+                    )
 
                     create_folder_and_append_df_to_xlsx(
                         xlsx_folder_dir=

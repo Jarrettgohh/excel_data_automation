@@ -13,3 +13,5 @@
 8. Extracting and transferring data from .txt file
 9. Handle if .xlsx file name to write doesn't have .xlsx file extension
 10. Same extraction method can be done for .csv files to as the .xls (Directly converting to .xlsx using powershell)
+
+11. Catch exception from `execute_powershell_function` method

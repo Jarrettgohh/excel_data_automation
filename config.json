@@ -3,14 +3,21 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis_LOT3/PV/HZO_LOT3_WAFER1_PV/convert_xls_to_xlsx_test",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis_LOT3/Ferroelectric workstation PV/w2",
 
       "TO_READ": {
-        "file_type": "csv",
-        "relative_folder_directories": ["/"],
-        "files": ["D3-i.csv", "D3-f.csv"],
-        "cols": ["B", "C"],
-        "rows": [259, 460]
+        "file_type": "xls",
+        "relative_folder_directories": ["/50x100", "/50x50", "/20x20"],
+        "files": [
+          "D1_i.xls",
+          "D1_f.xls",
+          "D2_i.xls",
+          "D2_f.xls",
+          "D3_i.xls",
+          "D3_f.xls"
+        ],
+        "cols": ["C", "D"],
+        "rows": [44, 2044]
       },
 
       "TO_WRITE": {
