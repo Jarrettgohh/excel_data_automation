@@ -1,6 +1,14 @@
 1. Have a main function file that stores all the methods related to .xlsx|.csv|.txt file 
 2. Have a new .py file for each option methods; this files would be called from the main.py file
 
+==> New feature idea:
+-> Software to extract capacitance value at V=0 and use it to calculate the k value
+
+1. Extract capacitance value at v=0, and place in a new excel file
+2. Gather information about the thicknes and dimensions (to calculate the area)
+3. Run macro to calculate k value with pre-defined formulas
+
+
 ==> To work on now:
 1. Allow settings of col to read and write using the letters instead of number values ✓
 2. Handle permission denied error; when the file to write is open ✓
@@ -15,3 +23,5 @@
 10. Same extraction method can be done for .csv files to as the .xls (Directly converting to .xlsx using powershell)
 
 11. Catch exception from `execute_powershell_function` method
+12. Update message logging, not really accurate as .xls -> .xlsx conversion is for all file at once instead of individually
+13. Powershell function to convert xls to xlsx -> ensure that the file extension of the file to convert is actually .xls, but not .txt or .csv instead

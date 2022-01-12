@@ -86,23 +86,31 @@ def option_2():
 
                 header_df = pd.DataFrame([folder_dir.replace("/", "")])
 
-                if file_index == 0:
+                try:
+
+                    if file_index == 0:
+
+                        # Append the headers
+                        append_df_to_excel(df=header_df,
+                                           filename=xlsx_file_path_to_write,
+                                           startrow=to_write_start_row,
+                                           startcol=start_col_to_write)
+
+                    header_df = pd.DataFrame([
+                        re.sub(r"\-|\_", " ",
+                               file_name).replace(f".{file_type_to_read}", "")
+                    ])
+
                     # Append the headers
                     append_df_to_excel(df=header_df,
                                        filename=xlsx_file_path_to_write,
-                                       startrow=to_write_start_row,
+                                       startrow=to_write_start_row + 1,
                                        startcol=start_col_to_write)
-
-                header_df = pd.DataFrame([
-                    re.sub(r"\-|\_", " ",
-                           file_name).replace(f".{file_type_to_read}", "")
-                ])
-
-                # Append the headers
-                append_df_to_excel(df=header_df,
-                                   filename=xlsx_file_path_to_write,
-                                   startrow=to_write_start_row + 1,
-                                   startcol=start_col_to_write)
+                except:
+                    print(
+                        f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
+                    )
+                    sys.exit()
 
                 folder_dir_to_read = f'{root_dir}{folder_dir}'
                 file_path_to_read = f'{root_dir}{folder_dir}/{file_name}'
@@ -141,6 +149,7 @@ def option_2():
 
                     except:
                         pass
+
                     try:
 
                         execute_powershell_function(

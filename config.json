@@ -3,26 +3,19 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis_LOT3/Ferroelectric workstation PV/w2",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis_LOT3/20221201/HZO_LOT2_WAFER6_PV",
 
       "TO_READ": {
         "file_type": "xls",
-        "relative_folder_directories": ["/50x100", "/50x50", "/20x20"],
-        "files": [
-          "D1_i.xls",
-          "D1_f.xls",
-          "D2_i.xls",
-          "D2_f.xls",
-          "D3_i.xls",
-          "D3_f.xls"
-        ],
+        "relative_folder_directories": ["/100x100"],
+        "files": ["d1-i.xls", "d1-f.xls", "d2-i.xls", "d3-i.xls", "d3-f.xls"],
         "cols": ["C", "D"],
         "rows": [44, 2044]
       },
 
       "TO_WRITE": {
         "relative_folder_directory": "/",
-        "file_name": "PV_compile.xlsx",
+        "file_name": "CV_compile.xlsx",
         "row_settings": {
           "start_row": 1
         },
