@@ -19,9 +19,14 @@
 7. Allow setting of keyword in the config.json such as "bd" or "fail", and would inform user if the files with these text is detected
 
 8. Extracting and transferring data from .txt file
-9. Handle if .xlsx file name to write doesn't have .xlsx file extension
+9. Handle if .xlsx file name to write doesn't have .xlsx file extension ✓
 10. Same extraction method can be done for .csv files to as the .xls (Directly converting to .xlsx using powershell)
 
 11. Catch exception from `execute_powershell_function` method
 12. Update message logging, not really accurate as .xls -> .xlsx conversion is for all file at once instead of individually
 13. Powershell function to convert xls to xlsx -> ensure that the file extension of the file to convert is actually .xls, but not .txt or .csv instead
+
+14. Configuration for temperature IV compilation:
+-> Set different file to read for each folder
+-> OR to set matching pattern for file names in each folder -> To match `A1` in example`A1_25C_neg`
+-> OR matching words `A1` and `pos` -> to differentiate between positive and negative values

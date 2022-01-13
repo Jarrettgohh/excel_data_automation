@@ -44,6 +44,8 @@ def option_2():
         xlsx_file_name_to_write = to_write['file_name']
         to_write_row_settings = to_write['row_settings']
         to_write_col_settings = to_write['col_settings']
+        append_folder_dir_header = to_write['append_folder_dir_header']
+        append_file_name_header = to_write['append_file_name_header']
 
         xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}/{xlsx_file_name_to_write}'
 
@@ -90,22 +92,25 @@ def option_2():
 
                     if file_index == 0:
 
-                        # Append the headers
-                        append_df_to_excel(df=header_df,
-                                           filename=xlsx_file_path_to_write,
-                                           startrow=to_write_start_row,
-                                           startcol=start_col_to_write)
+                        if append_folder_dir_header:
+                            # Append the headers
+                            append_df_to_excel(
+                                df=header_df,
+                                filename=xlsx_file_path_to_write,
+                                startrow=to_write_start_row,
+                                startcol=start_col_to_write)
 
                     header_df = pd.DataFrame([
                         re.sub(r"\-|\_", " ",
                                file_name).replace(f".{file_type_to_read}", "")
                     ])
 
-                    # Append the headers
-                    append_df_to_excel(df=header_df,
-                                       filename=xlsx_file_path_to_write,
-                                       startrow=to_write_start_row + 1,
-                                       startcol=start_col_to_write)
+                    if append_file_name_header:
+                        # Append the headers
+                        append_df_to_excel(df=header_df,
+                                           filename=xlsx_file_path_to_write,
+                                           startrow=to_write_start_row + 1,
+                                           startcol=start_col_to_write)
                 except:
                     print(
                         f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
