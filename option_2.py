@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import create_folder_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, transfer_single_csv_to_xlsx
+from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, transfer_files_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -131,9 +131,10 @@ def option_2():
                         f'\nConverting .xls file at path {file_path_to_read} into .xlsx format...'
                     )
 
+                    transfer_dir = folder_dir_to_read + 'transfer' + '/'
+
                     try:
-                        matches = re.findall(r".+?/*[\w|\s]+/*",
-                                             folder_dir_to_read)
+                        matches = re.findall(r".+?/*[\w|\s]+/*", transfer_dir)
 
                         if len(matches) == 0:
                             pass
@@ -155,6 +156,11 @@ def option_2():
                     except:
                         pass
 
+                    transfer_files_to_new_folder(
+                        current_file_dir=folder_dir_to_read + '/' + file_name,
+                        target_dir=transfer_dir,
+                        target_file_name=file_name)
+
                     try:
 
                         execute_powershell_function(
@@ -168,26 +174,32 @@ def option_2():
                         )
                         continue
 
-                    folder_dir_to_transfer = f'{root_dir}{folder_dir}'
                     file_name_to_transfer = file_name.replace(
                         f".{file_type_to_read}", ".xlsx")
-                    file_dir_to_read = f'{folder_dir_to_transfer}/{file_name_to_transfer}'
+                    file_dir_to_read = f'{transfer_dir}/{file_name_to_transfer}'
 
-                    df = xlsx_read_col_row(xlsx_file=file_dir_to_read,
-                                           rows_to_read=rows_to_read,
-                                           cols_to_read=cols_to_read)
+                    try:
+                        df = xlsx_read_col_row(xlsx_file=file_dir_to_read,
+                                               rows_to_read=rows_to_read,
+                                               cols_to_read=cols_to_read)
 
-                    print(
-                        f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
-                    )
+                        create_file_and_append_df_to_xlsx(
+                            xlsx_folder_dir=
+                            f'{root_dir}{relative_folder_directory}',
+                            xlsx_file_name=xlsx_file_name_to_write,
+                            df=df,
+                            startrow=to_write_start_row + 2,
+                            startcol=start_col_to_write)
 
-                    create_folder_and_append_df_to_xlsx(
-                        xlsx_folder_dir=
-                        f'{root_dir}{relative_folder_directory}',
-                        xlsx_file_name=xlsx_file_name_to_write,
-                        df=df,
-                        startrow=to_write_start_row + 2,
-                        startcol=start_col_to_write)
+                        print(
+                            f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
+                        )
+
+                    except:
+                        print(
+                            '\nSomething went wrong. Are the files to read in the `.xls` format?\n'
+                        )
+                        sys.exit()
 
                 if file_type_to_read == 'csv':
                     if '.csv' not in file_path_to_read:
@@ -218,7 +230,7 @@ def option_2():
                         f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
                     )
 
-                    create_folder_and_append_df_to_xlsx(
+                    create_file_and_append_df_to_xlsx(
                         xlsx_folder_dir=
                         f'{root_dir}{relative_folder_directory}',
                         xlsx_file_name=xlsx_file_name_to_write,

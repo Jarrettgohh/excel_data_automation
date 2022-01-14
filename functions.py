@@ -2,10 +2,27 @@ import openpyxl
 import os
 import subprocess
 import sys
+import shutil
 
 import pandas as pd
 
 from Excel.excel_functions import append_df_to_excel
+
+
+def transfer_files_to_new_folder(current_file_dir: str, target_dir: str,
+                                 target_file_name: str):
+
+    try:
+        os.makedirs(target_dir)
+
+    except FileExistsError:
+        pass
+
+    try:
+        shutil.copyfile(current_file_dir, target_dir + "/" + target_file_name)
+
+    except:
+        pass
 
 
 def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
@@ -59,9 +76,9 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
     file.close()
 
 
-def create_folder_and_append_df_to_xlsx(xlsx_folder_dir: str,
-                                        xlsx_file_name: str, df: pd.DataFrame,
-                                        startrow: int, startcol: int):
+def create_file_and_append_df_to_xlsx(xlsx_folder_dir: str,
+                                      xlsx_file_name: str, df: pd.DataFrame,
+                                      startrow: int, startcol: int):
     try:
         df = df.astype('float')
 
