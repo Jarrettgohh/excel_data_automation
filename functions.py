@@ -9,8 +9,8 @@ import pandas as pd
 from Excel.excel_functions import append_df_to_excel
 
 
-def transfer_files_to_new_folder(current_file_dir: str, target_dir: str,
-                                 target_file_name: str):
+def transfer_file_to_new_folder(current_file_dir: str, target_dir: str,
+                                target_file_name: str):
 
     try:
         os.makedirs(target_dir)
@@ -115,9 +115,12 @@ def execute_powershell(command: str):
         raise Exception()
 
 
-def execute_powershell_function(file_dir: str, fn_name: str, fn_args: str):
+def execute_powershell_function(file_dir: str, fn_name: str, fn_args: list):
+    # Spread args to powershell function call
     try:
-        cmd = ["powershell.exe", f". \"{file_dir}\";", f"&{fn_name} {fn_args}"]
+        cmd = [
+            "powershell.exe", f". \"{file_dir}\";", f"&{fn_name} {fn_args} {}"
+        ]
         subprocess.check_output(cmd)
 
     except subprocess.CalledProcessError:

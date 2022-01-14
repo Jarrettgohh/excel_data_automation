@@ -21,9 +21,8 @@
 8. Extracting and transferring data from .txt file
 9. Handle if .xlsx file name to write doesn't have .xlsx file extension ✓
 
-11. Catch exception from `execute_powershell_function` method
 12. Update message logging, not really accurate as .xls -> .xlsx conversion is for all file at once instead of individually
-13. Powershell function to convert xls to xlsx -> ensure that the file extension of the file to convert is actually .xls, but not .txt or .csv instead
+13. Powershell function to convert xls to xlsx -> ensure that the file extension of the file to convert is actually .xls, but not .txt or .csv instead ✓
 
 14. Configuration for temperature IV compilation:
 -> Set different file to read for each folder

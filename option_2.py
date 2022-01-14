@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, transfer_files_to_new_folder, transfer_single_csv_to_xlsx
+from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -89,6 +89,9 @@ def option_2():
                 header_df = pd.DataFrame([folder_dir.replace("/", "")])
 
                 try:
+                    print(
+                        'Appending headers to the file at path: xlsx_file_path_to_write...'
+                    )
 
                     if file_index == 0:
 
@@ -128,7 +131,7 @@ def option_2():
                         sys.exit()
 
                     print(
-                        f'\nConverting .xls file at path {file_path_to_read} into .xlsx format...'
+                        f'Converting .xls file at path {file_path_to_read} into .xlsx format...'
                     )
 
                     transfer_dir = folder_dir_to_read + 'transfer' + '/'
@@ -156,13 +159,12 @@ def option_2():
                     except:
                         pass
 
-                    transfer_files_to_new_folder(
+                    transfer_file_to_new_folder(
                         current_file_dir=folder_dir_to_read + '/' + file_name,
                         target_dir=transfer_dir,
                         target_file_name=file_name)
 
                     try:
-
                         execute_powershell_function(
                             file_dir="./Powershell/functions",
                             fn_name="convert_xls_to_xlsx",
