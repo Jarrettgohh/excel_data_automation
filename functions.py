@@ -116,11 +116,15 @@ def execute_powershell(command: str):
 
 
 def execute_powershell_function(file_dir: str, fn_name: str, fn_args: list):
-    # Spread args to powershell function call
+    powershell_cmd = f"&{fn_name} "
+
+    for index, fn_arg in enumerate(fn_args):
+
+        powershell_cmd = powershell_cmd + fn_arg + ' ' if index != len(
+            fn_args) - 1 else powershell_cmd + fn_arg
+
     try:
-        cmd = [
-            "powershell.exe", f". \"{file_dir}\";", f"&{fn_name} {fn_args} {}"
-        ]
+        cmd = ["powershell.exe", f". \"{file_dir}\";", powershell_cmd]
         subprocess.check_output(cmd)
 
     except subprocess.CalledProcessError:

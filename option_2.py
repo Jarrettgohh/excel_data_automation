@@ -168,7 +168,8 @@ def option_2():
                         execute_powershell_function(
                             file_dir="./Powershell/functions",
                             fn_name="convert_xls_to_xlsx",
-                            fn_args=folder_dir_for_powershell)
+                            fn_args=[folder_dir_for_powershell, file_name],
+                        )
 
                     except:
                         print(

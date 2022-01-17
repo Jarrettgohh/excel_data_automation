@@ -28,3 +28,9 @@
 -> Set different file to read for each folder
 -> OR to set matching pattern for file names in each folder -> To match `A1` in example`A1_25C_neg`
 -> OR matching words `A1` and `pos` -> to differentiate between positive and negative values
+
+METHODS TO UPDATE:
+1. At the start of the loop for the relative_folder_directories, convert all the files to .xlsx and transfer to a new folder 
+2. Subsequent methods would be to just read the data at desired col and row, before writing to .xlsx fil
+--> Update convert .xls -> .xlsx method to be done only for some files (?)
+-> TO prevent converting some other file extensions example .html
