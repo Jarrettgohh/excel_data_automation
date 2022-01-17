@@ -7,10 +7,15 @@
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": ["/175C"],
+        "relative_folder_directories": [
+          "/25C_initial",
+          "/-40C",
+          "/-20C",
+          "/0C"
+        ],
         "files": {
-          "type": "matching",
-          "hardcoded_values": ["d1-i.xls", "d1-f.xls", "d2-i.xls", "d2-f.xls"],
+          "type": "match",
+          "hardcoded_values": [],
           "matching_values": ["A1", "pos"]
         },
         "cols": ["B", "C"],
@@ -19,9 +24,9 @@
 
       "TO_WRITE": {
         "append_folder_dir_header": true,
-        "append_file_name_header": true,
+        "append_file_name_header": false,
         "relative_folder_directory": "/",
-        "file_name": "compile_test.xlsx",
+        "file_name": "A1_compile_test.xlsx",
         "row_settings": {
           "start_row": 1
         },

@@ -31,8 +31,8 @@ def option_2():
         to_read = config['TO_READ']
         file_type_to_read = to_read['file_type']
         relative_folder_directories = to_read['relative_folder_directories']
-        files_to_read = to_read['files']
-        files_to_read_type = files_to_read['type']
+        files_to_read_config = to_read['files']
+        files_to_read_type = files_to_read_config['type']
         cols_to_read = to_read['cols']
         rows_to_read = to_read['rows']
 
@@ -70,11 +70,19 @@ def option_2():
             # Handle finding the files to read that matches search pattern
             #
 
-            if (files_to_read_type == 'matching'):
+            if (files_to_read_type == 'match'):
 
-                files_in_dir = os.listdir(folder_dir_to_read)
+                try:
+                    files_in_dir = os.listdir(folder_dir_to_read)
 
-                files_to_read_matching_values = files_to_read[
+                # Folder directory to read not found; set wrongly in config.json
+                except:
+                    print(
+                        f'Failed to read files in folder directory: {folder_dir_to_read}. Check the `relative_folder_directories` field in config.json'
+                    )
+                    sys.exit()
+
+                files_to_read_matching_values = files_to_read_config[
                     'matching_values']
                 files_to_read = []
 
@@ -93,6 +101,9 @@ def option_2():
 
                     if is_a_match:
                         files_to_read.append(file)
+
+            else:
+                files_to_read = files_to_read_config['hardcoded_values']
 
             for file_index, file_name in enumerate(files_to_read):
 
