@@ -89,9 +89,7 @@ def option_2():
                 header_df = pd.DataFrame([folder_dir.replace("/", "")])
 
                 try:
-                    print(
-                        'Appending headers to the file at path: xlsx_file_path_to_write...'
-                    )
+                    print(f'Appending headers to the .xlsx file to write...')
 
                     if file_index == 0:
 
@@ -160,7 +158,7 @@ def option_2():
                         pass
 
                     transfer_file_to_new_folder(
-                        current_file_dir=folder_dir_to_read + '/' + file_name,
+                        current_file_dir=folder_dir_to_read + file_name,
                         target_dir=transfer_dir,
                         target_file_name=file_name)
 
