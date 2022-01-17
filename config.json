@@ -3,14 +3,18 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/CV Hysteresis/PV/w4/100x100-Copy",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/12_01_2022_temperature_cycling_IV",
 
       "TO_READ": {
-        "file_type": "xls",
-        "relative_folder_directories": ["/"],
-        "files": ["d1-i.xls", "d1-f.xls", "d2-i.xls", "d2-f.xls"],
-        "cols": ["C", "D"],
-        "rows": [44, 2044]
+        "file_type": "csv",
+        "relative_folder_directories": ["/175C"],
+        "files": {
+          "type": "matching",
+          "hardcoded_values": ["d1-i.xls", "d1-f.xls", "d2-i.xls", "d2-f.xls"],
+          "matching_values": ["A1", "pos"]
+        },
+        "cols": ["B", "C"],
+        "rows": [256, 457]
       },
 
       "TO_WRITE": {

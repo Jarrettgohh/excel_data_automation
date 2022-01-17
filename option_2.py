@@ -31,7 +31,8 @@ def option_2():
         to_read = config['TO_READ']
         file_type_to_read = to_read['file_type']
         relative_folder_directories = to_read['relative_folder_directories']
-        files = to_read['files']
+        files_to_read = to_read['files']
+        files_to_read_type = files_to_read['type']
         cols_to_read = to_read['cols']
         rows_to_read = to_read['rows']
 
@@ -60,20 +61,46 @@ def option_2():
         for folder_dir_index, folder_dir in enumerate(
                 relative_folder_directories):
 
-            #
-            # Writing of headers
-            #
-
             to_write_start_row = to_write_row_settings['start_row']
             to_write_start_col_setting = to_write_col_settings['start_col']
 
-            for file_index, file_name in enumerate(files):
+            folder_dir_to_read = f'{root_dir}{folder_dir}'
+
+            #
+            # Handle finding the files to read that matches search pattern
+            #
+
+            if (files_to_read_type == 'matching'):
+
+                files_in_dir = os.listdir(folder_dir_to_read)
+
+                files_to_read_matching_values = files_to_read[
+                    'matching_values']
+                files_to_read = []
+
+                for file in files_in_dir:
+                    is_a_match = False
+
+                    for matching_value in files_to_read_matching_values:
+                        match = re.search(matching_value, file)
+
+                        if match:
+                            is_a_match = True
+
+                        else:
+                            is_a_match = False
+                            break
+
+                    if is_a_match:
+                        files_to_read.append(file)
+
+            for file_index, file_name in enumerate(files_to_read):
 
                 cols_to_read_len = len(cols_to_read)
 
                 file_index_start_row = cols_to_read_len * file_index
-                folder_index_start_row = ((folder_dir_index * len(files)) *
-                                          cols_to_read_len)
+                folder_index_start_row = (
+                    (folder_dir_index * len(files_to_read)) * cols_to_read_len)
 
                 to_write_start_col_setting = column_index_from_string(
                     to_write_start_col_setting) - 1 if type(
@@ -87,6 +114,10 @@ def option_2():
                 ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
                 header_df = pd.DataFrame([folder_dir.replace("/", "")])
+
+                #
+                # Writing of headers
+                #
 
                 try:
                     print(f'Appending headers to the .xlsx file to write...')
@@ -118,7 +149,6 @@ def option_2():
                     )
                     sys.exit()
 
-                folder_dir_to_read = f'{root_dir}{folder_dir}'
                 file_path_to_read = f'{root_dir}{folder_dir}/{file_name}'
 
                 if file_type_to_read == 'xls':

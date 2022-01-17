@@ -25,7 +25,11 @@
 
 13. Powershell function to convert xls to xlsx -> ensure that the file extension of the file to convert is actually .xls, but not .txt or .csv instead ✓
 
-14. Configuration for temperature IV compilation:
+14. Handle if the col and row to read is out of range
+
+15. Configuration for temperature IV compilation:
 -> Set different file to read for each folder
--> OR to set matching pattern for file names in each folder -> To match `A1` in example`A1_25C_neg`
--> OR matching words `A1` and `pos` -> to differentiate between positive and negative values
+-> OR to set matching pattern for file names in each folder -> To match `A1` in example`A1_25C_neg` ✓
+-> OR matching words `A1` and `pos` -> to differentiate between positive and negative values ✓
+
+--> TO_READ.files.type == 'matching' | 'hardcoded'
