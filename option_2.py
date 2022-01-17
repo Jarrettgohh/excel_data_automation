@@ -131,7 +131,7 @@ def option_2():
                         sys.exit()
 
                     print(
-                        f'Converting .xls file at path {file_path_to_read} into .xlsx format...'
+                        f'Converting .xls file at path {file_path_to_read} into .xlsx format, and transferring into new folder...'
                     )
 
                     transfer_dir = folder_dir_to_read + 'transfer' + '/'
@@ -217,7 +217,7 @@ def option_2():
                     file_dir_to_transfer = f'{folder_dir_to_transfer}/{file_name_to_transfer}'
 
                     print(
-                        '\nConverting .csv files into .xlsx format, and transferring into new folder...'
+                        f'\nConverting .csv file at path :{file_path_to_read} into .xlsx format, and transferring into new folder...'
                     )
 
                     transfer_single_csv_to_xlsx(
