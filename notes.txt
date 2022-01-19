@@ -33,4 +33,4 @@
 -> OR matching words `A1` and `pos` -> to differentiate between positive and negative values ✓
 -> Handle if the folder dir not found
 
---> TO_READ.files.type == 'matching' | 'hardcoded'
+--> TO_READ.files.type == 'match' | 'hardcode'

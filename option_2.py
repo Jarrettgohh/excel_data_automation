@@ -102,6 +102,9 @@ def option_2():
                     if is_a_match:
                         files_to_read.append(file)
 
+            #
+            # files_to_read_type == 'hardcode'
+            #
             else:
                 files_to_read = files_to_read_config['hardcoded_values']
 
@@ -124,11 +127,12 @@ def option_2():
                     file_index_start_row
                 ) if to_write_cols == 'auto' else to_write_cols[file_index]
 
-                header_df = pd.DataFrame([folder_dir.replace("/", "")])
-
                 #
                 # Writing of headers
                 #
+
+                folder_dir_header_df = pd.DataFrame(
+                    [re.sub(r"\-|\_", " ", folder_dir.replace('/', ''))])
 
                 try:
                     print(f'Appending headers to the .xlsx file to write...')
@@ -136,21 +140,21 @@ def option_2():
                     if file_index == 0:
 
                         if append_folder_dir_header:
-                            # Append the headers
+                            # Append the folder dir headers
                             append_df_to_excel(
-                                df=header_df,
+                                df=folder_dir_header_df,
                                 filename=xlsx_file_path_to_write,
                                 startrow=to_write_start_row,
                                 startcol=start_col_to_write)
 
-                    header_df = pd.DataFrame([
+                    fie_name_header_df = pd.DataFrame([
                         re.sub(r"\-|\_", " ",
                                file_name).replace(f".{file_type_to_read}", "")
                     ])
 
                     if append_file_name_header:
-                        # Append the headers
-                        append_df_to_excel(df=header_df,
+                        # Append the file name headers
+                        append_df_to_excel(df=fie_name_header_df,
                                            filename=xlsx_file_path_to_write,
                                            startrow=to_write_start_row + 1,
                                            startcol=start_col_to_write)
@@ -230,7 +234,9 @@ def option_2():
                             f'{root_dir}{relative_folder_directory}',
                             xlsx_file_name=xlsx_file_name_to_write,
                             df=df,
-                            startrow=to_write_start_row + 2,
+                            startrow=to_write_start_row +
+                            (2 if (append_folder_dir_header
+                                   and append_file_name_header) else 1),
                             startcol=start_col_to_write)
 
                         print(
@@ -277,7 +283,9 @@ def option_2():
                         f'{root_dir}{relative_folder_directory}',
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
-                        startrow=to_write_start_row + 2,
+                        startrow=to_write_start_row +
+                        (2 if (append_folder_dir_header
+                               and append_file_name_header) else 1),
                         startcol=start_col_to_write)
 
         excel_file_paths_to_open.append(xlsx_file_path_to_write)
