@@ -7,9 +7,22 @@
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": ["/25C_initial"],
+        "relative_folder_directories": [
+          "/25C_initial",
+          "/-40C",
+          "/-20C",
+          "/0C",
+          "/25C",
+          "/50C",
+          "/75C",
+          "/100C",
+          "/125C",
+          "/150C",
+          "/175C",
+          "/25C_final"
+        ],
         "files": {
-          "type": "hardcode",
+          "type": "match",
           "hardcoded_values": ["A1_25C_neg.csv"],
           "matching_values": ["A3", "pos"]
         },

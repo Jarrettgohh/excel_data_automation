@@ -78,7 +78,7 @@ def option_2():
                 # Folder directory to read not found; set wrongly in config.json
                 except:
                     print(
-                        f'Failed to read files in folder directory: {folder_dir_to_read}. Check the `ROOT_DIRECTORY` and `relative_folder_directories` field in config.json'
+                        f'\nFailed to read files in folder directory: {folder_dir_to_read}. Check the `ROOT_DIRECTORY` and `relative_folder_directories` field in config.json\n'
                     )
                     sys.exit()
 
