@@ -78,7 +78,7 @@ def option_2():
                 # Folder directory to read not found; set wrongly in config.json
                 except:
                     print(
-                        f'Failed to read files in folder directory: {folder_dir_to_read}. Check the `relative_folder_directories` field in config.json'
+                        f'Failed to read files in folder directory: {folder_dir_to_read}. Check the `ROOT_DIRECTORY` and `relative_folder_directories` field in config.json'
                     )
                     sys.exit()
 
@@ -120,8 +120,10 @@ def option_2():
                     to_write_start_col_setting) - 1 if type(
                         to_write_start_col_setting
                     ) == str else to_write_start_col_setting
+
                 to_write_cols = to_write_col_settings['cols']
 
+                # Calculation of the start col to write according to the files and folder index if setting for TO_WRITE["col_settings"]["cols"] == "auto"
                 start_col_to_write = (
                     to_write_start_col_setting + folder_index_start_row +
                     file_index_start_row
@@ -160,7 +162,7 @@ def option_2():
                                            startcol=start_col_to_write)
                 except:
                     print(
-                        f'Failed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open.\n'
+                        f'\nFailed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open, and the `ROOT_DIRECTORY` and `relative_folder_directories` fields are set correctly in config.json.\n'
                     )
                     sys.exit()
 

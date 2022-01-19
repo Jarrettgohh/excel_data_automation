@@ -3,28 +3,15 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/12_01_2022_temperature_cycling_IV",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/12_01_2022_temperature_cycling_I",
 
       "TO_READ": {
         "file_type": "csv",
-        "relative_folder_directories": [
-          "/25C_initial",
-          "/-40C",
-          "/-20C",
-          "/0C",
-          "/25C",
-          "/50C",
-          "/75C",
-          "/100C",
-          "/125C",
-          "/150C",
-          "/175C",
-          "/25C_final"
-        ],
+        "relative_folder_directories": ["/25C_initial"],
         "files": {
-          "type": "match",
-          "hardcoded_values": [],
-          "matching_values": ["A1", "pos"]
+          "type": "hardcode",
+          "hardcoded_values": ["A1_25C_neg.csv"],
+          "matching_values": ["A3", "pos"]
         },
         "cols": ["B", "C"],
         "rows": [256, 457]
@@ -34,7 +21,7 @@
         "append_folder_dir_header": true,
         "append_file_name_header": false,
         "relative_folder_directory": "/",
-        "file_name": "A1_compile_test.xlsx",
+        "file_name": "A2_compile_test.xlsx",
         "row_settings": {
           "start_row": 1
         },
