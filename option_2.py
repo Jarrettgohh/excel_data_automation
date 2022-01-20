@@ -336,6 +336,14 @@ def option_2():
                                and append_file_name_header) else 1),
                         startcol=start_col_to_write)
 
+        # If there are no files to read; either user didn't add any into the array (to read type == 'hardcode')
+        # Or the regex pattern didn't match any (as with to read type == 'match')
+        if (len(files_to_read) == 0):
+            msg = 'config.json TO_READ["files"]["hardcoded_values"] is empty' if files_to_read_type == 'hardcode' else 'Pattern defined in config.json under TO_READ["files"]["hardcoded_values"] didn\'t match any file names.'
+
+            pretty_print_error_msg(msg)
+            sys.exit()
+
         excel_file_paths_to_open.append(xlsx_file_path_to_write)
 
     for file_path in excel_file_paths_to_open:
