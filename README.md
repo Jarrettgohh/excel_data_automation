@@ -16,13 +16,48 @@
 
 # Configuration file
 - The configuration for this automation could be configured in the `config.json`
-- The following are the configuration options
+- The following are the configuration options:
 
-1. ROOT_DIRECTORY
+```json
+ {
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Test_automation_txt",
+
+      "TO_READ": {
+        "file_type": "txt",
+        "relative_folder_directories": ["/"],
+        "files": {
+          "type": "hardcode",
+          "hardcoded_values": [],
+          "matching_values": ["text"]
+        },
+        "cols": ["A"],
+        "rows": [1, 3]
+      },
+
+      "TO_WRITE": {
+        "append_folder_dir_header": true,
+        "append_file_name_header": false,
+        "relative_folder_directory": "/",
+        "file_name": "test_compile.xlsx",
+        "row_settings": {
+          "start_row": 1
+        },
+        "col_settings": {
+          "start_col": "B",
+          "cols": "auto"
+        }
+      }
+    }
+```
+
+
+1. *`ROOT_DIRECTORY`*
 - Path to the root directory to work from; this would be the base directory being used
 
-2. TO_READ
+2. *`TO_READ`*
 - file_type -> "txt" | "csv" | "xls"
+- relative_folder_directories -> List of relative path from the `ROOT_DIRECTORY`
+-  
 
 
 # Supported file formats
