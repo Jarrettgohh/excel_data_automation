@@ -66,6 +66,18 @@
 - matching_values -> List of matching files names to read, doesn't need to be exact match, but rather just a sub-string of it (If type == `match`)
 
 
+3. *`TO_WRITE`*
+- append_folder_dir_header -> `true` or `false`
+- append_file_name_header -> `true` or `false`
+- relative_folder_directory -> Folder directory relative to the `ROOT_DIRECTORY`
+- file_name -> Name of the `.xlsx` file to write
+
+--> *row_settings*
+- start_row -> Row number to start writing
+
+--> *col_settings*
+- start_col -> Column letter to start writing
+- cols -> List of column letters or "auto" -> Eg. ["A", "B"] or "auto" -> Choose "auto" to automatically write on the next available column
 
 # Supported file formats
 1. Text (`.txt`) file
