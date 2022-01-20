@@ -16,22 +16,22 @@
 
 # Configuration file
 - The configuration for this automation could be configured in the `config.json`
-- The following are the configuration options:
+- The following is an example of the `config.json` configuration options:
 
 ```json
  {
       "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Test_automation_txt",
 
       "TO_READ": {
-        "file_type": "txt" | "csv" | "xls",
-        "relative_folder_directories": ["/"],
+        "file_type": "txt",
+        "relative_folder_directories": ["/test_folder_to_read"],
         "files": {
-          "type": "hardcode",
+          "type": "match",
           "hardcoded_values": [],
-          "matching_values": []
+          "matching_values": ["match_test", "jarrett"]
         },
-        "cols": [],
-        "rows": []
+        "cols": ["A", "B"],
+        "rows": [10, 20]
       },
 
       "TO_WRITE": {
@@ -43,8 +43,8 @@
           "start_row": 1
         },
         "col_settings": {
-          "start_col": "",
-          "cols": [] OR "auto"
+          "start_col": "B",
+          "cols": "auto"
         }
       }
     }
