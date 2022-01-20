@@ -26,7 +26,7 @@
         "file_type": "txt",
         "relative_folder_directories": ["/test_folder_to_read"],
         "cols": ["A", "B"],
-        "rows": [10, 20]，
+        "rows": [10, 20],
         "files": {
           "type": "match",
           "hardcoded_values": [],
@@ -60,7 +60,7 @@
 - cols -> List of column letters to read
 - rows -> Range of rows to read -> Eg. Read from row 10 to 20 -> [10, 20]
 
---> files
+--> *files*
 - type -> "hardcode" | "match"
 - hardcoded_values -> List of hardcoded file names to read (If type == `hardcode`)
 - matching_values -> List of matching files names to read, doesn't need to be exact match, but rather just a sub-string of it (If type == `match`)
