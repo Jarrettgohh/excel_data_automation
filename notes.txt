@@ -18,7 +18,7 @@
 6. Log messages on the screen ✓
 7. Allow setting of keyword in the config.json such as "bd" or "fail", and would inform user if the files with these text is detected
 
-8. Extracting and transferring data from .txt file
+8. Extracting and transferring data from .txt file ✓
 9. Handle if .xlsx file name to write doesn't have .xlsx file extension ✓
 
 12. Update message logging, not really accurate as .xls -> .xlsx conversion is for all file at once instead of individually ✓
