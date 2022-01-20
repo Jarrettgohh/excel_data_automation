@@ -18,7 +18,11 @@
 - The configuration for this automation could be configured in the `config.json`
 - The following are the configuration options
 
-1. 
+1. ROOT_DIRECTORY
+- Path to the root directory to work from; this would be the base directory being used
+
+2. TO_READ
+- file_type -> "txt" | "csv" | "xls"
 
 
 # Supported file formats
