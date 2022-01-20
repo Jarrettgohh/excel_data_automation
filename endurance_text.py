@@ -1,6 +1,7 @@
 from numpy import number
 import pandas as pd
 from Excel.excel_functions import append_df_to_excel
+import openpyxl
 import re
 import json
 import subprocess

@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import shutil
+import re
 import pandas as pd
 
 from Excel.excel_functions import append_df_to_excel
@@ -85,6 +86,50 @@ def transfer_single_csv_to_xlsx(path_to_csv: str, folder_dir_to_write: str,
     excel_file_path = f'{folder_dir_to_write}\\{file_name_to_write}'
 
     wb.save(excel_file_path)
+    file.close()
+
+
+def transfer_single_txt_to_xlsx(file_path: str,
+                                folder_directory_to_transfer: str):
+
+    wb = openpyxl.Workbook()
+    ws = wb.worksheets[0]
+
+    file = open(file_path, 'r+')
+
+    data = file.readlines()  # read all lines at once
+
+    for row_index in range(len(data)):
+        # This will return a line of string data
+        row = data[row_index].split()
+
+        for col_index in range(len(row)):
+            row_data = re.sub('Â', '', row[col_index])
+            ws.cell(row=row_index + 1, column=col_index + 1).value = row_data
+
+    excel_file_path = f"{file_path.replace('txt', 'xlsx')}"
+
+    try:
+        os.makedirs(folder_directory_to_transfer)
+
+    except FileExistsError:
+        # directory already exists
+        pass
+
+    xlsx_file_name_match = re.search(r'(/\w*.xlsx)$', excel_file_path)
+
+    if xlsx_file_name_match == None:
+        pretty_print_error_msg(
+            'Invalid "file_path_to_read" argument in the config.json. Include the "/" to indicate file directories and include the ".txt" file extension.'
+        )
+        sys.exit()
+
+    xlsx_file_name_index = xlsx_file_name_match.start()
+    xlsx_file_name = excel_file_path[xlsx_file_name_index:]
+
+    path_to_transfer = folder_directory_to_transfer + xlsx_file_name
+    wb.save(path_to_transfer)
+
     file.close()
 
 

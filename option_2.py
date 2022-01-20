@@ -5,6 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
+from functions import transfer_single_txt_to_xlsx
 from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
@@ -174,7 +175,46 @@ def option_2():
 
                 file_path_to_read = f'{root_dir}{folder_dir}/{file_name}'
 
-                if file_type_to_read == 'xls':
+                if file_type_to_read == 'txt':
+                    if '.txt' not in file_path_to_read:
+                        pretty_print_error_msg(
+                            'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
+                        )
+                        sys.exit()
+
+                    print(
+                        f'Converting .xls file at path {file_path_to_read} into .xlsx format, and transferring into new folder...'
+                    )
+
+                    transfer_dir = folder_dir_to_read + 'transfer' + '/'
+
+                    transfer_single_txt_to_xlsx(
+                        file_path=folder_dir_to_read + file_name,
+                        folder_directory_to_transfer=transfer_dir)
+
+                    file_name_to_transfer = file_name.replace(
+                        f".{file_type_to_read}", ".xlsx")
+                    file_dir_to_read = f'{transfer_dir}/{file_name_to_transfer}'
+
+                    df = xlsx_read_col_row(xlsx_file=file_dir_to_read,
+                                           rows_to_read=rows_to_read,
+                                           cols_to_read=cols_to_read)
+
+                    create_file_and_append_df_to_xlsx(
+                        xlsx_folder_dir=
+                        f'{root_dir}{relative_folder_directory}',
+                        xlsx_file_name=xlsx_file_name_to_write,
+                        df=df,
+                        startrow=to_write_start_row +
+                        (2 if (append_folder_dir_header
+                               and append_file_name_header) else 1),
+                        startcol=start_col_to_write)
+
+                    print(
+                        f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
+                    )
+
+                elif file_type_to_read == 'xls':
                     if '.xls' not in file_path_to_read:
                         pretty_print_error_msg(
                             'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
@@ -257,7 +297,7 @@ def option_2():
                         )
                         sys.exit()
 
-                if file_type_to_read == 'csv':
+                elif file_type_to_read == 'csv':
                     if '.csv' not in file_path_to_read:
                         pretty_print_error_msg(
                             'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
