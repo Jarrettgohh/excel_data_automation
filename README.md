@@ -23,28 +23,28 @@
       "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Test_automation_txt",
 
       "TO_READ": {
-        "file_type": "txt",
+        "file_type": "txt" OR "csv" OR "xls",
         "relative_folder_directories": ["/"],
         "files": {
           "type": "hardcode",
           "hardcoded_values": [],
-          "matching_values": ["text"]
+          "matching_values": []
         },
-        "cols": ["A"],
-        "rows": [1, 3]
+        "cols": [],
+        "rows": []
       },
 
       "TO_WRITE": {
         "append_folder_dir_header": true,
-        "append_file_name_header": false,
+        "append_file_name_header": true,
         "relative_folder_directory": "/",
         "file_name": "test_compile.xlsx",
         "row_settings": {
           "start_row": 1
         },
         "col_settings": {
-          "start_col": "B",
-          "cols": "auto"
+          "start_col": "",
+          "cols": [] OR "auto"
         }
       }
     }
@@ -57,7 +57,8 @@
 2. *`TO_READ`*
 - file_type -> "txt" | "csv" | "xls"
 - relative_folder_directories -> List of relative path from the `ROOT_DIRECTORY`
--  
+
+-->
 
 
 # Supported file formats
