@@ -18,7 +18,7 @@
 - The configuration for this automation could be configured in the `config.json`
 - The following are the configuration options:
 
-```javascript
+```json
  {
       "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Test_automation_txt",
 
