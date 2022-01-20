@@ -3,7 +3,7 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/12_01_2022_temperature_cycling_I",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/12_01_2022_temperature_cycling_IV",
 
       "TO_READ": {
         "file_type": "csv",
@@ -23,7 +23,7 @@
         ],
         "files": {
           "type": "match",
-          "hardcoded_values": ["A1_25C_neg.csv"],
+          "hardcoded_values": [],
           "matching_values": ["A3", "pos"]
         },
         "cols": ["B", "C"],

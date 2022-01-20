@@ -31,6 +31,6 @@
 -> Set different file to read for each folder
 -> OR to set matching pattern for file names in each folder -> To match `A1` in example`A1_25C_neg` ✓
 -> OR matching words `A1` and `pos` -> to differentiate between positive and negative values ✓
--> Handle if the folder dir not found
+-> Handle if the folder dir not found ✓
 
 --> TO_READ.files.type == 'match' | 'hardcode'

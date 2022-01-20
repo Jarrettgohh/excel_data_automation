@@ -50,6 +50,12 @@ def option_2():
 
         xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}/{xlsx_file_name_to_write}'
 
+        if '.xlsx' not in xlsx_file_path_to_write:
+            print(
+                'Invalid file extension for `file_name` field in config.json. Ensure that the file extension is ".xlsx".'
+            )
+            sys.exit()
+
         # To convert the cols_to_read from letters to number values
         for index, col_value in enumerate(cols_to_read):
             if type(col_value) == int:
