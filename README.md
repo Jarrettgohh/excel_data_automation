@@ -20,18 +20,18 @@
 
 ```json
  {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Test_automation_txt",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/Test_automation_txt",
 
       "TO_READ": {
         "file_type": "txt",
         "relative_folder_directories": ["/test_folder_to_read"],
+        "cols": ["A", "B"],
+        "rows": [10, 20]，
         "files": {
           "type": "match",
           "hardcoded_values": [],
           "matching_values": ["match_test", "jarrett"]
-        },
-        "cols": ["A", "B"],
-        "rows": [10, 20]
+        }
       },
 
       "TO_WRITE": {
@@ -57,8 +57,14 @@
 2. *`TO_READ`*
 - file_type -> "txt" | "csv" | "xls"
 - relative_folder_directories -> List of relative path from the `ROOT_DIRECTORY`
+- cols -> List of column letters to read
+- rows -> Range of rows to read -> Eg. Read from row 10 to 20 -> [10, 20]
 
--->
+--> files
+- type -> "hardcode" | "match"
+- hardcoded_values -> List of hardcoded file names to read (If type == `hardcode`)
+- matching_values -> List of matching files names to read, doesn't need to be exact match, but rather just a sub-string of it (If type == `match`)
+
 
 
 # Supported file formats
