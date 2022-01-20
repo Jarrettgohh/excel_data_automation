@@ -1,9 +1,7 @@
-from numpy import dtype
-from numpy.lib.index_tricks import index_exp
 import openpyxl
+import sys
 import pandas as pd
 
-from copy import copy
 from pathlib import Path
 from typing import Sequence, Union, Optional
 from openpyxl import load_workbook
@@ -12,14 +10,29 @@ from openpyxl import load_workbook
 def xlsx_read_col_row(xlsx_file: str, rows_to_read: Sequence[int],
                       cols_to_read: Sequence[int]):
 
-    df = pd.read_excel(
-        xlsx_file,
-        usecols=cols_to_read,
-        header=None,
-    )
-    rows_range = range(rows_to_read[0] - 1, rows_to_read[1])
+    from functions import pretty_print_error_msg
 
-    return df.loc[rows_range]
+    try:
+        df = pd.read_excel(
+            xlsx_file,
+            usecols=cols_to_read,
+            header=None,
+        )
+        rows_range = range(rows_to_read[0] - 1, rows_to_read[1])
+
+        return df.loc[rows_range]
+
+    except KeyError:
+        pretty_print_error_msg(
+            f'Failed to read the data from: {xlsx_file} at the specified row numbers. Check the TO_READ["rows"] field in config.json.'
+        )
+        sys.exit()
+
+    except:
+        pretty_print_error_msg(
+            f'Something went wrong with extracting data from the file: {xlsx_file}'
+        )
+        sys.exit()
 
 
 def copy_excel_cell_range(

@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
+from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -51,7 +51,7 @@ def option_2():
         xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}/{xlsx_file_name_to_write}'
 
         if '.xlsx' not in xlsx_file_path_to_write:
-            print(
+            pretty_print_error_msg(
                 'Invalid file extension for `file_name` field in config.json. Ensure that the file extension is ".xlsx".'
             )
             sys.exit()
@@ -83,7 +83,7 @@ def option_2():
 
                 # Folder directory to read not found; set wrongly in config.json
                 except:
-                    print(
+                    pretty_print_error_msg(
                         f'\nFailed to read files in folder directory: {folder_dir_to_read}. Check the `ROOT_DIRECTORY` and `relative_folder_directories` field in config.json\n'
                     )
                     sys.exit()
@@ -167,7 +167,7 @@ def option_2():
                                            startrow=to_write_start_row + 1,
                                            startcol=start_col_to_write)
                 except:
-                    print(
+                    pretty_print_error_msg(
                         f'\nFailed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open, and the `ROOT_DIRECTORY` and `relative_folder_directories` fields are set correctly in config.json.\n'
                     )
                     sys.exit()
@@ -176,7 +176,7 @@ def option_2():
 
                 if file_type_to_read == 'xls':
                     if '.xls' not in file_path_to_read:
-                        print(
+                        pretty_print_error_msg(
                             'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
                         )
                         sys.exit()
@@ -223,7 +223,7 @@ def option_2():
                         )
 
                     except:
-                        print(
+                        pretty_print_error_msg(
                             f'Failed to convert file at path: "{file_path_to_read}" to .xlsx format.'
                         )
                         continue
@@ -252,14 +252,14 @@ def option_2():
                         )
 
                     except:
-                        print(
+                        pretty_print_error_msg(
                             '\nSomething went wrong. Are the files to read in the `.xls` format?\n'
                         )
                         sys.exit()
 
                 if file_type_to_read == 'csv':
                     if '.csv' not in file_path_to_read:
-                        print(
+                        pretty_print_error_msg(
                             'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
                         )
                         sys.exit()
@@ -300,13 +300,13 @@ def option_2():
 
     for file_path in excel_file_paths_to_open:
         try:
-            print(f'\n\nOpening excel file at path: {file_path}...\n\n')
+            pretty_print(f'Opening excel file at path: {file_path}...')
 
             # Open the new Excel file after data is written to it
             execute_powershell(f'Invoke-Item \"{file_path}\"')
 
         except:
-            print(
-                f'Failed to open xlsx file at path: "{xlsx_file_path_to_write}"\n'
+            pretty_print_error_msg(
+                f'Failed to open xlsx file at path: "{xlsx_file_path_to_write}"'
             )
             continue

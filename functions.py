@@ -3,10 +3,22 @@ import os
 import subprocess
 import sys
 import shutil
-
 import pandas as pd
 
 from Excel.excel_functions import append_df_to_excel
+
+
+def pretty_print(msg: str):
+    print('\n#######################################################')
+    print(f'\n{msg}\n')
+    print('#######################################################\n')
+
+
+def pretty_print_error_msg(err_msg: str):
+
+    print('\n-------------------------------------')
+    print(f'\n{err_msg}\n')
+    print('-------------------------------------\n')
 
 
 def transfer_file_to_new_folder(current_file_dir: str, target_dir: str,
