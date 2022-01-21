@@ -30,7 +30,8 @@
         "files": {
           "type": "match",
           "hardcoded_values": [],
-          "matching_values": ["match_test", "jarrett"]
+          "matching_values": ["match_test", "jarrett"],
+          "omit": ["breakdown"]
         }
       },
 
@@ -64,7 +65,7 @@
 - type -> "hardcode" | "match"
 - hardcoded_values -> List of hardcoded file names to read (If type == `hardcode`)
 - matching_values -> List of matching files names to read, doesn't need to be exact match, but rather just a sub-string of it (If type == `match`)
-
+- omit -> List of matching values, that if found in the file name, would be omitted (Not included in the files to read)
 
 3. *`TO_WRITE`*
 - append_folder_dir_header -> `true` or `false`
