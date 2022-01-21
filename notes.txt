@@ -33,8 +33,8 @@
 -> OR matching words `A1` and `pos` -> to differentiate between positive and negative values ✓
 -> Handle if the folder dir not found ✓
 
--> To not read certain files that contains sub-string; Eg. "breakdown"
--> Set order of files to read and write -- for matching value files
+-> To not omit certain files that contains sub-string; Eg. "breakdown" ✓
+-> Set order of files to read and write -- for the `matching_values` file config
 -> Integrate automatic cell text wrap -- get from otter cases project
 
 --> TO_READ.file_type == 'txt'|'csv'|'xls'
