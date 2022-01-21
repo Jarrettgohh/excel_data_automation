@@ -90,11 +90,27 @@ def option_2():
                     )
                     sys.exit()
 
-                files_to_read_matching_values = files_to_read_config[
-                    'matching_values']
+                files_to_read_matching_config = files_to_read_config[
+                    'matching']
+                files_to_read_matching_values = files_to_read_matching_config[
+                    'values']
+                files_to_read_matching_omit = files_to_read_matching_config[
+                    'omit']
+
                 files_to_read = []
 
                 for file in files_in_dir:
+                    should_omit = False
+
+                    # To omit files
+                    for to_omit_values in files_to_read_matching_omit:
+                        if to_omit_values in file:
+                            should_omit = True
+                            break
+
+                    if should_omit:
+                        continue
+
                     is_a_match = False
 
                     for matching_value in files_to_read_matching_values:

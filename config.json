@@ -11,7 +11,10 @@
         "files": {
           "type": "match",
           "hardcoded_values": [],
-          "matching_values": ["100x100", "100Hz"]
+          "matching": {
+            "values": ["50x100", "10000Hz"],
+            "omit": ["breakdown"]
+          }
         },
         "cols": ["C", "D"],
         "rows": [44, 2044]
