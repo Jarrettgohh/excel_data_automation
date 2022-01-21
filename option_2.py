@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import transfer_single_txt_to_xlsx
+from functions import create_folder, transfer_single_txt_to_xlsx
 from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
@@ -49,6 +49,7 @@ def option_2():
         append_folder_dir_header = to_write['append_folder_dir_header']
         append_file_name_header = to_write['append_file_name_header']
 
+        xlsx_folder_dir = f'{root_dir}{relative_folder_directory}'
         xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}/{xlsx_file_name_to_write}'
 
         if '.xlsx' not in xlsx_file_path_to_write:
@@ -140,6 +141,8 @@ def option_2():
                 # Writing of headers
                 #
 
+                create_folder(xlsx_folder_dir)
+
                 folder_dir_header_df = pd.DataFrame(
                     [re.sub(r"\-|\_", " ", folder_dir.replace('/', ''))])
 
@@ -147,7 +150,6 @@ def option_2():
                     print(f'Appending headers to the .xlsx file to write...')
 
                     if file_index == 0:
-
                         if append_folder_dir_header:
                             # Append the folder dir headers
                             append_df_to_excel(
@@ -279,7 +281,7 @@ def option_2():
 
                         create_file_and_append_df_to_xlsx(
                             xlsx_folder_dir=
-                            f'{root_dir}{relative_folder_directory}',
+                            f'{root_dir}{relative_folder_directory}/',
                             xlsx_file_name=xlsx_file_name_to_write,
                             df=df,
                             startrow=to_write_start_row +

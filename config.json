@@ -3,25 +3,25 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Test_automation_txt",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Frequency_dependence HZO_LOT3_WAFER8_PV",
 
       "TO_READ": {
-        "file_type": "txt",
+        "file_type": "xls",
         "relative_folder_directories": ["/"],
         "files": {
-          "type": "hardcode",
+          "type": "match",
           "hardcoded_values": [],
-          "matching_values": ["text"]
+          "matching_values": ["100x100", "100Hz"]
         },
-        "cols": ["A"],
-        "rows": [1, 3]
+        "cols": ["C", "D"],
+        "rows": [44, 2044]
       },
 
       "TO_WRITE": {
         "append_folder_dir_header": true,
-        "append_file_name_header": false,
-        "relative_folder_directory": "/",
-        "file_name": "test_compile.xlsx",
+        "append_file_name_header": true,
+        "relative_folder_directory": "/test",
+        "file_name": "PV_compile_test.xlsx",
         "row_settings": {
           "start_row": 1
         },

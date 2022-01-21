@@ -133,6 +133,14 @@ def transfer_single_txt_to_xlsx(file_path: str,
     file.close()
 
 
+def create_folder(folder_dir: str):
+    try:
+        os.makedirs(folder_dir)
+
+    except FileExistsError:
+        pass
+
+
 def create_file_and_append_df_to_xlsx(xlsx_folder_dir: str,
                                       xlsx_file_name: str, df: pd.DataFrame,
                                       startrow: int, startcol: int):
