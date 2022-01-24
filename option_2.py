@@ -1,7 +1,9 @@
+from difflib import Match
 import json
 import sys
 import os
 import re
+import numpy as np
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
@@ -133,24 +135,32 @@ def option_2():
                 files_to_read_ordered_values_len = len(
                     files_to_read_ordered_values)
 
-                ordered_value_power_list = []
+                # print(files_to_read)
+
+                ordered_value_power_list = np.zeros(len(files_to_read),
+                                                    dtype=int)
 
                 for ordered_value_index, ordered_value in enumerate(
                         files_to_read_ordered_values):
-                    # Calculate the power of each ordered_value item
-                    ordered_value_power = (files_to_read_ordered_values_len +
-                                           1) - ordered_value_index
 
                     for file_to_read_index, file_to_read in enumerate(
                             files_to_read):
+
                         match = re.search(ordered_value, file_to_read)
 
                         if match:
+                            # Calculate the power of each ordered_value item
+                            ordered_value_power = (
+                                files_to_read_ordered_values_len +
+                                1) - ordered_value_index
+
                             ordered_value_power_list[
                                 file_to_read_index] = ordered_value_power_list[
                                     file_to_read_index] + ordered_value_power
 
-                print(ordered_value_power_list)
+                ordered_value_power_list = list(ordered_value_power_list)
+
+                ordered_value_power_list.sort()
                 sys.exit()
 
             #
