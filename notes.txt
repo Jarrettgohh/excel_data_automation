@@ -40,3 +40,11 @@
 --> TO_READ.file_type == 'txt'|'csv'|'xls'
 --> TO_READ.files.type == 'match' | 'hardcode'
 --> TO_WRITE.relative_folder_directory gets error when writing headers if set other than "/"
+
+
+[
+"100Hz-1.2V",
+"100Hz-2V",
+"500Hz-2V"
+"100Hz-1.5V",
+]

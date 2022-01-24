@@ -92,8 +92,10 @@ def option_2():
 
                 files_to_read_matching_config = files_to_read_config[
                     'matching']
-                files_to_read_matching_values = files_to_read_matching_config[
-                    'values']
+                files_to_read_force_values = files_to_read_matching_config[
+                    'force_values']
+                files_to_read_ordered_values = files_to_read_matching_config[
+                    'ordered_values']
                 files_to_read_matching_omit = files_to_read_matching_config[
                     'omit']
 
@@ -113,8 +115,8 @@ def option_2():
 
                     is_a_match = False
 
-                    for matching_value in files_to_read_matching_values:
-                        match = re.search(matching_value, file)
+                    for force_value in files_to_read_force_values:
+                        match = re.search(force_value, file)
 
                         if match:
                             is_a_match = True
@@ -125,6 +127,31 @@ def option_2():
 
                     if is_a_match:
                         files_to_read.append(file)
+
+                # To order files to read and write
+                # Assign values to each item in the `ordered_values` list -> with the first item index having the highest value -> to be calculated in the enumeration
+                files_to_read_ordered_values_len = len(
+                    files_to_read_ordered_values)
+
+                ordered_value_power_list = []
+
+                for ordered_value_index, ordered_value in enumerate(
+                        files_to_read_ordered_values):
+                    # Calculate the power of each ordered_value item
+                    ordered_value_power = (files_to_read_ordered_values_len +
+                                           1) - ordered_value_index
+
+                    for file_to_read_index, file_to_read in enumerate(
+                            files_to_read):
+                        match = re.search(ordered_value, file_to_read)
+
+                        if match:
+                            ordered_value_power_list[
+                                file_to_read_index] = ordered_value_power_list[
+                                    file_to_read_index] + ordered_value_power
+
+                print(ordered_value_power_list)
+                sys.exit()
 
             #
             # files_to_read_type == 'hardcode'

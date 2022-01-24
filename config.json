@@ -12,7 +12,17 @@
           "type": "match",
           "hardcoded_values": [],
           "matching": {
-            "values": ["50x100", "10000Hz"],
+            "force_values": ["50x100"],
+            "ordered_values": [
+              "100Hz",
+              "550Hz",
+              "1000Hz",
+              "5500Hz",
+              "10000Hz",
+              "1.2V",
+              "1.5V",
+              "2V"
+            ],
             "omit": ["breakdown"]
           }
         },
