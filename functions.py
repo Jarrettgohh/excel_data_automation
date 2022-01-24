@@ -5,6 +5,7 @@ import sys
 import shutil
 import re
 import pandas as pd
+import numpy as np
 
 from Excel.excel_functions import append_df_to_excel
 
@@ -194,3 +195,33 @@ def execute_powershell_function(file_dir: str, fn_name: str, fn_args: list):
 
     except subprocess.CalledProcessError:
         raise Exception()
+
+
+def order_files_according_to_config(files_to_order: list[str]):
+
+    # To get from config.json
+    # to_read_ordered_values =
+
+    files_to_order_len = len(files_to_order)
+    to_read_ordered_values_len = len(to_read_ordered_values)
+
+    ordered_value_power_list = np.zeros(len(files_to_order_len), dtype=int)
+
+    for file_to_order_index, file in enumerate(files_to_order):
+        file_to_order_weight = files_to_order_len - file_to_order_index
+
+        for order_by_value_index, order_by_value in enumerate(
+                to_read_ordered_values):
+            match = re.search(order_by_value, file)
+
+            if match:
+                order_by_value_weight = (to_read_ordered_values_len +
+                                         1) - order_by_value_index
+                main_weight = file_to_order_weight * order_by_value_weight
+
+                ordered_value_power_list[
+                    file_to_order_index] = ordered_value_power_list[
+                        file_to_order_index] + main_weight
+                break
+
+    print(ordered_value_power_list)

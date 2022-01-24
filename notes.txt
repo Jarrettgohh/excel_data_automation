@@ -48,3 +48,9 @@
 "500Hz-2V"
 "100Hz-1.5V",
 ]
+
+
+--> Logic for ordered values
+-> For the first value which matches for each file, the weight would be higher than the second value which matches
+
+ 
