@@ -4,6 +4,7 @@ import subprocess
 import sys
 import shutil
 import re
+import math
 import pandas as pd
 import numpy as np
 
@@ -197,31 +198,37 @@ def execute_powershell_function(file_dir: str, fn_name: str, fn_args: list):
         raise Exception()
 
 
-def order_files_according_to_config(files_to_order: list[str]):
-
-    # To get from config.json
-    # to_read_ordered_values =
+def order_files_according_to_config(files_to_order: list[str],
+                                    to_read_ordered_values_config: list[str]):
 
     files_to_order_len = len(files_to_order)
-    to_read_ordered_values_len = len(to_read_ordered_values)
+    to_read_ordered_values_len = len(to_read_ordered_values_config)
 
-    ordered_value_power_list = np.zeros(len(files_to_order_len), dtype=int)
+    ordered_value_power_list = np.zeros(files_to_order_len, dtype=int)
 
     for file_to_order_index, file in enumerate(files_to_order):
-        file_to_order_weight = files_to_order_len - file_to_order_index
+        # file_to_order_weight = files_to_order_len - file_to_order_index
 
         for order_by_value_index, order_by_value in enumerate(
-                to_read_ordered_values):
+                to_read_ordered_values_config):
             match = re.search(order_by_value, file)
+
+            num_matches = 0
 
             if match:
                 order_by_value_weight = (to_read_ordered_values_len +
                                          1) - order_by_value_index
-                main_weight = file_to_order_weight * order_by_value_weight
+
+                # main_weight = file_to_order_weight * order_by_value_weight
+                main_weight = (to_read_ordered_values_len -
+                               num_matches) * math.exp(order_by_value_weight)
 
                 ordered_value_power_list[
                     file_to_order_index] = ordered_value_power_list[
-                        file_to_order_index] + main_weight
-                break
+                        file_to_order_index] + (main_weight / 1000)
 
-    print(ordered_value_power_list)
+                num_matches += 1
+
+    for i in range(0, files_to_order_len):
+        print(files_to_order[i])
+        print(ordered_value_power_list[i])

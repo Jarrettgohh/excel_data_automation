@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import create_folder, transfer_single_txt_to_xlsx
+from functions import create_folder, order_files_according_to_config, transfer_single_txt_to_xlsx
 from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
@@ -132,35 +132,39 @@ def option_2():
 
                 # To order files to read and write
                 # Assign values to each item in the `ordered_values` list -> with the first item index having the highest value -> to be calculated in the enumeration
-                files_to_read_ordered_values_len = len(
-                    files_to_read_ordered_values)
+                # files_to_read_ordered_values_len = len(
+                #     files_to_read_ordered_values)
 
                 # print(files_to_read)
 
-                ordered_value_power_list = np.zeros(len(files_to_read),
-                                                    dtype=int)
+                order_files_according_to_config(
+                    files_to_order=files_to_read,
+                    to_read_ordered_values_config=files_to_read_ordered_values)
 
-                for ordered_value_index, ordered_value in enumerate(
-                        files_to_read_ordered_values):
+                # ordered_value_power_list = np.zeros(len(files_to_read),
+                #                                     dtype=int)
 
-                    for file_to_read_index, file_to_read in enumerate(
-                            files_to_read):
+                # for ordered_value_index, ordered_value in enumerate(
+                #         files_to_read_ordered_values):
 
-                        match = re.search(ordered_value, file_to_read)
+                #     for file_to_read_index, file_to_read in enumerate(
+                #             files_to_read):
 
-                        if match:
-                            # Calculate the power of each ordered_value item
-                            ordered_value_power = (
-                                files_to_read_ordered_values_len +
-                                1) - ordered_value_index
+                #         match = re.search(ordered_value, file_to_read)
 
-                            ordered_value_power_list[
-                                file_to_read_index] = ordered_value_power_list[
-                                    file_to_read_index] + ordered_value_power
+                #         if match:
+                #             # Calculate the power of each ordered_value item
+                #             ordered_value_power = (
+                #                 files_to_read_ordered_values_len +
+                #                 1) - ordered_value_index
 
-                ordered_value_power_list = list(ordered_value_power_list)
+                #             ordered_value_power_list[
+                #                 file_to_read_index] = ordered_value_power_list[
+                #                     file_to_read_index] + ordered_value_power
 
-                ordered_value_power_list.sort()
+                # ordered_value_power_list = list(ordered_value_power_list)
+
+                # ordered_value_power_list.sort()
                 sys.exit()
 
             #
