@@ -2,9 +2,12 @@ import re
 
 from copy import copy
 
-ordered_values_config = ["100Hz", "200Hz", "1.2V", "1.5V"]
+ordered_values_config = ["100Hz", "200Hz", "1.2V", "1.5V", "3V"]
 # "2V" matches "1.2V" too -> to fix
-files_to_order = ["100Hz_1.5V", "200Hz_1.2V", "200Hz_1.5V", "100Hz_1.2V"]
+files_to_order = [
+    "100Hz_3V", "100Hz_1.2V", "100Hz_1.5V", "200Hz_1.2V", "200Hz_3V",
+    "200Hz_1.5V"
+]
 
 filtered_files_to_order = []
 ordered_value_fields = {}
@@ -31,18 +34,24 @@ ordered_files = copy(filtered_files_to_order)
 file_expected_index = 0
 
 for file in filtered_files_to_order:
-    if file != '200Hz_1.5V':
-        break
+    # if file != '100Hz_3V':
+    #     continue
+
     print('\n')
     print(f'file: {file}')
     for ordered_file_index, ordered_file in reversed(
             list(enumerate(ordered_files))):
 
+        print(f'index :{ordered_file_index}')
         print(f'ordered file: {ordered_file}')
 
         # If same file name
         if ordered_file == file:
+            print('pass')
+            file_expected_index = ordered_file_index
             continue
+
+        pos_status = None
 
         for field in ordered_value_fields:
             ordered_file_matches = ordered_value_fields[field]
@@ -56,22 +65,39 @@ for file in filtered_files_to_order:
                 continue
 
             elif ordered_file not in ordered_file_matches:
+                # Break this loop but continue in the outer loop
+
                 print('0')
-                file_expected_index = ordered_file_index
+                pos_status = '0'
+                # print(ordered_file_index)
+                file_expected_index = ordered_file_index - 1
                 # ordered_files.remove(file)
                 # ordered_files.insert(ordered_file_index, file)
-                # break
+                break
+                # continue
 
             elif file not in ordered_file_matches:
+
+                # Break this loop and the outer loop too
+
                 print('1')
-                file_expected_index = ordered_file_index + 1
+                pos_status = '1'
+                file_expected_index = ordered_file_index
                 # ordered_files.remove(file)
                 # ordered_files.insert(ordered_file_index + 1, file)
                 break
+                # continue
 
         else:
             continue  # only executed if the inner loop did NOT break
-        break  # only executed if the inner loop DID break
+
+        # Only executed if the inner loop DID break
+        if pos_status == None:
+            continue
+
+        else:
+            if pos_status == '1':
+                break
 
     print(ordered_files)
     # print(file)
