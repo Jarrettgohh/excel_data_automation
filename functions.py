@@ -198,6 +198,58 @@ def execute_powershell_function(file_dir: str, fn_name: str, fn_args: list):
         raise Exception()
 
 
+def order_files_according_to_config_ver2(
+        files_to_order: list[str], to_read_ordered_values_config: list[str]):
+
+    files_to_order_len = len(files_to_order)
+
+    ordered_value_list = []
+
+    #
+    # To order files by first index of ordered values config list first
+    #
+
+    for file in files_to_order:
+        match = re.search(
+            re.compile(
+                f'[\-|\_|\.]{to_read_ordered_values_config[0]}[\-|\_|\.]'),
+            file)
+
+        if match:
+            ordered_value_list.append(file)
+
+    # Remove first index element from the ordered values config list
+    to_read_ordered_values_config.pop(0)
+
+    for order_by_value_index, order_by_value_config in enumerate(
+            to_read_ordered_values_config):
+
+        for file_to_order_index, file_to_order in enumerate(files_to_order):
+            print(file_to_order_index)
+            print(file_to_order)
+
+        # match = re.search(
+        #     re.compile(f'[\-|\_|\.]{order_by_value_config}[\-|\_|\.]'), file)
+
+        # file_index_to_order = files_to_order_len - file_to_order_index - 1
+        # file_to_order = files_to_order[file_index_to_order]
+
+        # match = re.search(re.compile(f'[-|_]{order_by_value_config}[-|_]'),
+        #                   file_to_order)
+
+        # if match:
+        #     if file_to_order in ordered_value_list:
+        #         ordered_value_list.remove(file_to_order)
+        #         ordered_value_list.insert(0, file_to_order)
+
+        #     else:
+        # ordered_value_list.append(file_to_order)
+
+    # if order_by_value_index == 0 or order_by_value_index == 1:
+
+    # print(ordered_value_list)
+
+
 def order_files_according_to_config(files_to_order: list[str],
                                     to_read_ordered_values_config: list[str]):
 

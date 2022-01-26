@@ -51,6 +51,15 @@
 
 
 --> Logic for ordered values
--> For the first value which matches for each file, the weight would be higher than the second value which matches
+1. To first filter the main files_to_order list for all those values that matches atleast one item in the ordered value config; dont bother about the order first -> LIST CODENAME: `FILTERED`
 
- 
+2. iterate through each config values and create individual list of values files that matches each particualr config value -> number of individual list would be same as length of ordered value config list
+
+3. Iterate through each item in the `FILTERED` list, in the REVERSED format
+
+--> For the range of length of the `FILTERED` list --> Iteration would happen from the back (as the list is reversed) for the range of length of the `FILTERED` list
+ 1) Iterate through values in the indices before the current index -> eg. if current index is 4, the iterate through 0 -> 3
+
+ 2) In each iteration, iterate through each list as created in point 2; starting first with the first index -> 100Hz in this case.
+
+ 3) If the  current iterated value has higher hierachy than the value present in the index before -> eg. both matches 100Hz, but the current index matches 1.5v and the one in the index before only matches 1.2v, then bring the current index before the one that was before it last time 
