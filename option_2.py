@@ -48,8 +48,18 @@ def option_2():
         xlsx_file_name_to_write = to_write['file_name']
         to_write_row_settings = to_write['row_settings']
         to_write_col_settings = to_write['col_settings']
-        append_folder_dir_header = to_write['append_folder_dir_header']
-        append_file_name_header = to_write['append_file_name_header']
+
+        append_folder_dir_header_config = to_write[
+            'append_folder_dir_header_config']
+        append_folder_dir_header = append_folder_dir_header_config[
+            'should_append']
+        append_folder_dir_header_omit = append_folder_dir_header_config['omit']
+
+        append_file_name_header_config = to_write[
+            'append_file_name_header_config']
+        append_file_name_header = append_file_name_header_config[
+            'should_append']
+        append_file_name_header_omit = append_file_name_header_config['omit']
 
         xlsx_folder_dir = f'{root_dir}{relative_folder_directory}'
         xlsx_file_path_to_write = f'{root_dir}{relative_folder_directory}/{xlsx_file_name_to_write}'
@@ -98,8 +108,8 @@ def option_2():
                     'force_values']
                 files_to_read_ordered_values = files_to_read_matching_config[
                     'ordered_values']
-                files_to_read_matching_omit = files_to_read_matching_config[
-                    'omit']
+                files_to_read_matching_exclude = files_to_read_matching_config[
+                    'exclude']
 
                 files_to_read = []
 
@@ -107,7 +117,7 @@ def option_2():
                     should_omit = False
 
                     # To omit files
-                    for to_omit_values in files_to_read_matching_omit:
+                    for to_omit_values in files_to_read_matching_exclude:
                         if to_omit_values in file:
                             should_omit = True
                             break
@@ -130,42 +140,9 @@ def option_2():
                     if is_a_match:
                         files_to_read.append(file)
 
-                # To order files to read and write
-                # Assign values to each item in the `ordered_values` list -> with the first item index having the highest value -> to be calculated in the enumeration
-                # files_to_read_ordered_values_len = len(
-                #     files_to_read_ordered_values)
-
-                # print(files_to_read)
-
-                order_files_according_to_config_ver2(
-                    files_to_order=files_to_read,
-                    to_read_ordered_values_config=files_to_read_ordered_values)
-
-                # ordered_value_power_list = np.zeros(len(files_to_read),
-                #                                     dtype=int)
-
-                # for ordered_value_index, ordered_value in enumerate(
-                #         files_to_read_ordered_values):
-
-                #     for file_to_read_index, file_to_read in enumerate(
-                #             files_to_read):
-
-                #         match = re.search(ordered_value, file_to_read)
-
-                #         if match:
-                #             # Calculate the power of each ordered_value item
-                #             ordered_value_power = (
-                #                 files_to_read_ordered_values_len +
-                #                 1) - ordered_value_index
-
-                #             ordered_value_power_list[
-                #                 file_to_read_index] = ordered_value_power_list[
-                #                     file_to_read_index] + ordered_value_power
-
-                # ordered_value_power_list = list(ordered_value_power_list)
-
-                # ordered_value_power_list.sort()
-                sys.exit()
+                # order_files_according_to_config_ver2(
+                #     files_to_order=files_to_read,
+                #     to_read_ordered_values_config=files_to_read_ordered_values)
 
             #
             # files_to_read_type == 'hardcode'
