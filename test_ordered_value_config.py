@@ -2,11 +2,14 @@ import re
 
 from copy import copy
 
-ordered_values_config = ["100Hz", "200Hz", "1.2V", "1.5V", "3V", "5V"]
+ordered_values_config = [
+    "100Hz", "200Hz", "300Hz", "500Hz", "1000Hz", "1.2V", "1.5V", "3V", "5V"
+]
 # "2V" matches "1.2V" too -> to fix
 files_to_order = [
-    "200Hz_5V", "100Hz_3V", "100Hz_1.2V", "100Hz_5V", "100Hz_1.5V",
-    "200Hz_1.2V", "200Hz_3V", "200Hz_1.5V"
+    "500Hz_3V", "200Hz_5V", "300Hz_1.2V", "100Hz_3V", "1000Hz_1.5V",
+    "100Hz_1.2V", "100Hz_5V", "100Hz_1.5V", "200Hz_1.2V", "200Hz_3V",
+    "500Hz_1.2V", "200Hz_1.5V", "random", "1000Hz_1.2V"
 ]
 
 filtered_files_to_order = []
@@ -107,6 +110,6 @@ for file in filtered_files_to_order:
 
     ordered_files.insert(file_expected_index, file)
     del ordered_files[prev_index]
-    print(ordered_files)
 
-# print(ordered_files)
+for ordered_file in ordered_files:
+    print(ordered_file)

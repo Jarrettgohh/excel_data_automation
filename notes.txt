@@ -63,3 +63,6 @@
  2) In each iteration, iterate through each list as created in point 2; starting first with the first index -> 100Hz in this case.
 
  3) If the  current iterated value has higher hierachy than the value present in the index before -> eg. both matches 100Hz, but the current index matches 1.5v and the one in the index before only matches 1.2v, then bring the current index before the one that was before it last time 
+
+
+ --> CURRENT ISSUE: "2V" matches "1.2V" too -> to fix (For ordering of values)
