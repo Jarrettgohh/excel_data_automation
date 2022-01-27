@@ -211,10 +211,13 @@ def option_2():
                             f'Appending file name headers to the .xlsx file to write...'
                         )
                         # Append the file name headers
-                        append_df_to_excel(df=field_name_header_df,
-                                           filename=xlsx_file_path_to_write,
-                                           startrow=to_write_start_row + 1,
-                                           startcol=start_col_to_write)
+                        append_df_to_excel(
+                            df=field_name_header_df,
+                            filename=xlsx_file_path_to_write,
+                            startrow=to_write_start_row +
+                            (1 if (append_folder_dir_header
+                                   and append_file_name_header) else 0),
+                            startcol=start_col_to_write)
                 except:
                     pretty_print_error_msg(
                         f'\nFailed to write to excel file. Ensure that the target file path "{xlsx_file_path_to_write}" is not running/open, and the `ROOT_DIRECTORY` and `relative_folder_directories` fields are set correctly in config.json.\n'
@@ -254,10 +257,10 @@ def option_2():
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
                         startrow=to_write_start_row +
-                        (3 if (append_folder_dir_header
-                               and append_file_name_header) else 2 if
+                        (2 if (append_folder_dir_header
+                               and append_file_name_header) else 1 if
                          (append_folder_dir_header
-                          or append_file_name_header) else 1),
+                          or append_file_name_header) else 0),
                         startcol=start_col_to_write)
 
                     print(
@@ -384,16 +387,16 @@ def option_2():
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
                         startrow=to_write_start_row +
-                        (3 if (append_folder_dir_header
-                               and append_file_name_header) else 2 if
+                        (2 if (append_folder_dir_header
+                               and append_file_name_header) else 1 if
                          (append_folder_dir_header
-                          or append_file_name_header) else 1),
+                          or append_file_name_header) else 0),
                         startcol=start_col_to_write)
 
         # If there are no files to read; either user didn't add any into the array (to read type == 'hardcode')
         # Or the regex pattern didn't match any (as with to read type == 'match')
         if (len(files_to_read) == 0):
-            msg = 'config.json TO_READ["files"]["hardcoded_values"] is empty' if files_to_read_type == 'hardcode' else 'Pattern defined in config.json under TO_READ["files"]["hardcoded_values"] didn\'t match any file names.'
+            msg = 'config.json TO_READ["files"]["hardcoded_values"] is empty' if files_to_read_type == 'hardcode' else 'Pattern defined in config.json under TO_READ["files"]["matching"]["force_values"] didn\'t match any file names.'
 
             pretty_print_error_msg(msg)
             sys.exit()

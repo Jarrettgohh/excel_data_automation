@@ -12,9 +12,18 @@
           "type": "match",
           "hardcoded_values": [],
           "matching": {
-            "force_values": ["100x100"],
-            "ordered_values": ["100Hz"],
-            "exclude": ["breakdown"]
+            "force_values": ["50x50"],
+            "ordered_values": [
+              "100Hz",
+              "550Hz",
+              "1000Hz",
+              "5500Hz",
+              "10000Hz",
+              "1.2v",
+              "1.5v",
+              "2v"
+            ],
+            "exclude": ["breakdown", "leaky"]
           }
         },
         "cols": ["C", "D"],
@@ -29,7 +38,7 @@
 
         "append_file_name_header_config": {
           "should_append": true,
-          "omit": ["die6", "100x100"]
+          "omit": ["die6", "100x100", "50x100", "50x50"]
         },
 
         "relative_folder_directory": "/compile",
@@ -38,7 +47,7 @@
           "start_row": 1
         },
         "col_settings": {
-          "start_col": "B",
+          "start_col": "BH",
           "cols": "auto"
         }
       }
