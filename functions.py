@@ -7,6 +7,7 @@ import re
 import math
 import pandas as pd
 import numpy as np
+import copy
 
 from Excel.excel_functions import append_df_to_excel
 
@@ -198,89 +199,82 @@ def execute_powershell_function(file_dir: str, fn_name: str, fn_args: list):
         raise Exception()
 
 
-def order_files_according_to_config_ver2(
-        files_to_order: list[str], to_read_ordered_values_config: list[str]):
+def order_files_according_to_config(files_to_order: list[str],
+                                    ordered_values_config: list[str]):
 
-    files_to_order_len = len(files_to_order)
+    filtered_files_to_order = []
+    ordered_value_fields = {}
 
-    ordered_value_list = []
-
-    #
-    # To order files by first index of ordered values config list first
-    #
+    for config in ordered_values_config:
+        ordered_value_fields[config] = []
 
     for file in files_to_order:
-        match = re.search(
-            re.compile(
-                f'[\-|\_|\.]{to_read_ordered_values_config[0]}[\-|\_|\.]'),
-            file)
+        for config in ordered_values_config:
 
-        if match:
-            ordered_value_list.append(file)
-
-    # Remove first index element from the ordered values config list
-    to_read_ordered_values_config.pop(0)
-
-    for order_by_value_index, order_by_value_config in enumerate(
-            to_read_ordered_values_config):
-
-        for file_to_order_index, file_to_order in enumerate(files_to_order):
-            print(file_to_order_index)
-            print(file_to_order)
-
-        # match = re.search(
-        #     re.compile(f'[\-|\_|\.]{order_by_value_config}[\-|\_|\.]'), file)
-
-        # file_index_to_order = files_to_order_len - file_to_order_index - 1
-        # file_to_order = files_to_order[file_index_to_order]
-
-        # match = re.search(re.compile(f'[-|_]{order_by_value_config}[-|_]'),
-        #                   file_to_order)
-
-        # if match:
-        #     if file_to_order in ordered_value_list:
-        #         ordered_value_list.remove(file_to_order)
-        #         ordered_value_list.insert(0, file_to_order)
-
-        #     else:
-        # ordered_value_list.append(file_to_order)
-
-    # if order_by_value_index == 0 or order_by_value_index == 1:
-
-    # print(ordered_value_list)
-
-
-def order_files_according_to_config(files_to_order: list[str],
-                                    to_read_ordered_values_config: list[str]):
-
-    files_to_order_len = len(files_to_order)
-    to_read_ordered_values_len = len(to_read_ordered_values_config)
-
-    ordered_value_power_list = np.zeros(files_to_order_len, dtype=int)
-
-    for file_to_order_index, file in enumerate(files_to_order):
-        # file_to_order_weight = files_to_order_len - file_to_order_index
-
-        for order_by_value_index, order_by_value in enumerate(
-                to_read_ordered_values_config):
-            match = re.search(order_by_value, file)
-
-            num_matches = 0
+            match = re.search(f'(^|\-|\_|\.){config}(\-|\_|\.|$)', file)
 
             if match:
-                order_by_value_weight = (to_read_ordered_values_len +
-                                         1) - order_by_value_index
+                ordered_value_field_list = ordered_value_fields[config]
+                ordered_value_field_list.append(file)
 
-                # main_weight = file_to_order_weight * order_by_value_weight
-                main_weight = (to_read_ordered_values_len -
-                               num_matches) * math.exp(order_by_value_weight)
+                ordered_value_fields[config] = ordered_value_field_list
 
-                ordered_value_power_list[
-                    file_to_order_index] = ordered_value_power_list[
-                        file_to_order_index] + (main_weight / 1000)
+                if file not in filtered_files_to_order:
+                    filtered_files_to_order.append(file)
 
-                num_matches += 1
+    ordered_files = copy.copy(filtered_files_to_order)
+    file_expected_index = 0
 
-    for i in range(0, files_to_order_len):
-        print(files_to_order[i])
-        print(ordered_value_power_list[i])
+    for file in filtered_files_to_order:
+
+        for ordered_file_index, ordered_file in reversed(
+                list(enumerate(ordered_files))):
+
+            # If same file name
+            if ordered_file == file:
+                file_expected_index = ordered_file_index
+                continue
+
+            pos_status = None
+
+            for field in ordered_value_fields:
+                ordered_file_matches = ordered_value_fields[field]
+
+                if ordered_file in ordered_file_matches and file in ordered_file_matches:
+                    continue
+
+                elif ordered_file not in ordered_file_matches and file not in ordered_file_matches:
+                    continue
+
+                elif ordered_file not in ordered_file_matches:
+                    # Break this loop but continue in the outer loop
+                    pos_status = '0'
+                    file_expected_index = ordered_file_index
+
+                    break
+
+                elif file not in ordered_file_matches:
+
+                    # Break this loop and the outer loop too
+                    pos_status = '1'
+                    file_expected_index = ordered_file_index + 1
+
+                    break
+
+            else:
+                continue  # only executed if the inner loop did NOT break
+
+            # Only executed if the inner loop DID break
+            if pos_status == None:
+                continue
+
+            else:
+                if pos_status == '1':
+                    break
+
+        prev_index = ordered_files.index(file)
+
+        ordered_files.insert(file_expected_index, file)
+        del ordered_files[prev_index]
+
+    return ordered_files

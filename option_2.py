@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
-from functions import create_folder, order_files_according_to_config, order_files_according_to_config_ver2, transfer_single_txt_to_xlsx
+from functions import create_folder, order_files_according_to_config, transfer_single_txt_to_xlsx
 from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
@@ -140,9 +140,10 @@ def option_2():
                     if is_a_match:
                         files_to_read.append(file)
 
-                # order_files_according_to_config_ver2(
-                #     files_to_order=files_to_read,
-                #     to_read_ordered_values_config=files_to_read_ordered_values)
+                files_to_read = order_files_according_to_config(
+                    files_to_order=files_to_read,
+                    ordered_values_config=files_to_read_ordered_values)
+
 
             #
             # files_to_read_type == 'hardcode'

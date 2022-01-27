@@ -66,3 +66,4 @@
 
 
  --> CURRENT ISSUE: "2V" matches "1.2V" too -> to fix (For ordering of values)
+ --> Omit substring from header
