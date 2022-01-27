@@ -144,7 +144,6 @@ def option_2():
                     files_to_order=files_to_read,
                     ordered_values_config=files_to_read_ordered_values)
 
-
             #
             # files_to_read_type == 'hardcode'
             #
@@ -178,29 +177,41 @@ def option_2():
 
                 create_folder(xlsx_folder_dir)
 
-                folder_dir_header_df = pd.DataFrame(
-                    [re.sub(r"\-|\_", " ", folder_dir.replace('/', ''))])
+                folder_dir_header_df = pd.DataFrame([
+                    re.sub(re.compile(f"\-|\_"), " ",
+                           folder_dir.replace('/', ''))
+                ])
 
                 try:
-                    print(f'Appending headers to the .xlsx file to write...')
 
-                    if file_index == 0:
-                        if append_folder_dir_header:
-                            # Append the folder dir headers
-                            append_df_to_excel(
-                                df=folder_dir_header_df,
-                                filename=xlsx_file_path_to_write,
-                                startrow=to_write_start_row,
-                                startcol=start_col_to_write)
+                    if file_index == 0 and append_folder_dir_header:
+                        print(
+                            f'Appending folder directory headers to the .xlsx file to write...'
+                        )
 
-                    fie_name_header_df = pd.DataFrame([
-                        re.sub(r"\-|\_", " ",
-                               file_name).replace(f".{file_type_to_read}", "")
+                        # Append the folder dir headers
+                        append_df_to_excel(df=folder_dir_header_df,
+                                           filename=xlsx_file_path_to_write,
+                                           startrow=to_write_start_row,
+                                           startcol=start_col_to_write)
+
+                    file_name_header = file_name
+
+                    for to_omit in append_file_name_header_omit:
+                        file_name_header = re.sub(to_omit, "",
+                                                  file_name_header)
+
+                    field_name_header_df = pd.DataFrame([
+                        re.sub(r"\-|\_", " ", file_name_header).replace(
+                            f".{file_type_to_read}", "")
                     ])
 
                     if append_file_name_header:
+                        print(
+                            f'Appending file name headers to the .xlsx file to write...'
+                        )
                         # Append the file name headers
-                        append_df_to_excel(df=fie_name_header_df,
+                        append_df_to_excel(df=field_name_header_df,
                                            filename=xlsx_file_path_to_write,
                                            startrow=to_write_start_row + 1,
                                            startcol=start_col_to_write)
@@ -223,7 +234,7 @@ def option_2():
                         f'Converting .xls file at path {file_path_to_read} into .xlsx format, and transferring into new folder...'
                     )
 
-                    transfer_dir = folder_dir_to_read + 'transfer' + '/'
+                    transfer_dir = folder_dir_to_read + '/' + 'transfer' + '/'
 
                     transfer_single_txt_to_xlsx(
                         file_path=folder_dir_to_read + file_name,
@@ -243,8 +254,10 @@ def option_2():
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
                         startrow=to_write_start_row +
-                        (2 if (append_folder_dir_header
-                               and append_file_name_header) else 1),
+                        (3 if (append_folder_dir_header
+                               and append_file_name_header) else 2 if
+                         (append_folder_dir_header
+                          or append_file_name_header) else 1),
                         startcol=start_col_to_write)
 
                     print(
@@ -262,7 +275,7 @@ def option_2():
                         f'Converting .xls file at path {file_path_to_read} into .xlsx format, and transferring into new folder...'
                     )
 
-                    transfer_dir = folder_dir_to_read + 'transfer' + '/'
+                    transfer_dir = folder_dir_to_read + '/' + 'transfer' + '/'
 
                     try:
                         matches = re.findall(r".+?/*[\w|\s]+/*", transfer_dir)
@@ -321,7 +334,9 @@ def option_2():
                             df=df,
                             startrow=to_write_start_row +
                             (2 if (append_folder_dir_header
-                                   and append_file_name_header) else 1),
+                                   and append_file_name_header) else 1 if
+                             (append_folder_dir_header
+                              or append_file_name_header) else 0),
                             startcol=start_col_to_write)
 
                         print(
@@ -369,8 +384,10 @@ def option_2():
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
                         startrow=to_write_start_row +
-                        (2 if (append_folder_dir_header
-                               and append_file_name_header) else 1),
+                        (3 if (append_folder_dir_header
+                               and append_file_name_header) else 2 if
+                         (append_folder_dir_header
+                          or append_file_name_header) else 1),
                         startcol=start_col_to_write)
 
         # If there are no files to read; either user didn't add any into the array (to read type == 'hardcode')
