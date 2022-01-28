@@ -1,4 +1,3 @@
-from difflib import Match
 import json
 import sys
 import os
@@ -8,7 +7,7 @@ import pandas as pd
 
 from openpyxl.utils.cell import column_index_from_string
 from functions import create_folder, order_files_according_to_config, transfer_single_txt_to_xlsx
-from functions import create_file_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
+from functions import create_folder_and_append_df_to_xlsx, execute_powershell, execute_powershell_function, pretty_print, pretty_print_error_msg, transfer_file_to_new_folder, transfer_single_csv_to_xlsx
 from Excel.excel_functions import append_df_to_excel, xlsx_read_col_row
 
 #
@@ -140,9 +139,10 @@ def option_2():
                     if is_a_match:
                         files_to_read.append(file)
 
-                files_to_read = order_files_according_to_config(
-                    files_to_order=files_to_read,
-                    ordered_values_config=files_to_read_ordered_values)
+                if len(files_to_read_ordered_values) > 0:
+                    files_to_read = order_files_according_to_config(
+                        files_to_order=files_to_read,
+                        ordered_values_config=files_to_read_ordered_values)
 
             #
             # files_to_read_type == 'hardcode'
@@ -226,6 +226,40 @@ def option_2():
 
                 file_path_to_read = f'{root_dir}{folder_dir}/{file_name}'
 
+                if file_type_to_read == 'xlsx':
+                    if '.xlsx' not in file_path_to_read:
+                        pretty_print_error_msg(
+                            'Invalid "files" list argument in the config.json. Ensure that the file extensions follows the "file_type".'
+                        )
+                        sys.exit()
+
+                    try:
+                        df = xlsx_read_col_row(xlsx_file=file_path_to_read,
+                                               rows_to_read=rows_to_read,
+                                               cols_to_read=cols_to_read)
+
+                        create_folder_and_append_df_to_xlsx(
+                            xlsx_folder_dir=
+                            f'{root_dir}{relative_folder_directory}/',
+                            xlsx_file_name=xlsx_file_name_to_write,
+                            df=df,
+                            startrow=to_write_start_row +
+                            (2 if (append_folder_dir_header
+                                   and append_file_name_header) else 1 if
+                             (append_folder_dir_header
+                              or append_file_name_header) else 0),
+                            startcol=start_col_to_write)
+
+                        print(
+                            f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
+                        )
+
+                    except:
+                        pretty_print_error_msg(
+                            '\nSomething went wrong with writing to the excel file.\n'
+                        )
+                        sys.exit()
+
                 if file_type_to_read == 'txt':
                     if '.txt' not in file_path_to_read:
                         pretty_print_error_msg(
@@ -234,13 +268,13 @@ def option_2():
                         sys.exit()
 
                     print(
-                        f'Converting .xls file at path {file_path_to_read} into .xlsx format, and transferring into new folder...'
+                        f'Converting .txt file at path {file_path_to_read} into .xlsx format, and transferring into new folder...'
                     )
 
                     transfer_dir = folder_dir_to_read + '/' + 'transfer' + '/'
 
                     transfer_single_txt_to_xlsx(
-                        file_path=folder_dir_to_read + file_name,
+                        file_path=folder_dir_to_read + '/' + file_name,
                         folder_directory_to_transfer=transfer_dir)
 
                     file_name_to_transfer = file_name.replace(
@@ -251,9 +285,9 @@ def option_2():
                                            rows_to_read=rows_to_read,
                                            cols_to_read=cols_to_read)
 
-                    create_file_and_append_df_to_xlsx(
+                    create_folder_and_append_df_to_xlsx(
                         xlsx_folder_dir=
-                        f'{root_dir}{relative_folder_directory}',
+                        f'{root_dir}{relative_folder_directory}/',
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
                         startrow=to_write_start_row +
@@ -304,7 +338,7 @@ def option_2():
                         pass
 
                     transfer_file_to_new_folder(
-                        current_file_dir=folder_dir_to_read + file_name,
+                        current_file_dir=folder_dir_to_read + '/' + file_name,
                         target_dir=transfer_dir,
                         target_file_name=file_name)
 
@@ -330,7 +364,7 @@ def option_2():
                                                rows_to_read=rows_to_read,
                                                cols_to_read=cols_to_read)
 
-                        create_file_and_append_df_to_xlsx(
+                        create_folder_and_append_df_to_xlsx(
                             xlsx_folder_dir=
                             f'{root_dir}{relative_folder_directory}/',
                             xlsx_file_name=xlsx_file_name_to_write,
@@ -381,9 +415,9 @@ def option_2():
                         f'Appending data to file at path: {xlsx_file_path_to_write}...\n'
                     )
 
-                    create_file_and_append_df_to_xlsx(
+                    create_folder_and_append_df_to_xlsx(
                         xlsx_folder_dir=
-                        f'{root_dir}{relative_folder_directory}',
+                        f'{root_dir}{relative_folder_directory}/',
                         xlsx_file_name=xlsx_file_name_to_write,
                         df=df,
                         startrow=to_write_start_row +

@@ -11,7 +11,6 @@ import copy
 
 from Excel.excel_functions import append_df_to_excel
 
-
 def pretty_print(msg: str):
     print('\n#######################################################')
     print(f'\n{msg}\n')
@@ -144,7 +143,7 @@ def create_folder(folder_dir: str):
         pass
 
 
-def create_file_and_append_df_to_xlsx(xlsx_folder_dir: str,
+def create_folder_and_append_df_to_xlsx(xlsx_folder_dir: str,
                                       xlsx_file_name: str, df: pd.DataFrame,
                                       startrow: int, startcol: int):
     try:
@@ -153,14 +152,15 @@ def create_file_and_append_df_to_xlsx(xlsx_folder_dir: str,
     except:
         pass
 
-    xlsx_file_path_to_write = f'{xlsx_folder_dir}{xlsx_file_name}'
 
     try:
-        os.makedirs(xlsx_file_path_to_write)
+        os.makedirs(xlsx_folder_dir)
 
     except FileExistsError:
         pass
 
+    xlsx_file_path_to_write = f'{xlsx_folder_dir}{xlsx_file_name}'
+    
     try:
         # Append dataframe to main excel file
         append_df_to_excel(df=df,

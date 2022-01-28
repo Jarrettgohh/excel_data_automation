@@ -3,31 +3,22 @@
 
   "option_2_configs": [
     {
-      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship data/Frequency_dependence HZO_LOT3_WAFER8_PV/die6",
+      "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/ASTAR intenship work/automation_example",
 
       "TO_READ": {
-        "file_type": "xls",
+        "file_type": "xlsx",
         "relative_folder_directories": ["/"],
         "files": {
           "type": "match",
           "hardcoded_values": [],
           "matching": {
-            "force_values": ["50x50"],
-            "ordered_values": [
-              "100Hz",
-              "550Hz",
-              "1000Hz",
-              "5500Hz",
-              "10000Hz",
-              "1.2v",
-              "1.5v",
-              "2v"
-            ],
-            "exclude": ["breakdown", "leaky"]
+            "force_values": ["automation"],
+            "ordered_values": [],
+            "exclude": []
           }
         },
         "cols": ["C", "D"],
-        "rows": [44, 2044]
+        "rows": [4, 11]
       },
 
       "TO_WRITE": {
@@ -37,17 +28,17 @@
         },
 
         "append_file_name_header_config": {
-          "should_append": true,
-          "omit": ["die6", "100x100", "50x100", "50x50"]
+          "should_append": false,
+          "omit": []
         },
 
         "relative_folder_directory": "/compile",
-        "file_name": "PV_compile_automation.xlsx",
+        "file_name": "test.xlsx",
         "row_settings": {
           "start_row": 1
         },
         "col_settings": {
-          "start_col": "BH",
+          "start_col": "B",
           "cols": "auto"
         }
       }
