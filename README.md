@@ -19,6 +19,10 @@
 - The following is an example of the `config.json` configuration options:
 
 ```json
+{
+  "----------------------------------": "----------------------------------",
+
+  "option_2_configs": [
  {
       "ROOT_DIRECTORY": "C:/Users/gohja/Desktop/Test_automation_txt",
 
@@ -30,14 +34,23 @@
         "files": {
           "type": "match",
           "hardcoded_values": [],
-          "matching_values": ["match_test", "jarrett"],
-          "omit": ["breakdown"]
+          "matching": {
+            "force_values": [],
+            "ordered_values": [],
+            "exclude": []
+          }
         }
       },
 
       "TO_WRITE": {
-        "append_folder_dir_header": true,
-        "append_file_name_header": true,
+        "append_folder_dir_header": {
+          "should_append": true,
+          "omit": []
+        },
+        "append_file_name_header": {
+          "should_append": true,
+          "omit": []
+        },
         "relative_folder_directory": "/",
         "file_name": "test_compile.xlsx",
         "row_settings": {
