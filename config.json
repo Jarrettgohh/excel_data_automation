@@ -13,12 +13,23 @@
           "hardcoded_values": [],
           "matching": {
             "force_values": ["automation"],
-            "ordered_values": [],
+            "ordered_values": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
             "exclude": []
           }
         },
-        "cols": ["C", "D"],
-        "rows": [4, 11]
+        "cols": ["C", "F"],
+        "rows": [4, 100]
       },
 
       "TO_WRITE": {
@@ -32,10 +43,10 @@
           "omit": []
         },
 
-        "relative_folder_directory": "/compile",
-        "file_name": "test.xlsx",
+        "relative_folder_directory": "/",
+        "file_name": "compile.xlsx",
         "row_settings": {
-          "start_row": 1
+          "start_row": 2
         },
         "col_settings": {
           "start_col": "B",
